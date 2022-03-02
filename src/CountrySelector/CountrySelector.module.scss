@@ -1,0 +1,27 @@
+@import "../mixins";
+
+$country-color: #F5F5F5;
+
+.root {
+  display: flex;
+  margin: -12px;
+}
+
+.country {
+  @extend %reset-button;
+  width: 125px;
+  height: 96px;
+  background-color: $country-color;
+  cursor: pointer;
+  transition: background-color .25s;
+  margin: 12px;
+
+  &:hover {
+    background-color: darken($country-color, 20%);
+  }
+}
+
+.flag {
+  width: 50px !important;
+  height: 32px !important;
+}
