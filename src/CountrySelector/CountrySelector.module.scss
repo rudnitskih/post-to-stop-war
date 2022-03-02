@@ -9,19 +9,39 @@ $country-color: #F5F5F5;
 
 .country {
   @extend %reset-button;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 125px;
   height: 96px;
+  margin: 12px;
   background-color: $country-color;
   cursor: pointer;
-  transition: background-color .25s;
-  margin: 12px;
+  transition: all .25s;
 
-  &:hover {
+
+  &:hover:not(.selected) {
     background-color: darken($country-color, 20%);
+  }
+
+  &.selected {
+    background-color: #242424;
   }
 }
 
 .flag {
   width: 50px !important;
   height: 32px !important;
+  margin-bottom: 12px;
+}
+
+.name {
+  color: #242424;
+  font-size: 12px;
+  line-height: 16px;
+
+  .selected & {
+    color: #fff;
+  }
 }

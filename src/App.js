@@ -1,11 +1,13 @@
 import React from 'react';
 import s from './App.module.scss';
+import './global.scss';
 import Papa from 'papaparse';
 import {CountrySelector} from "./CountrySelector";
 
 export class App extends React.Component {
   state = {
-    messages: {}
+    messages: {},
+    selectedCountry: 'DE',
   }
 
   componentDidMount() {
@@ -26,8 +28,13 @@ export class App extends React.Component {
     return (
       <div className={s.root}>
 
-        <h3>Choose the country (A-Z)</h3>
-        <CountrySelector countries={Object.keys(this.state.messages)} />
+        <h3>Обери країну (А-Я)</h3>
+
+        <CountrySelector
+          countries={Object.keys(this.state.messages)}
+          selectedCountry={this.state.selectedCountry}
+          onChange={(country) => this.setState({selectedCountry: country})}
+        />
       </div>
     );
   }

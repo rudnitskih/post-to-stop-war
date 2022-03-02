@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import s from './CountrySelector.module.scss';
 import 'flag-icons/css/flag-icons.min.css';
+import classNames from 'classnames';
 
 const countryCodeToInfo = [
   {
@@ -17,6 +18,8 @@ const countryCodeToInfo = [
   }
 ];
 
+const regionNames = new Intl.DisplayNames(['uk'], {type: 'region'});
+
 export class CountrySelector extends Component {
   render() {
     console.log(this.props.countries);
@@ -24,14 +27,23 @@ export class CountrySelector extends Component {
     return (
       <div className={s.root}>
         {
-          this.props.countries.map((country) => {
-            return (
-              <button key={country} className={s.country}>
-                <span className={`${s.flag} fi fi-${country.toLowerCase()}`} />
+          this.props.countries
+            .sort((a, b) => regionNames.of(a) > regionNames.of(b) ? 1 : -1)
+            .map((country) => {
+              return (
+                <button
+                  key={country}
+                  className={classNames(s.country, {
+                    [s.selected]: this.props.selectedCountry === country,
+                  })}
+                  onClick={() => this.props.onChange(country)}
+                >
+                  <span className={`${s.flag} fi fi-${country.toLowerCase()}`}/>
+                  <span className={s.name}>{regionNames.of(country)}</span>
 
-              </button>
-            );
-          })
+                </button>
+              );
+            })
         }
       </div>
     )
