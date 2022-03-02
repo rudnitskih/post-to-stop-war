@@ -2,23 +2,7 @@ import React, {Component} from 'react';
 import s from './CountrySelector.module.scss';
 import 'flag-icons/css/flag-icons.min.css';
 import classNames from 'classnames';
-
-const countryCodeToInfo = [
-  {
-    code: 'DE',
-    name: 'Germany',
-  },
-  {
-    code: 'CN',
-    name: 'China'
-  },
-  {
-    code: 'DK',
-    name: 'Denmark'
-  }
-];
-
-const regionNames = new Intl.DisplayNames(['uk'], {type: 'region'});
+import {getCountryDisplayName} from "../helpers";
 
 export class CountrySelector extends Component {
   render() {
@@ -28,7 +12,7 @@ export class CountrySelector extends Component {
       <div className={s.root}>
         {
           this.props.countries
-            .sort((a, b) => regionNames.of(a) > regionNames.of(b) ? 1 : -1)
+            .sort((a, b) => getCountryDisplayName(a) > getCountryDisplayName(b) ? 1 : -1)
             .map((country) => {
               return (
                 <button
@@ -39,7 +23,7 @@ export class CountrySelector extends Component {
                   onClick={() => this.props.onChange(country)}
                 >
                   <span className={`${s.flag} fi fi-${country.toLowerCase()}`}/>
-                  <span className={s.name}>{regionNames.of(country)}</span>
+                  <span className={s.name}>{getCountryDisplayName(country)}</span>
 
                 </button>
               );

@@ -3,9 +3,11 @@ import s from './App.module.scss';
 import './global.scss';
 import Papa from 'papaparse';
 import {CountrySelector} from "./CountrySelector";
+import {Messages} from "./Messages";
 
 export class App extends React.Component {
   state = {
+    isReady: false,
     messages: {},
     selectedCountry: 'DE',
   }
@@ -19,6 +21,7 @@ export class App extends React.Component {
       complete: (results) => {
         this.setState({
           messages: groupBy(results.data, 'Country'),
+          isReady: true,
         })
        }
     });
@@ -30,11 +33,21 @@ export class App extends React.Component {
 
         <h3>Обери країну (А-Я)</h3>
 
-        <CountrySelector
-          countries={Object.keys(this.state.messages)}
-          selectedCountry={this.state.selectedCountry}
-          onChange={(country) => this.setState({selectedCountry: country})}
-        />
+        {
+          this.state.isReady && (
+            <>
+              <CountrySelector
+                countries={Object.keys(this.state.messages)}
+                selectedCountry={this.state.selectedCountry}
+                onChange={(country) => this.setState({selectedCountry: country})}
+              />
+
+              <Messages data={this.state.messages[this.state.selectedCountry]} selectedCountry={this.state.selectedCountry}/>
+            </>
+          )
+        }
+
+
       </div>
     );
   }
