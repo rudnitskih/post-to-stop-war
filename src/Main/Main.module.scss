@@ -1,0 +1,55 @@
+.root {
+  width: 100vw;
+  min-height: 100vh;
+  box-sizing: border-box;
+  max-width: 100%;
+  background-image: url("./main.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+  color: #fff;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  position: absolute;
+}
+
+.inner {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 10%;
+}
+
+.heading {
+  font-size: 55px;
+  line-height: 65px;
+}
+
+.aim {
+  position: absolute;
+  right: 100%;
+  top: -4px;
+  margin-right: 20px;
+  color: #FF1C1C;
+  font-size: 20px;
+}
+
+.highlight {
+  color: #FF1C1C;
+}
+
+.descriptionWrapper {
+  position: relative;
+  line-height: 1.55;
+}
+
+.infoColumn {
+  max-width: 495px;
+  text-align: left;
+}
+
+.postIllustration {
+  max-width: 312px;
+}
