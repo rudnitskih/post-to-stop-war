@@ -8,13 +8,13 @@ export class Main extends Component {
   render() {
     return (
       <div className={s.root}>
-        <Content>
+        <div className={s.inner}>
           <div className={s.logo}>
             <img src={logo} alt="Post Stop War" />
-            in.ua
+            <span className={s.domain}>in.ua</span>
           </div>
 
-          <div className={s.inner}>
+          <div className={s.content}>
             <div className={s.infoColumn}>
               <h1 className={s.heading}>
                 Зроби ПОСТ —<br/>
@@ -33,7 +33,7 @@ export class Main extends Component {
               <img src={post} alt="" className={s.postIllustration}/>
             </div>
           </div>
-        </Content>
+        </div>
       </div>
     );
   }

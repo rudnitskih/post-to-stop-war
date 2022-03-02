@@ -80,9 +80,9 @@ export class Info extends Component {
 
           <div className={s.inner}>
             {
-              supportWays.map(({image, imageStyles, title, description, cta, ctaLink, }) => {
+              supportWays.map(({image, imageStyles, title, description, cta, ctaLink, }, i) => {
                 return (
-                  <div className={s.card}>
+                  <div className={s.card} key={i}>
                     <div className={s.cardInner}>
                       <img className={s.logo} src={image} alt={title} style={imageStyles}/>
                       <h6 className={s.organizationTitle}>{title}</h6>

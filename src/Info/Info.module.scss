@@ -1,5 +1,5 @@
 .root {
-  padding: 120px 70px;
+  padding: 120px 0 70px;
   background-color: #F4F4F4;
 }
 
@@ -23,7 +23,7 @@
 .cardInner {
   min-height: 339px;
   position: relative;
-  padding: 0 40px;
+  padding: 0 40px 40px 40px;
   background-color: #fff;
   text-align: left;
   box-sizing: border-box;
@@ -31,7 +31,7 @@
 
 .logo {
   position: absolute;
-  bottom: 255px;
+  bottom: calc(100% - 90px);
 }
 
 .organizationTitle {

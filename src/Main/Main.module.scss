@@ -1,6 +1,7 @@
 .root {
   width: 100vw;
-  min-height: 100vh;
+  min-height: calc(100vh - 140px);
+  padding: 30px 0 100px;
   box-sizing: border-box;
   max-width: 100%;
   background-image: url("./main.jpg");
@@ -13,13 +14,25 @@
 .logo {
   display: flex;
   align-items: center;
-  position: absolute;
+}
+
+.domain {
+  font-size: 20px;
+  font-weight: 600;
+  margin-left: 10px;
 }
 
 .inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.content {
   display: flex;
-  justify-content: space-around;
-  padding-top: 10%;
+  padding-top: 50px;
+  justify-content: space-between;
+  box-sizing: border-box;
+  align-items: center;
 }
 
 .heading {
