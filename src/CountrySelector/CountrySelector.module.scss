@@ -6,6 +6,9 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
 .heading {
   margin-top: 70px;
   margin-bottom: 32px;
+  font-size: 30px;
+  line-height: 1;
+  font-weight: 600;
 }
 
 .content {
@@ -51,6 +54,7 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
 .name {
   font-size: 12px;
   line-height: 16px;
+  font-weight: 400;
 
   .selected & {
     color: #fff;

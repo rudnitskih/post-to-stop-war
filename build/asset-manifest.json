@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.a5c67520.css",
-    "main.js": "/static/js/main.5ce779db.js",
+    "main.css": "/static/css/main.f21819fa.css",
+    "main.js": "/static/js/main.8f47812d.js",
     "static/js/787.00f9fb66.chunk.js": "/static/js/787.00f9fb66.chunk.js",
     "static/media/main.jpg": "/static/media/main.4bd1ba4b24c8b44c09bc.jpg",
     "static/media/post.png": "/static/media/post.a0fcbc80ef128db9cdc5.png",
@@ -37,12 +37,15 @@
     "static/media/io.svg": "/static/media/io.a042b2109af59607e5e1.svg",
     "static/media/bm.svg": "/static/media/bm.728fd219af713f367b10.svg",
     "static/media/mp.svg": "/static/media/mp.22db1d8d93210e4b195e.svg",
+    "static/media/redcross-logo.png": "/static/media/redcross-logo.5d522b5fea3614acecea.png",
     "static/media/om.svg": "/static/media/om.e5b8ab73e47d055889b6.svg",
     "static/media/af.svg": "/static/media/af.ecae91f83076777898e1.svg",
     "static/media/un.svg": "/static/media/un.4388dfb01646ff8dc71d.svg",
     "static/media/pn.svg": "/static/media/pn.714032582a0c72e2f954.svg",
     "static/media/ni.svg": "/static/media/ni.97abb7cd7189b26408f9.svg",
+    "static/media/nova-ukraine-logo.png": "/static/media/nova-ukraine-logo.50bd5ef06e1d36599322.png",
     "static/media/py.svg": "/static/media/py.b4f1de657b201640e4ec.svg",
+    "static/media/nbu-logo.png": "/static/media/nbu-logo.5cca23ebdc3d1cc2fd12.png",
     "static/media/dm.svg": "/static/media/dm.cfce36343ac21f154298.svg",
     "static/media/sm.svg": "/static/media/sm.39b2d063adce92402a54.svg",
     "static/media/vg.svg": "/static/media/vg.2ee2d8bebdf1602ce3a1.svg",
@@ -58,6 +61,7 @@
     "static/media/lk.svg": "/static/media/lk.3cb867c4401d5caa5bcf.svg",
     "static/media/je.svg": "/static/media/je.8411f21613e22430cbfa.svg",
     "static/media/mt.svg": "/static/media/mt.a39094a015bbe6ba3861.svg",
+    "static/media/stopputin-logo.png": "/static/media/stopputin-logo.0a2615492fe854d0939b.png",
     "static/media/sa.svg": "/static/media/sa.0ac9ef7170a22c190290.svg",
     "static/media/im.svg": "/static/media/im.1471ac6032ffd8766943.svg",
     "static/media/eg.svg": "/static/media/eg.de66162867f147fe1ca1.svg",
@@ -147,9 +151,9 @@
     "static/media/cn.svg": "/static/media/cn.4fde2ed612a6a2f9ff03.svg",
     "static/media/tk.svg": "/static/media/tk.2619557b557f9684e1c0.svg",
     "static/media/fm.svg": "/static/media/fm.12e9e2f28f79474f8cae.svg",
+    "index.html": "/index.html",
     "static/media/ag.svg": "/static/media/ag.065714bdfc57feaef68f.svg",
     "static/media/mh.svg": "/static/media/mh.d3854d0ef79845fd2197.svg",
-    "index.html": "/index.html",
     "static/media/tn.svg": "/static/media/tn.2b1d5aa34ddb2dc385c3.svg",
     "static/media/rw.svg": "/static/media/rw.fbb7d374d6bc26a0991d.svg",
     "static/media/pa.svg": "/static/media/pa.751c8f87270b925c26c4.svg",
@@ -272,12 +276,12 @@
     "static/media/pl.svg": "/static/media/pl.cd835d05865e496ff6b8.svg",
     "static/media/de.svg": "/static/media/de.6435bf24d148ca7248e7.svg",
     "static/media/bd.svg": "/static/media/bd.0ad8c443ef4d47ea0497.svg",
-    "main.a5c67520.css.map": "/static/css/main.a5c67520.css.map",
-    "main.5ce779db.js.map": "/static/js/main.5ce779db.js.map",
+    "main.f21819fa.css.map": "/static/css/main.f21819fa.css.map",
+    "main.8f47812d.js.map": "/static/js/main.8f47812d.js.map",
     "787.00f9fb66.chunk.js.map": "/static/js/787.00f9fb66.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a5c67520.css",
-    "static/js/main.5ce779db.js"
+    "static/css/main.f21819fa.css",
+    "static/js/main.8f47812d.js"
   ]
 }

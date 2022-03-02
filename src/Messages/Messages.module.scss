@@ -14,14 +14,23 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
 .index {
   padding-top: 30px;
   flex-basis: 50px;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 600;
 }
 
 .message {
   border-left: $border;
   flex: 1 1 50%;
   padding: 30px 40px;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 28px;
 
   .header & {
     padding: 11px 40px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
   }
 }
