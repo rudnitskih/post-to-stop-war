@@ -4,8 +4,8 @@ import './global.scss';
 import Papa from 'papaparse';
 import {CountrySelector} from "./CountrySelector";
 import {Messages} from "./Messages";
-import {Content} from "./Content";
 import {Main} from "./Main";
+import {Info} from "./Info";
 
 export class App extends React.Component {
   state = {
@@ -34,25 +34,21 @@ export class App extends React.Component {
       <div className={s.root}>
         <Main />
 
-        <Content>
-          <h3>Обери країну (А-Я)</h3>
+        {
+          this.state.isReady && (
+            <>
+              <CountrySelector
+                countries={Object.keys(this.state.messages)}
+                selectedCountry={this.state.selectedCountry}
+                onChange={(country) => this.setState({selectedCountry: country})}
+              />
 
-          {
-            this.state.isReady && (
-              <>
-                <CountrySelector
-                  countries={Object.keys(this.state.messages)}
-                  selectedCountry={this.state.selectedCountry}
-                  onChange={(country) => this.setState({selectedCountry: country})}
-                />
+              <Messages data={this.state.messages[this.state.selectedCountry]} selectedCountry={this.state.selectedCountry}/>
+            </>
+          )
+        }
 
-                <Messages data={this.state.messages[this.state.selectedCountry]} selectedCountry={this.state.selectedCountry}/>
-              </>
-            )
-          }
-        </Content>
-
-
+        <Info />
       </div>
     );
   }

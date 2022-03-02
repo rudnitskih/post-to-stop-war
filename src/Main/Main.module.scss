@@ -25,13 +25,16 @@
 .heading {
   font-size: 55px;
   line-height: 65px;
+  font-weight: 700;
 }
 
 .aim {
   position: absolute;
   right: 100%;
-  top: -4px;
+  top: -10px;
   margin-right: 20px;
+  padding: 4px;
+  border: 1px solid #FF1C1C;
   color: #FF1C1C;
   font-size: 20px;
 }
