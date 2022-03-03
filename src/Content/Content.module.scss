@@ -1,6 +1,16 @@
+@import "../mixins";
+
 .root {
   max-width: 1200px;
   padding: 0 120px;
   text-align: center;
   margin: 0 auto;
+
+  @include for-phone-only {
+    padding: 0 20px;
+  }
+
+  @include for-tablets-only {
+    padding: 0 50px;
+  }
 }

@@ -1,3 +1,5 @@
+@import "../mixins";
+
 .root {
   width: 100vw;
   min-height: calc(100vh - 140px);
@@ -9,6 +11,11 @@
   background-size: cover;
   background-position: bottom;
   color: #fff;
+
+  @include for-tablets-only {
+    padding-bottom: 30px;
+    min-height: 50vh;
+  }
 }
 
 .logo {
@@ -25,6 +32,11 @@
 .inner {
   max-width: 900px;
   margin: 0 auto;
+  padding: 0 60px;
+
+  @include for-phone-only {
+    padding: 0 20px;
+  }
 }
 
 .content {
@@ -33,12 +45,21 @@
   justify-content: space-between;
   box-sizing: border-box;
   align-items: center;
+
+  @include for-phone-only {
+    display: block;
+    padding-top: 0;
+  }
 }
 
 .heading {
   font-size: 55px;
-  line-height: 65px;
+  line-height: 1.18;
   font-weight: 700;
+
+  @include for-phone-only {
+    font-size: 40px;
+  }
 }
 
 .aim {
@@ -51,6 +72,10 @@
   color: #FF1C1C;
   font-size: 20px;
   font-weight: 600;
+
+  @include for-tablets-only {
+    position: static;
+  }
 }
 
 .description {
@@ -71,6 +96,12 @@
 .infoColumn {
   max-width: 495px;
   text-align: left;
+}
+
+.illustrationColumn {
+  @include for-tablets-only {
+    display: none;
+  }
 }
 
 .postIllustration {

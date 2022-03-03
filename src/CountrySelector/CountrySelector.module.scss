@@ -4,11 +4,14 @@ $country-color: #F5F5F5;
 $border: 1px solid rgba(0, 0, 0, 0.1);
 
 .heading {
-  margin-top: 70px;
-  margin-bottom: 32px;
+  margin: 70px 0 32px;
   font-size: 30px;
   line-height: 1;
   font-weight: 600;
+
+  @include for-phone-only {
+    margin: 32px 0;
+  }
 }
 
 .content {
@@ -19,6 +22,7 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
 
 .contentInner {
   display: flex;
+  flex-wrap: wrap;
   margin: -12px;
 }
 
@@ -28,7 +32,7 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 125px;
+  flex: 0 0 125px;
   height: 96px;
   margin: 12px;
   background-color: $country-color;

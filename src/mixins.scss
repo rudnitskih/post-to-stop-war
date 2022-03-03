@@ -21,3 +21,11 @@
   /* Corrects inability to style clickable `input` types in iOS */
   -webkit-appearance: none;
 }
+
+@mixin for-phone-only {
+  @media (max-width: 700px) { @content; }
+}
+
+@mixin for-tablets-only {
+  @media (max-width: 1100px) { @content; }
+}

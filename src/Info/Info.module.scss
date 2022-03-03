@@ -1,6 +1,12 @@
+@import "../mixins";
+
 .root {
   padding: 120px 0 70px;
   background-color: #F4F4F4;
+
+  @include for-phone-only {
+    padding: 40px 0;
+  }
 }
 
 .heading {
@@ -18,6 +24,10 @@
   flex-basis: 50%;
   box-sizing: border-box;
   padding: 15px;
+
+  @include for-phone-only {
+    flex-basis: 100%;
+  }
 }
 
 .cardInner {
