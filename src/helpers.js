@@ -46,5 +46,6 @@ const countryToLanguage = {
   FR: 'fr',
   JP: 'ja',
   GE: 'ka',
+  BY: 'be',
 }
 

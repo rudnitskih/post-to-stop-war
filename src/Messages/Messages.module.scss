@@ -1,14 +1,14 @@
 $border: 1px solid rgba(0, 0, 0, 0.1);
 
 .root {
-  padding: 50px 0 70px;
+  margin: 50px 0 70px;
 }
 
 
 .row {
   display: flex;
   text-align: left;
-  border-bottom: $border;
+  justify-content: center;
 }
 
 .index {
@@ -17,17 +17,24 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
   font-size: 16px;
   line-height: 26px;
   font-weight: 600;
+  border-bottom: $border;
+
+  .header & {
+    border-top: $border;
+  }
 }
 
 .message {
   border-left: $border;
-  flex: 1 1 50%;
+  border-bottom: $border;
+  flex: 0 1 50%;
   padding: 30px 40px;
   font-weight: 300;
   font-size: 18px;
   line-height: 28px;
 
   .header & {
+    border-top: $border;
     padding: 11px 40px;
     font-weight: 400;
     font-size: 12px;
