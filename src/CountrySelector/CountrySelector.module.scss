@@ -24,6 +24,12 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   flex-wrap: wrap;
   margin: -12px;
+
+  @include for-phone-only {
+    flex-wrap: nowrap;
+    overflow: auto;
+    margin: 0 0 0 -6px;
+  }
 }
 
 .country {
@@ -39,6 +45,9 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: all .25s;
 
+  @include for-phone-only {
+    margin: 6px;
+  }
 
   &:hover:not(.selected) {
     background-color: darken($country-color, 20%);

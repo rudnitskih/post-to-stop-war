@@ -15,7 +15,7 @@ export class CountrySelector extends Component {
           <div className={s.contentInner}>
             {
               this.props.countries
-                .sort((a, b) => getCountryDisplayName(a) > getCountryDisplayName(b) ? 1 : -1)
+                .sort((a, b) => a.localeCompare(b))
                 .map((country) => {
                   return (
                     <button
