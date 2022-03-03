@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import s from './Messages.module.scss';
-import {getCountryDisplayName} from "../helpers";
+import {getCountryDisplayName, getCountryLanguage} from "../helpers";
 import classNames from "classnames";
 import {Content} from "../Content";
 
@@ -16,12 +16,12 @@ export class Messages extends Component {
             <div className={s.message}>
               <span className="fi fi-ua"/>
               {` `}
-              {getCountryDisplayName('UA').toUpperCase()}
+              {getCountryLanguage('uk').toUpperCase()}
             </div>
             <div className={s.message}>
               <span className={`fi fi-${selectedCountry.toLowerCase()}`}/>
               {` `}
-              {getCountryDisplayName(selectedCountry).toUpperCase()}
+              {getCountryLanguage(selectedCountry).toUpperCase()}
             </div>
           </div>
 

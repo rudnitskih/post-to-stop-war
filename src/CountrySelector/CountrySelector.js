@@ -7,8 +7,6 @@ import {Content} from "../Content";
 
 export class CountrySelector extends Component {
   render() {
-    console.log(this.props.countries);
-
     return (
       <Content>
         <h2 className={s.heading}>Обери країну (А-Я)</h2>
