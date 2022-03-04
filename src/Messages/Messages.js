@@ -11,7 +11,7 @@ export class Messages extends Component {
 
     return (
       <Content>
-        <div className={s.root}>
+        <div className={classNames(s.root, {[s.ge]: selectedCountry === 'GE'})}>
           <div className={classNames(s.row, s.header)}>
             <div className={s.index}></div>
 
