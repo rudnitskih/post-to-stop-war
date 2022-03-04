@@ -35,7 +35,7 @@ export class Messages extends Component {
                 <div className={s.row}
                      key={i}>
                   <div className={s.index}>{i + 1}.</div>
-                  {isMultipleColumns && <div className={s.message}>{UkrainianMessage}</div>}
+                  {isMultipleColumns && <div className={classNames(s.message, s.messageLocal)}>{UkrainianMessage}</div>}
                   <div className={s.message}>{LocalizedMessage} </div>
                 </div>
               );

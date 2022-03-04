@@ -22,7 +22,13 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
 
 .header {
   @include for-phone-only {
-    display: none;
+    .messageLocal, .index {
+      display: none;
+    }
+
+    .message {
+      border-top: none;
+    }
   }
 }
 
