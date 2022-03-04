@@ -5,9 +5,7 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
 .root {
   margin: 50px 0 70px;
 
-  .ge {
-    font-family: sans-serif;
-  }
+
 }
 
 
@@ -78,5 +76,11 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
     font-weight: 400;
     font-size: 12px;
     line-height: 18px;
+  }
+}
+
+.messageLocalized {
+  .ge & {
+    font-family: sans-serif;
   }
 }
