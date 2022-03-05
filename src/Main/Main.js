@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import s from './Main.module.scss';
-import {Content} from "../Content";
 import logo from './logo.svg';
 import post from './post.png';
 

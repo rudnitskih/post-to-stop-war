@@ -3,11 +3,7 @@
 $border: 1px solid rgba(0, 0, 0, 0.1);
 
 .root {
-  margin: 50px 0 70px;
-
-
 }
-
 
 .row {
   display: flex;
@@ -76,6 +72,11 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
     font-weight: 400;
     font-size: 12px;
     line-height: 18px;
+
+    @include for-phone-only {
+      border-top: none;
+      padding: 11px 20px;
+    }
   }
 }
 

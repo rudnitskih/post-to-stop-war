@@ -1,0 +1,15 @@
+.masonryGrid {
+  display: flex;
+  margin-left: -20px; /* gutter size offset */
+  width: auto;
+}
+
+.masonryGridColumn {
+  padding-left: 20px;
+  background-clip: padding-box;
+
+  img {
+    margin-bottom: 20px;
+    max-width: 100%;
+  }
+}

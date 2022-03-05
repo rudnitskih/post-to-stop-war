@@ -89,7 +89,7 @@ export class Info extends Component {
                       <p className={s.description}>{description}</p>
                       {
                         cta && (
-                          <a className={s.link} href={ctaLink} target="_blank">{cta}</a>
+                          <a className={s.link} href={ctaLink} rel="noreferrer" target="_blank">{cta}</a>
                         )
                       }
                     </div>
