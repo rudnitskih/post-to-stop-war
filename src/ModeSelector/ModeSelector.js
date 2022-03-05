@@ -22,7 +22,7 @@ export class ModeSelector extends Component {
           [
             {
               id: ViewMode.MESSAGES,
-              text: 'Месседжи',
+              text: 'Месседжі',
             },
             {
               id: ViewMode.GALLERY,
