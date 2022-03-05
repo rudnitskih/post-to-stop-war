@@ -47,5 +47,10 @@ const countryToLanguage = {
   JP: 'ja',
   GE: 'ka',
   BY: 'be',
+  BA: 'bs',
+  BR: 'pt',
+  IR: 'fa',
+  RS: 'sr',
+  SE: 'sv',
 }
 
