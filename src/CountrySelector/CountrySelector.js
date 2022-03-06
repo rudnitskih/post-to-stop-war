@@ -3,12 +3,13 @@ import s from './CountrySelector.module.scss';
 import 'flag-icons/css/flag-icons.min.css';
 import classNames from 'classnames';
 import {Content} from "../Content";
+import {t} from "../translate";
 
 export class CountrySelector extends Component {
   render() {
     return (
       <Content>
-        <h2 className={s.heading}>Обери країну (А-Я)</h2>
+        <h2 className={s.heading}>{t('country_selector.title')}</h2>
 
         <div className={s.content}>
           <div className={s.contentInner}>

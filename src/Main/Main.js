@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import s from './Main.module.scss';
 import logo from './logo.svg';
 import post from './post.png';
+import {t} from "../translate";
 
 export class Main extends Component {
   render() {
@@ -16,14 +17,14 @@ export class Main extends Component {
           <div className={s.content}>
             <div className={s.infoColumn}>
               <h1 className={s.heading}>
-                Зроби ПОСТ —<br/>
-                <span className={s.highlight}>ЗУПИНИ ВІЙНУ</span><br/>
-                в УКРАЇНІ
+                {t('main.title.1')}<br/>
+                <span className={s.highlight}>{t('main.title.2')}</span><br/>
+                {t('main.title.3')}
               </h1>
               <div className={s.descriptionWrapper}>
-                <span className={s.aim}>Мета:</span>
+                <span className={s.aim}>{t('main.aim')}:</span>
                 <p className={s.description}>
-                  Цей ресурс створений, щоб легко і швидко передавати закордон найважливіші месиджі про війну. Всі вони вже перекладені мовами цих країн. Можете також використовувати картинки з нашої галереї постерів. Сподіваємося, наш ресурс стане вам надійним помічником! Постимо, репостимо, поширюємо, щоб зупинити війну!
+                  {t('main.description')}
                 </p>
               </div>
             </div>

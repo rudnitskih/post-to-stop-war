@@ -54,7 +54,7 @@ const countryToLanguage = {
   SE: 'sv',
   AF: 'fa',
   CA: 'en',
-  KG: 'ky',
+  KG: 'ru',
   LV: 'lv',
   HU: 'hu',
   NO: 'nb',

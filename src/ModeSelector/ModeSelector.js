@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import s from './ModeSelector.module.scss';
 import classNames from "classnames";
+import {t} from "../translate";
 
 export const ViewMode = {
   MESSAGES: 'MESSAGES',
@@ -22,11 +23,11 @@ export class ModeSelector extends Component {
           [
             {
               id: ViewMode.MESSAGES,
-              text: 'Месиджі',
+              text: t('mode.selector.messages'),
             },
             {
               id: ViewMode.GALLERY,
-              text: 'Візуал',
+              text: t('mode.selector.visuals'),
             }
           ].map(({id, text}) => {
             const checked = this.props.value === id;
