@@ -18,9 +18,43 @@
   }
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .logo {
   display: flex;
   align-items: center;
+}
+
+.languageSelector {
+  display: flex;
+}
+
+.languageItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  opacity: 0.7;
+  text-decoration: none;
+  width: 40px;
+  height: 40px;
+  font-size: 14px;
+  transition: all .25s;
+  margin-left: 10px;
+
+  &:hover:not(.selected) {
+    opacity: 1;
+  }
+
+  &.selected {
+    font-weight: 700;
+    opacity: 1;
+    border: 1px solid rgba(#fff, 0.5);
+  }
 }
 
 .domain {

@@ -1,11 +1,15 @@
-const regionNames = new Intl.DisplayNames(['uk'], {type: 'region'});
-const languageNames = new Intl.DisplayNames(['uk'], {type: 'language'});
+import {getLang} from "./translate";
+
+const getLocale = () => getLang() === 'ua' ? 'uk' : 'en';
 
 export const getCountryDisplayName = (countryCode) => {
+  const regionNames = new Intl.DisplayNames([getLocale()], {type: 'region'});
+
   return regionNames.of(countryCode);
 }
 
 export const getCountryLanguage = (countryCode) => {
+  const languageNames = new Intl.DisplayNames([getLocale()], {type: 'language'});
   const countryMainLanguage = countryToLanguage[countryCode];
 
   if (countryMainLanguage) {

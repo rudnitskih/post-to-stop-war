@@ -2,16 +2,37 @@ import React, {Component} from 'react';
 import s from './Main.module.scss';
 import logo from './logo.svg';
 import post from './post.png';
-import {t} from "../translate";
+import {getLang, t} from "../translate";
+import classNames from "classnames";
 
 export class Main extends Component {
   render() {
     return (
       <div className={s.root}>
         <div className={s.inner}>
-          <div className={s.logo}>
-            <img src={logo} alt="Post Stop War" />
-            <span className={s.domain}>in.ua</span>
+          <div className={s.header}>
+            <div className={s.logo}>
+              <img src={logo}
+                   alt="Post Stop War"/>
+              <span className={s.domain}>in.ua</span>
+            </div>
+
+            <div className={s.languageSelector}>
+              <a
+                href="/"
+                className={classNames(s.languageItem, {
+                  [s.selected]: getLang() === 'ua',
+                })}>
+                Ua
+              </a>
+              <a
+                href="/en"
+                className={classNames(s.languageItem, {
+                  [s.selected]: getLang() === 'en',
+                })}>
+                En
+              </a>
+            </div>
           </div>
 
           <div className={s.content}>

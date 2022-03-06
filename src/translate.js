@@ -1,15 +1,19 @@
 const keys = {
   'main.title.1': {
     ua: 'Зроби ПОСТ —',
+    en: 'POST to',
   },
   'main.title.2': {
     ua: 'ЗУПИНИ ВІЙНУ',
+    en: 'STOP WAR',
   },
   'main.title.3': {
     ua: 'в УКРАЇНІ',
+    en: 'in UKRAINE'
   },
   'main.aim': {
     ua: 'Мета',
+    en: 'Goal',
   },
   'main.description': {
     ua: 'Цей ресурс створений, щоб легко і швидко передавати закордон найважливіші месиджі про війну. Всі вони вже' +
@@ -18,6 +22,7 @@ const keys = {
   },
   'country_selector.title': {
     ua: 'Обери країну (А-Я)',
+    en: 'Choose Country (A-Z)'
   },
   'mode.selector.messages': {
     ua: 'МЕСИДЖІ',
