@@ -25,7 +25,7 @@
     "eject": "react-scripts eject",
     "rename-index": "node -e \"require('fs').rename('./build/index.html', './build/200.html', (err) => { console.log(err ? err : 'File renamed!') })\"",
     "predeploy": "npm run build && npm run rename-index",
-    "deploy": "surge --project ./build --domain post-to-stop-war.in.ua"
+    "deploy": "surge --project ./build --domain https://post-to-stop-war.in.ua & gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [

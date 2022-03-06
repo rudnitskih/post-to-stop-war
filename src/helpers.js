@@ -52,5 +52,12 @@ const countryToLanguage = {
   IR: 'fa',
   RS: 'sr',
   SE: 'sv',
+  AF: 'fa',
+  CA: 'en',
+  KG: 'ky',
+  LV: 'lv',
+  HU: 'hu',
+  NO: 'nb',
+  SY: 'ar',
 }
 
