@@ -19,7 +19,7 @@ export class Messages extends Component {
               <div className={s.message}>
                 <span className="fi fi-ua"/>
                 {` `}
-                {getCountryLanguage('uk').toUpperCase()}
+                {getCountryLanguage('UA').toUpperCase()}
               </div>
             )}
             <div className={s.message}>
