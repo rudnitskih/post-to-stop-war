@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import s from './Main.module.scss';
 import logo from './logo.svg';
 import post from './post.png';
-import {getLang, t} from "../translate";
+import {t} from "../translate";
 import classNames from "classnames";
+import {getSiteLang} from "../helpers";
 
 export class Main extends Component {
   render() {
@@ -21,14 +22,14 @@ export class Main extends Component {
               <a
                 href="/"
                 className={classNames(s.languageItem, {
-                  [s.selected]: getLang() === 'ua',
+                  [s.selected]: getSiteLang() === 'ua',
                 })}>
                 Ua
               </a>
               <a
                 href="/en"
                 className={classNames(s.languageItem, {
-                  [s.selected]: getLang() === 'en',
+                  [s.selected]: getSiteLang() === 'en',
                 })}>
                 En
               </a>

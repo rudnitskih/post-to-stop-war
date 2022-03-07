@@ -1,6 +1,21 @@
-import {getLang} from "./translate";
+const getLocale = () => getSiteLang() === 'ua' ? 'uk' : 'en';
 
-const getLocale = () => getLang() === 'ua' ? 'uk' : 'en';
+export const getSiteLang = () => {
+  return (window.location.pathname || '').replace('/', '') || 'ua';
+}
+
+export const filterWrongMessages = (data) => {
+  return data.filter((row) => {
+    const { Country, LocalizedMessage } = row;
+    const hasError = countryToLanguage[Country] === undefined || !LocalizedMessage;
+
+    if (hasError) {
+      console.error('Row with issues', row);
+    }
+
+    return !hasError;
+  });
+}
 
 export const getCountryDisplayName = (countryCode) => {
   const regionNames = new Intl.DisplayNames([getLocale()], {type: 'region'});

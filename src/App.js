@@ -7,7 +7,7 @@ import {Messages} from "./Messages";
 import {Main} from "./Main";
 import {Info} from "./Info";
 import {Footer} from "./Footer";
-import {getCountryDisplayName} from "./helpers";
+import {filterWrongMessages, getCountryDisplayName} from "./helpers";
 import {Gallery} from "./Gallery";
 import {ModeSelector, ViewMode} from "./ModeSelector";
 
@@ -31,7 +31,7 @@ export class App extends React.Component {
       download: true,
       header: true,
       complete: (results) => {
-        const messages = groupBy(results.data, 'Country');
+        const messages = groupBy(filterWrongMessages(results.data), 'Country');
         const countries = Object.keys(messages)
           .map((countryCode) => {
             return {

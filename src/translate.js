@@ -1,3 +1,5 @@
+import {getSiteLang} from "./helpers";
+
 const keys = {
   'main.title.1': {
     ua: 'Зроби ПОСТ —',
@@ -43,12 +45,8 @@ const keys = {
   }
 }
 
-export function getLang() {
-  return (window.location.pathname || '').replace('/', '') || 'ua';
-}
-
 export function t(key) {
-  let lang = getLang();
+  let lang = getSiteLang();
 
   if (lang !== 'en') {
     lang = 'ua';
