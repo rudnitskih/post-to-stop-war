@@ -45,7 +45,7 @@ const countryToLanguage = {
   ES: 'es',
   IT: 'it',
   IL: 'he',
-  KZ: 'kk',
+  KZ: 'ru',
   LT: 'lt',
   PL: 'pl',
   PT: 'pt',
