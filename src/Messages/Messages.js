@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import s from './Messages.module.scss';
-import {getCountryLanguage} from "../helpers";
+import {getCountryLanguageDisplayName, getLocaleDirection, getLocaleForCountry} from "../helpers";
 import classNames from "classnames";
 import {Content} from "../Content";
 
@@ -19,13 +19,13 @@ export class Messages extends Component {
               <div className={s.message}>
                 <span className="fi fi-ua"/>
                 {` `}
-                {getCountryLanguage('UA').toUpperCase()}
+                {getCountryLanguageDisplayName('UA').toUpperCase()}
               </div>
             )}
             <div className={s.message}>
               <span className={`fi fi-${selectedCountry.toLowerCase()}`}/>
               {` `}
-              {getCountryLanguage(selectedCountry).toUpperCase()}
+              {getCountryLanguageDisplayName(selectedCountry).toUpperCase()}
             </div>
           </div>
 
@@ -36,7 +36,11 @@ export class Messages extends Component {
                      key={i}>
                   <div className={s.index}>{i + 1}.</div>
                   {isMultipleColumns && <div className={classNames(s.message, s.messageLocal)}>{UkrainianMessage}</div>}
-                  <div className={classNames(s.message, s.messageLocalized)}>{LocalizedMessage} </div>
+                  <div
+                    dir={getLocaleDirection(getLocaleForCountry(selectedCountry))}
+                    className={classNames(s.message, s.messageLocalized)}>
+                    {LocalizedMessage}
+                  </div>
                 </div>
               );
             })

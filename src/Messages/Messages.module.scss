@@ -7,7 +7,7 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
 
 .row {
   display: flex;
-  text-align: left;
+  text-align: initial;
   justify-content: center;
 
   @include for-phone-only {

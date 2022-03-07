@@ -8,9 +8,9 @@ export const getCountryDisplayName = (countryCode) => {
   return regionNames.of(countryCode);
 }
 
-export const getCountryLanguage = (countryCode) => {
+export const getCountryLanguageDisplayName = (countryCode) => {
   const languageNames = new Intl.DisplayNames([getLocale()], {type: 'language'});
-  const countryLanguages = [].concat(countryToLanguage[countryCode]);
+  const countryLanguages = [].concat(getLocaleForCountry(countryCode));
 
   if (countryLanguages) {
     return countryLanguages.map((countryLanguage) => languageNames.of(countryLanguage)).join(' / ');
@@ -23,6 +23,14 @@ export const getCountryLanguage = (countryCode) => {
   }
 
   return getCountryDisplayName(countryCode);
+}
+
+export const getLocaleForCountry = (countryCode) => {
+  return countryToLanguage[countryCode];
+}
+
+export const getLocaleDirection = (locale) => {
+  return rtlLocales.includes(locale) ? 'rtl' : 'ltr';
 }
 
 // https://wiki.openstreetmap.org/wiki/Nominatim/Country_Codes
@@ -278,3 +286,6 @@ const countryToLanguage = {
   ZW: 'en',
 }
 
+export const rtlLocales = [
+  'ar', 'he', 'fa',
+]
