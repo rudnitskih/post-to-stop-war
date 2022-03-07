@@ -11,6 +11,8 @@ import {getCountryDisplayName} from "./helpers";
 import {Gallery} from "./Gallery";
 import {ModeSelector, ViewMode} from "./ModeSelector";
 
+const SELECTED_COUNTRY_KEY = 'selectedCountry';
+
 export class App extends React.Component {
   state = {
     isReady: false,
@@ -42,7 +44,7 @@ export class App extends React.Component {
         this.setState({
           messages,
           countries,
-          selectedCountry: countries[0].countryCode,
+          selectedCountry: localStorage.getItem(SELECTED_COUNTRY_KEY) || countries[0].countryCode ,
           isReady: true,
         });
       }
@@ -61,6 +63,11 @@ export class App extends React.Component {
     });
   }
 
+  setCountry = (country) => {
+    this.setState({selectedCountry: country, selectedMode: ViewMode.MESSAGES});
+    localStorage.setItem(SELECTED_COUNTRY_KEY, country);
+  }
+
   render() {
     return (
       <div className={s.root}>
@@ -72,7 +79,7 @@ export class App extends React.Component {
               <CountrySelector
                 countries={this.state.countries}
                 selectedCountry={this.state.selectedCountry}
-                onChange={(country) => this.setState({selectedCountry: country, selectedMode: ViewMode.MESSAGES})}
+                onChange={this.setCountry}
               />
 
               <ModeSelector
