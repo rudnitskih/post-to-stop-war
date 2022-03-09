@@ -6,14 +6,14 @@ export const getSiteLang = () => {
 
 export const filterWrongMessages = (data) => {
   return data.filter((row) => {
-    const { Country, LocalizedMessage } = row;
+    const { Country, LocalizedMessage, Hidden } = row;
     const hasError = countryToLanguage[Country] === undefined || !LocalizedMessage;
 
     if (hasError) {
       console.error('Row with issues', row);
     }
 
-    return !hasError;
+    return !hasError && !Hidden;
   });
 }
 
