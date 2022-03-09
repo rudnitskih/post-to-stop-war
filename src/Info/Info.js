@@ -7,18 +7,16 @@ import redcrossLogo from './redcross-logo.png';
 import safeLifeLogo from './safelife-logo.png';
 import standWithUkraineLogo from './stand-with-ukraine-logo.png';
 import stopputinLogo from './stopputin-logo.png';
+import classNames from "classnames";
 
 
 const supportWays = [
   {
-    image: redcrossLogo,
-    imageStyles: {
-      width: 172,
-    },
-    title: 'The Red Cross Ukraine Emergency Appeal',
-    description: 'All funds will be used to help those in need, affected by armed conflict, blood collection, mobilization of volunteers and resources, and emergency activities.',
-    cta: 'Donate',
-    ctaLink: 'https://donate.redcrossredcrescent.org/ua/donate/~my-donation',
+    logoMarkup: <span className={classNames(s.logo, s.flag)}>🇺🇦</span>,
+    title: 'KoordyNatsiya',
+    description: 'This page is for quick and easy information search in Ukraine during the war. You can help as a foreigner there as well.',
+    cta: 'Join',
+    ctaLink: 'https://viyna.net/',
   },
   {
     image: nbuLogo,
@@ -29,6 +27,16 @@ const supportWays = [
     description: 'The National Bank of Ukraine has decided to open a special fundraising account to support the Armed Forces of Ukraine.',
     cta: 'Donate',
     ctaLink: 'https://bank.gov.ua/en/news/all/natsionalniy-bank-vidkriv-spetsrahunok-dlya-zboru-koshtiv-na-potrebi-armiyi',
+  },
+  {
+    image: redcrossLogo,
+    imageStyles: {
+      width: 172,
+    },
+    title: 'The Red Cross Ukraine Emergency Appeal',
+    description: 'All funds will be used to help those in need, affected by armed conflict, blood collection, mobilization of volunteers and resources, and emergency activities.',
+    cta: 'Donate',
+    ctaLink: 'https://donate.redcrossredcrescent.org/ua/donate/~my-donation',
   },
   {
     image: safeLifeLogo,
@@ -80,11 +88,11 @@ export class Info extends Component {
 
           <div className={s.inner}>
             {
-              supportWays.map(({image, imageStyles, title, description, cta, ctaLink, }, i) => {
+              supportWays.map(({logoMarkup, image, imageStyles, title, description, cta, ctaLink, }, i) => {
                 return (
                   <div className={s.card} key={i}>
                     <div className={s.cardInner}>
-                      <img className={s.logo} src={image} alt={title} style={imageStyles}/>
+                      {logoMarkup ? logoMarkup : <img className={s.logo} src={image} alt={title} style={imageStyles}/>}
                       <h6 className={s.organizationTitle}>{title}</h6>
                       <p className={s.description}>{description}</p>
                       {
