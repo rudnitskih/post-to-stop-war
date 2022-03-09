@@ -13,7 +13,7 @@ import classNames from "classnames";
 const supportWays = [
   {
     logoMarkup: <span className={classNames(s.logo, s.flag)}>🇺🇦</span>,
-    title: 'KoordyNatsiya',
+    title: 'КоордиНація',
     description: 'This page is for quick and easy information search in Ukraine during the war. You can help as a foreigner there as well.',
     cta: 'Join',
     ctaLink: 'https://viyna.net/',
