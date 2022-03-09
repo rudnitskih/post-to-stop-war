@@ -18,6 +18,10 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
   border-top: $border;
   border-bottom: $border;
   padding: 24px 0;
+
+  @include for-phone-only {
+    padding: 12px 0;
+  }
 }
 
 .contentInner {
@@ -28,7 +32,7 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
   @include for-phone-only {
     flex-wrap: nowrap;
     overflow: auto;
-    margin: 0 0 0 -6px;
+    margin: 0;
   }
 }
 
@@ -46,7 +50,11 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
   transition: all .25s;
 
   @include for-phone-only {
-    margin: 6px;
+    margin: 6px 8px 8px 0;
+
+    :last-child {
+      margin-right: 0;
+    }
   }
 
   &:hover:not(.selected) {

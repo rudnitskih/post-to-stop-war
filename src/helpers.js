@@ -27,7 +27,7 @@ export const getCountryDisplayName = (countryCode) => {
 const MULTIPLE_LANGUAGES_IN_COLUMN_SIGN = ' + ';
 
 export const getCountryLanguageDisplayNames = (countryCode) => {
-  const columnsLanguages = [].concat(getLocaleForCountry(countryCode));
+  const columnsLanguages = getLocalesForCountry(countryCode);
 
   if (columnsLanguages) {
     return columnsLanguages.map((columnLanguages) => {
@@ -47,8 +47,8 @@ export const getCountryLanguageDisplayNames = (countryCode) => {
   return [getCountryDisplayName(countryCode)];
 }
 
-export const getLocaleForCountry = (countryCode) => {
-  return countryToLanguage[countryCode];
+export const getLocalesForCountry = (countryCode) => {
+  return [].concat(countryToLanguage[countryCode]);
 }
 
 export const getLocaleDirection = (locale) => {

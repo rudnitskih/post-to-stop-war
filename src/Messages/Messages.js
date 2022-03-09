@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import s from './Messages.module.scss';
-import {getCountryLanguageDisplayNames, getLocaleDirection, getLocaleForCountry} from "../helpers";
+import {getCountryLanguageDisplayNames, getLocaleDirection, getLocalesForCountry} from "../helpers";
 import classNames from "classnames";
 import {Content} from "../Content";
 import showdown from "showdown";
@@ -58,8 +58,7 @@ export class Messages extends Component {
 
             {
               data.map(({UkrainianMessage, LocalizedMessage, LocalizedMessage_2}, i) => {
-                const localesForCountry = getLocaleForCountry(selectedCountry);
-
+                const localesForCountry = getLocalesForCountry(selectedCountry);
 
                 return (
                   <div
@@ -75,7 +74,7 @@ export class Messages extends Component {
                         {
                           visible: columnsConfig[0].visible,
                           content: UkrainianMessage,
-                          locale: getLocaleForCountry('UA')[0],
+                          locale: getLocalesForCountry('UA')[0],
                         },
                         {
                           visible: columnsConfig[1].visible,

@@ -68,6 +68,11 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
   font-size: 18px;
   line-height: 28px;
 
+  // for some reason our font doesn't support georgian
+  &:global(.ka) {
+    font-family: sans-serif;
+  }
+
   @include for-phone-only {
     flex-basis: 100%;
     border-right: $border;
@@ -92,11 +97,6 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
       padding: 11px 20px;
     }
   }
-}
-
-// for some reason our font doesn't support georgian
-.messageLocalized:global(.ka) {
-  font-family: sans-serif;
 }
 
 .messageContent {
