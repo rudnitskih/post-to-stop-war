@@ -3,12 +3,16 @@
 $border: 1px solid rgba(0, 0, 0, 0.1);
 
 .root {
+  overflow: auto;
+
+  @include for-phone-only {
+    overflow: initial;
+  }
 }
 
 .row {
   display: flex;
   text-align: initial;
-  justify-content: center;
 
   @include for-phone-only {
     flex-wrap: wrap;
@@ -16,11 +20,15 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: $border;
     border-top: $border;
   }
+
+  &.oneColumn {
+    justify-content: center;
+  }
 }
 
 .header {
   @include for-phone-only {
-    .messageLocal, .index {
+    .index {
       display: none;
     }
 
@@ -32,7 +40,7 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
 
 .index {
   padding-top: 30px;
-  flex-basis: 50px;
+  flex: 0 0 50px;
   font-size: 16px;
   line-height: 26px;
   font-weight: 600;
@@ -50,7 +58,11 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
 .message {
   border-left: $border;
   border-bottom: $border;
-  flex: 0 1 50%;
+  flex: 0 1 100%;
+  min-width: 300px;
+  max-width: 575px;
+  overflow: auto;
+  box-sizing: border-box;
   padding: 30px 40px;
   font-weight: 300;
   font-size: 18px;
@@ -60,6 +72,8 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
     flex-basis: 100%;
     border-right: $border;
     padding: 20px;
+    min-width: auto;
+    max-width: initial;
 
     &:last-child {
       border-bottom: none;
@@ -80,10 +94,9 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
   }
 }
 
-.messageLocalized {
-  .ge & {
-    font-family: sans-serif;
-  }
+// for some reason our font doesn't support georgian
+.messageLocalized:global(.ka) {
+  font-family: sans-serif;
 }
 
 .messageContent {

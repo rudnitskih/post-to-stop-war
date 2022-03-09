@@ -1,8 +1,11 @@
-const getLocale = () => getSiteLang() === 'ua' ? 'uk' : 'en';
-
 export const getSiteLang = () => {
   return (window.location.pathname || '').replace('/', '') || 'ua';
 }
+
+const getLocale = () => getSiteLang() === 'ua' ? 'uk' : 'en';
+
+const languageNames = new Intl.DisplayNames([getLocale()], {type: 'language'});
+const regionNames = new Intl.DisplayNames([getLocale()], {type: 'region'});
 
 export const filterWrongMessages = (data) => {
   return data.filter((row) => {
@@ -13,31 +16,35 @@ export const filterWrongMessages = (data) => {
       console.error('Row with issues', row);
     }
 
-    return !hasError && !Hidden;
+    return !hasError && (!Hidden || (new URLSearchParams(window.location.search)).get('showAll') !== null);
   });
 }
 
 export const getCountryDisplayName = (countryCode) => {
-  const regionNames = new Intl.DisplayNames([getLocale()], {type: 'region'});
-
   return regionNames.of(countryCode);
 }
 
-export const getCountryLanguageDisplayName = (countryCode) => {
-  const languageNames = new Intl.DisplayNames([getLocale()], {type: 'language'});
-  const countryLanguages = [].concat(getLocaleForCountry(countryCode));
+const MULTIPLE_LANGUAGES_IN_COLUMN_SIGN = ' + ';
 
-  if (countryLanguages) {
-    return countryLanguages.map((countryLanguage) => languageNames.of(countryLanguage)).join(' / ');
+export const getCountryLanguageDisplayNames = (countryCode) => {
+  const columnsLanguages = [].concat(getLocaleForCountry(countryCode));
+
+  if (columnsLanguages) {
+    return columnsLanguages.map((columnLanguages) => {
+      return columnLanguages
+        .split(MULTIPLE_LANGUAGES_IN_COLUMN_SIGN)
+        .map((oneOfColumnLanguage) => languageNames.of(oneOfColumnLanguage))
+        .join(' / ')
+    });
   }
 
   const fallback = languageNames.of(countryCode);
 
   if (fallback !== countryCode) {
-    return fallback;
+    return [fallback];
   }
 
-  return getCountryDisplayName(countryCode);
+  return [getCountryDisplayName(countryCode)];
 }
 
 export const getLocaleForCountry = (countryCode) => {
@@ -56,7 +63,7 @@ const countryToLanguage = {
   TR: 'tr',
   AT: 'de',
   GB: 'en',
-  IN: 'hi',
+  IN: ['hi', 'en'],
   ES: 'es',
   IT: 'it',
   IL: 'he',
@@ -73,7 +80,7 @@ const countryToLanguage = {
   FR: 'fr',
   JP: 'ja',
   GE: 'ka',
-  BY: ['be', 'ru'],
+  BY: `be${MULTIPLE_LANGUAGES_IN_COLUMN_SIGN}ru`,
   BA: 'bs',
   BR: 'pt',
   IR: 'fa',
@@ -235,7 +242,7 @@ const countryToLanguage = {
   PE: 'es',
   PF: 'fr',
   PG: 'en',
-  PH: 'en',
+  PH: 'tl',
   PK: 'en',
   PM: 'fr',
   PN: 'en',

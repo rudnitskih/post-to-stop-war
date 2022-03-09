@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import s from './Messages.module.scss';
-import {getCountryLanguageDisplayName, getLocaleDirection, getLocaleForCountry} from "../helpers";
+import {getCountryLanguageDisplayNames, getLocaleDirection, getLocaleForCountry} from "../helpers";
 import classNames from "classnames";
 import {Content} from "../Content";
 import showdown from "showdown";
@@ -11,45 +11,95 @@ const markdownConverter = new showdown.Converter();
 export class Messages extends Component {
   render() {
     const {selectedCountry, data} = this.props;
-    const isMultipleColumns = data[0].UkrainianMessage;
+    const countryDisplayLanguages = getCountryLanguageDisplayNames(selectedCountry);
+
+    const columnsConfig = [
+      {
+        country: 'UA',
+        displayLanguage: getCountryLanguageDisplayNames('UA')[0],
+        visible: data[0].UkrainianMessage
+      },
+      {
+        country: selectedCountry,
+        displayLanguage: countryDisplayLanguages[0],
+        visible: Boolean(data[0].LocalizedMessage),
+      },
+      {
+        country: selectedCountry,
+        displayLanguage: countryDisplayLanguages[1],
+        visible: Boolean(data[0].LocalizedMessage_2),
+      }
+    ];
+
+    const isOneColumn = columnsConfig.filter(({visible}) => visible).length === 1;
 
     return (
       <Content>
         <ErrorBoundary>
-          <div className={classNames(s.root, {[s.ge]: selectedCountry === 'GE'})}>
-            <div className={classNames(s.row, s.header)}>
-              <div className={s.index}></div>
+          <div className={s.root}>
+            <div className={classNames(s.row, s.header, {
+              [s.oneColumn]: isOneColumn,
+            })}>
+              <div className={s.index}/>
 
-              {isMultipleColumns && (
-                <div className={s.message}>
-                  <span className="fi fi-ua"/>
-                  {` `}
-                  {getCountryLanguageDisplayName('UA').toUpperCase()}
-                </div>
-              )}
-              <div className={s.message}>
-                <span className={`fi fi-${selectedCountry.toLowerCase()}`}/>
-                {` `}
-                {getCountryLanguageDisplayName(selectedCountry).toUpperCase()}
-              </div>
+              {
+                columnsConfig.filter(({visible}) => visible).map(({country, displayLanguage}) => {
+                  return (
+                    <div className={s.message}
+                         key={`${country}_${displayLanguage}`}>
+                      <span className={`fi fi-${country.toLowerCase()}`}/>
+                      {` `}
+                      {displayLanguage.toUpperCase()}
+                    </div>
+                  );
+                })
+              }
             </div>
 
             {
-              data.map(({UkrainianMessage, LocalizedMessage}, i) => {
+              data.map(({UkrainianMessage, LocalizedMessage, LocalizedMessage_2}, i) => {
+                const localesForCountry = getLocaleForCountry(selectedCountry);
+
+
                 return (
-                  <div className={s.row}
-                       key={i}>
+                  <div
+                    key={i}
+                    className={classNames(s.row, {
+                      [s.oneColumn]: isOneColumn,
+                    })}
+                  >
                     <div className={s.index}>{i + 1}.</div>
-                    {isMultipleColumns && (
-                      <div className={classNames(s.message, s.messageLocal)}>
-                        <Message content={UkrainianMessage}/>
-                      </div>
-                    )}
-                    <div
-                      dir={getLocaleDirection(getLocaleForCountry(selectedCountry))}
-                      className={classNames(s.message, s.messageLocalized)}>
-                      <Message content={LocalizedMessage}/>
-                    </div>
+
+                    {
+                      [
+                        {
+                          visible: columnsConfig[0].visible,
+                          content: UkrainianMessage,
+                          locale: getLocaleForCountry('UA')[0],
+                        },
+                        {
+                          visible: columnsConfig[1].visible,
+                          content: LocalizedMessage,
+                          locale: localesForCountry[0],
+                        },
+                        {
+                          visible: columnsConfig[2].visible,
+                          content: LocalizedMessage_2,
+                          locale: localesForCountry[1],
+                        }
+                      ]
+                        .filter(({visible}) => visible)
+                        .map(({content, locale}) => {
+                          return (
+                            <div
+                              key={locale}
+                              dir={getLocaleDirection(locale)}
+                              className={classNames(s.message, locale)}>
+                              <Message content={content}/>
+                            </div>
+                          );
+                        })
+                    }
                   </div>
                 );
               })

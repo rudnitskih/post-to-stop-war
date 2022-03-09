@@ -10,6 +10,7 @@ import {Footer} from "./Footer";
 import {filterWrongMessages, getCountryDisplayName} from "./helpers";
 import {Gallery} from "./Gallery";
 import {ModeSelector, ViewMode} from "./ModeSelector";
+import {ErrorBoundary} from "./ErrorBoundary";
 
 const SELECTED_COUNTRY_KEY = 'selectedCountry';
 
@@ -70,7 +71,7 @@ export class App extends React.Component {
 
   render() {
     return (
-      <div className={s.root}>
+      <div>
         <Main />
 
         {
@@ -90,10 +91,12 @@ export class App extends React.Component {
               <div className={s.mainInfo}>
                 {
                   this.state.selectedMode === ViewMode.MESSAGES ? (
-                    <Messages
-                      data={this.state.messages[this.state.selectedCountry]}
-                      selectedCountry={this.state.selectedCountry}
-                    />
+                    <ErrorBoundary>
+                      <Messages
+                        data={this.state.messages[this.state.selectedCountry]}
+                        selectedCountry={this.state.selectedCountry}
+                      />
+                    </ErrorBoundary>
                   ) : (
                     <Gallery driveIds={this.state.gallery}/>
                   )
