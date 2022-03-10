@@ -19,7 +19,7 @@ export class Gallery extends Component {
           className={s.masonryGrid}
           columnClassName={s.masonryGridColumn}>
           {this.props.driveIds.map((driveId) => {
-            return <img src={`https://drive.google.com/uc?export=view&id=${driveId}`} key={driveId} />
+            return <img src={`https://drive.google.com/uc?export=view&id=${driveId}`} key={driveId} alt="" />
           })}
         </Masonry>
 

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import s from './CountrySelector.module.scss';
-import 'flag-icons/css/flag-icons.min.css';
 import classNames from 'classnames';
 import {Content} from "../Content";
 import {t} from "../translate";

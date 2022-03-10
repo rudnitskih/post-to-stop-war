@@ -7,7 +7,10 @@ export class Footer extends Component {
     return (
       <div className={s.root}>
         <div className={s.inner}>
-          {t('footer.description')} <a href="https://forms.gle/wKSohwAF4K5ZReWe8" target="_blank">{t('footer.link')}</a>.
+          {t('footer.description')}
+          <a href="https://forms.gle/wKSohwAF4K5ZReWe8" target="_blank" rel="noreferrer">
+            {t('footer.link')}
+          </a>.
         </div>
       </div>
     );
