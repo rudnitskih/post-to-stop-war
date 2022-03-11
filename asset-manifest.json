@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.2115fea1.css",
-    "main.js": "/static/js/main.1a1df486.js",
+    "main.js": "/static/js/main.1e426b01.js",
     "static/js/787.00f9fb66.chunk.js": "/static/js/787.00f9fb66.chunk.js",
     "static/media/main.jpg": "/static/media/main.db17b30191f16376171c.jpg",
     "static/media/post.png": "/static/media/post.b67475802cc8900aee2f.png",
@@ -12,11 +12,11 @@
     "static/media/stopputin-logo.png": "/static/media/stopputin-logo.0a2615492fe854d0939b.png",
     "index.html": "/index.html",
     "main.2115fea1.css.map": "/static/css/main.2115fea1.css.map",
-    "main.1a1df486.js.map": "/static/js/main.1a1df486.js.map",
+    "main.1e426b01.js.map": "/static/js/main.1e426b01.js.map",
     "787.00f9fb66.chunk.js.map": "/static/js/787.00f9fb66.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2115fea1.css",
-    "static/js/main.1a1df486.js"
+    "static/js/main.1e426b01.js"
   ]
 }
