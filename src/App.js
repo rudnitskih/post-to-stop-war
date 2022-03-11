@@ -6,11 +6,11 @@ import {Messages} from "./Messages";
 import {Main} from "./Main";
 import {Info} from "./Info";
 import {Footer} from "./Footer";
-import {getCountryDisplayName} from "./localeUtils";
-import {filterWrongMessages, loadSpreadsheet} from "./utils";
+import {getCountryDisplayName} from "./utils/localeUtils";
+import {combineMessages, loadSpreadsheet} from "./utils/dataUtils";
 import {Gallery} from "./Gallery";
 import {ModeSelector, ViewMode} from "./ModeSelector";
-import * as Sentry from "@sentry/react";
+import {logError} from "./utils/errorHandlingUtils";
 
 const SELECTED_COUNTRY_KEY = 'selectedCountry';
 
@@ -25,17 +25,14 @@ export class App extends React.Component {
 
   async componentDidMount() {
     try {
-      const [rawMessages, googleDriveUrls] = await Promise.all([
-        loadSpreadsheet(
-          'https://docs.google.com/spreadsheets/d/e/2PACX-1vRsewWgD4f1l2Zs5nS-ZrT7oQLo4XORX1xOBuw-xSx51t1lmYL_p5wtId4GsE8-jPIh6CBDrzqzW11g/pub?output=csv'
-        ),
-        loadSpreadsheet(
-          'https://docs.google.com/spreadsheets/d/e/2PACX-1vRFb-ylDtmHAIzlBLulHm57kpFMIKcixeySaUEl1u-P-GTiJfPDf9LX_Lx5jxDUcRIKTGnKvxuCyOW4/pub?output=csv'
-        ),
+      const [rawMessages, rawMessagesOfTheDay, googleDriveUrls] = await Promise.all([
+        loadSpreadsheet('2PACX-1vRsewWgD4f1l2Zs5nS-ZrT7oQLo4XORX1xOBuw-xSx51t1lmYL_p5wtId4GsE8-jPIh6CBDrzqzW11g'),
+        loadSpreadsheet('2PACX-1vSNHdspxZB5vCFxPXQzSmjSVeeYfu99andRTmljGxN94f6u1VlsU8-MB129shMSwNdhHf7pnPkl5VWB'),
+        loadSpreadsheet('2PACX-1vRFb-ylDtmHAIzlBLulHm57kpFMIKcixeySaUEl1u-P-GTiJfPDf9LX_Lx5jxDUcRIKTGnKvxuCyOW4'),
       ]);
 
-      const messages = groupBy(filterWrongMessages(rawMessages), 'Country');
-      const countries = Object.keys(messages)
+      const combinedMessages = combineMessages(rawMessages, rawMessagesOfTheDay);
+      const countries = Object.keys(combinedMessages)
         .map((countryCode) => {
           return {
             countryCode,
@@ -48,14 +45,14 @@ export class App extends React.Component {
       const gallery = Object.values(googleDriveUrls).map(({ID}) => ID.match(/\/d\/(.*)\//)[1]);
 
       this.setState({
-        messages,
+        messages: combinedMessages,
         countries,
         gallery,
         selectedCountry,
         isReady: true,
       });
     } catch (error) {
-      Sentry.captureException(error);
+      logError(error);
     }
   }
 
@@ -105,14 +102,6 @@ export class App extends React.Component {
     );
   }
 }
-
-// https://stackoverflow.com/a/34890276
-const groupBy = function(xs, key) {
-  return xs.reduce(function(rv, x) {
-    (rv[x[key]] = rv[x[key]] || []).push(x);
-    return rv;
-  }, {});
-};
 
 export default App;
 

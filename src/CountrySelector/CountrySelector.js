@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import s from './CountrySelector.module.scss';
 import classNames from 'classnames';
 import {Content} from "../Content";
-import {t} from "../translate";
+import {t} from "../utils/translate";
 
 export class CountrySelector extends Component {
   render() {

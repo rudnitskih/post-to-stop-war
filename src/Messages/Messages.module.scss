@@ -73,6 +73,10 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
     font-family: sans-serif;
   }
 
+  &:before {
+    display: none !important; // override css-flags styles
+  }
+
   @include for-phone-only {
     flex-basis: 100%;
     border-right: $border;

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import s from './ModeSelector.module.scss';
 import classNames from "classnames";
-import {t} from "../translate";
+import {t} from "../utils/translate";
 import {Content} from "../Content";
 
 export const ViewMode = {

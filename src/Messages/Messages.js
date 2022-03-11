@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import s from './Messages.module.scss';
-import {getCountryLanguageDisplayNames, getLocaleDirection, getLocalesForCountry} from "../localeUtils";
+import {getCountryLanguageDisplayNames, getLocaleDirection, getLocalesForCountry} from "../utils/localeUtils";
 import classNames from "classnames";
 import {Content} from "../Content";
 import showdown from "showdown";
@@ -17,7 +17,7 @@ class MessagesPure extends Component {
       {
         country: 'UA',
         displayLanguage: getCountryLanguageDisplayNames('UA')[0],
-        visible: data[0].UkrainianMessage
+        visible: Boolean(data[0].UkrainianMessage),
       },
       {
         country: selectedCountry,

@@ -293,6 +293,4 @@ export const countryToLanguage = {
   ZW: 'en',
 }
 
-export const rtlLocales = [
-  'ar', 'he', 'fa',
-]
+const rtlLocales = ['ar', 'he', 'fa'];
