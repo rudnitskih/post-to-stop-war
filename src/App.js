@@ -10,6 +10,7 @@ import {getCountryDisplayName} from "./localeUtils";
 import {filterWrongMessages, loadSpreadsheet} from "./utils";
 import {Gallery} from "./Gallery";
 import {ModeSelector, ViewMode} from "./ModeSelector";
+import * as Sentry from "@sentry/react";
 
 const SELECTED_COUNTRY_KEY = 'selectedCountry';
 
@@ -23,35 +24,39 @@ export class App extends React.Component {
   };
 
   async componentDidMount() {
-    const [rawMessages, googleDriveUrls] = await Promise.all([
-      loadSpreadsheet(
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vRsewWgD4f1l2Zs5nS-ZrT7oQLo4XORX1xOBuw-xSx51t1lmYL_p5wtId4GsE8-jPIh6CBDrzqzW11g/pub?output=csv'
-      ),
-      loadSpreadsheet(
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vRFb-ylDtmHAIzlBLulHm57kpFMIKcixeySaUEl1u-P-GTiJfPDf9LX_Lx5jxDUcRIKTGnKvxuCyOW4/pub?output=csv'
-      ),
-    ]);
+    try {
+      const [rawMessages, googleDriveUrls] = await Promise.all([
+        loadSpreadsheet(
+          'https://docs.google.com/spreadsheets/d/e/2PACX-1vRsewWgD4f1l2Zs5nS-ZrT7oQLo4XORX1xOBuw-xSx51t1lmYL_p5wtId4GsE8-jPIh6CBDrzqzW11g/pub?output=csv'
+        ),
+        loadSpreadsheet(
+          'https://docs.google.com/spreadsheets/d/e/2PACX-1vRFb-ylDtmHAIzlBLulHm57kpFMIKcixeySaUEl1u-P-GTiJfPDf9LX_Lx5jxDUcRIKTGnKvxuCyOW4/pub?output=csv'
+        ),
+      ]);
 
-    const messages = groupBy(filterWrongMessages(rawMessages), 'Country');
-    const countries = Object.keys(messages)
-      .map((countryCode) => {
-        return {
-          countryCode,
-          displayName: getCountryDisplayName(countryCode),
-        };
-      })
-      .sort((a, b) => a.displayName.localeCompare(b.displayName));
+      const messages = groupBy(filterWrongMessages(rawMessages), 'Country');
+      const countries = Object.keys(messages)
+        .map((countryCode) => {
+          return {
+            countryCode,
+            displayName: getCountryDisplayName(countryCode),
+          };
+        })
+        .sort((a, b) => a.displayName.localeCompare(b.displayName));
 
-    const selectedCountry = localStorage.getItem(SELECTED_COUNTRY_KEY) || countries[0].countryCode;
-    const gallery = Object.values(googleDriveUrls).map(({ID}) => ID.match(/\/d\/(.*)\//)[1]);
+      const selectedCountry = localStorage.getItem(SELECTED_COUNTRY_KEY) || countries[0].countryCode;
+      const gallery = Object.values(googleDriveUrls).map(({ID}) => ID.match(/\/d\/(.*)\//)[1]);
 
-    this.setState({
-      messages,
-      countries,
-      gallery,
-      selectedCountry,
-      isReady: true,
-    });
+      this.setState({
+        messages,
+        countries,
+        gallery,
+        selectedCountry,
+        isReady: true,
+      });
+    } catch (error) {
+      Sentry.captureException(error);
+    }
   }
 
   setCountry = (country) => {
