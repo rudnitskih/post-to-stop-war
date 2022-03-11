@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import s from './Messages.module.scss';
-import {getCountryLanguageDisplayNames, getLocaleDirection, getLocalesForCountry} from "../helpers";
+import {getCountryLanguageDisplayNames, getLocaleDirection, getLocalesForCountry} from "../localeUtils";
 import classNames from "classnames";
 import {Content} from "../Content";
 import showdown from "showdown";
-import {ErrorBoundary} from "../ErrorBoundary";
+import * as Sentry from "@sentry/react";
 
 const markdownConverter = new showdown.Converter();
 
-export class Messages extends Component {
+class MessagesPure extends Component {
   render() {
     const {selectedCountry, data} = this.props;
     const countryDisplayLanguages = getCountryLanguageDisplayNames(selectedCountry);
@@ -35,18 +35,17 @@ export class Messages extends Component {
 
     return (
       <Content>
-        <ErrorBoundary>
-          <div className={s.root}>
-            <div className={classNames(s.row, s.header, {
-              [s.oneColumn]: isOneColumn,
-            })}>
-              <div className={s.index}/>
+        <div className={s.root}>
+          <div className={classNames(s.row, s.header, {
+            [s.oneColumn]: isOneColumn,
+          })}>
+            <div className={s.index}/>
 
-              {
-                columnsConfig.filter(({visible}) => visible).map(({country, displayLanguage}) => {
-                  return (
-                    <div className={s.message}
-                         key={`${country}_${displayLanguage}`}>
+            {
+              columnsConfig.filter(({visible}) => visible).map(({country, displayLanguage}) => {
+                return (
+                  <div className={s.message}
+                       key={`${country}_${displayLanguage}`}>
                       <span className={`fi fi-${country.toLowerCase()}`}/>
                       {` `}
                       {displayLanguage.toUpperCase()}
@@ -55,7 +54,6 @@ export class Messages extends Component {
                 })
               }
             </div>
-
             {
               data.map(({UkrainianMessage, LocalizedMessage, LocalizedMessage_2}, i) => {
                 const localesForCountry = getLocalesForCountry(selectedCountry);
@@ -104,12 +102,16 @@ export class Messages extends Component {
               })
             }
           </div>
-        </ErrorBoundary>
       </Content>
     );
   }
 }
 
-const Message = ({content}) => {
+export const Messages = Sentry.withErrorBoundary(
+  MessagesPure,
+  {fallback: <p>Couldn't load messages 😢 </p> }
+)
+
+const Message = Sentry.withErrorBoundary(({content}) => {
   return <div className={s.messageContent} dangerouslySetInnerHTML={{__html: markdownConverter.makeHtml(content)}}/>;
-};
+}, {fallback: <div />});

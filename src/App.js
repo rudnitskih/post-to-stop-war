@@ -1,16 +1,15 @@
 import React from 'react';
 import s from './App.module.scss';
 import './global.scss';
-import Papa from 'papaparse';
 import {CountrySelector} from "./CountrySelector";
 import {Messages} from "./Messages";
 import {Main} from "./Main";
 import {Info} from "./Info";
 import {Footer} from "./Footer";
-import {filterWrongMessages, getCountryDisplayName} from "./helpers";
+import {getCountryDisplayName} from "./localeUtils";
+import {filterWrongMessages, loadSpreadsheet} from "./utils";
 import {Gallery} from "./Gallery";
 import {ModeSelector, ViewMode} from "./ModeSelector";
-import {ErrorBoundary} from "./ErrorBoundary";
 
 const SELECTED_COUNTRY_KEY = 'selectedCountry';
 
@@ -23,44 +22,35 @@ export class App extends React.Component {
     selectedMode: ViewMode.MESSAGES
   };
 
-  componentDidMount() {
-    const messages_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRsewWgD4f1l2Zs5nS-ZrT7oQLo4XORX1xOBuw-xSx51t1lmYL_p5wtId4GsE8-jPIh6CBDrzqzW11g/pub?output=csv';
+  async componentDidMount() {
+    const [rawMessages, googleDriveUrls] = await Promise.all([
+      loadSpreadsheet(
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vRsewWgD4f1l2Zs5nS-ZrT7oQLo4XORX1xOBuw-xSx51t1lmYL_p5wtId4GsE8-jPIh6CBDrzqzW11g/pub?output=csv'
+      ),
+      loadSpreadsheet(
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vRFb-ylDtmHAIzlBLulHm57kpFMIKcixeySaUEl1u-P-GTiJfPDf9LX_Lx5jxDUcRIKTGnKvxuCyOW4/pub?output=csv'
+      ),
+    ]);
 
-    const gallery_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRFb-ylDtmHAIzlBLulHm57kpFMIKcixeySaUEl1u-P-GTiJfPDf9LX_Lx5jxDUcRIKTGnKvxuCyOW4/pub?output=csv';
+    const messages = groupBy(filterWrongMessages(rawMessages), 'Country');
+    const countries = Object.keys(messages)
+      .map((countryCode) => {
+        return {
+          countryCode,
+          displayName: getCountryDisplayName(countryCode),
+        };
+      })
+      .sort((a, b) => a.displayName.localeCompare(b.displayName));
 
-    Papa.parse(messages_spreadsheet_url, {
-      download: true,
-      header: true,
-      complete: (results) => {
-        const messages = groupBy(filterWrongMessages(results.data), 'Country');
-        const countries = Object.keys(messages)
-          .map((countryCode) => {
-            return {
-              countryCode,
-              displayName: getCountryDisplayName(countryCode),
-            };
-          })
-          .sort((a, b) => a.displayName.localeCompare(b.displayName));
+    const selectedCountry = localStorage.getItem(SELECTED_COUNTRY_KEY) || countries[0].countryCode;
+    const gallery = Object.values(googleDriveUrls).map(({ID}) => ID.match(/\/d\/(.*)\//)[1]);
 
-        this.setState({
-          messages,
-          countries,
-          selectedCountry: localStorage.getItem(SELECTED_COUNTRY_KEY) || countries[0].countryCode ,
-          isReady: true,
-        });
-      }
-    });
-
-    Papa.parse(gallery_spreadsheet_url, {
-      download: true,
-      header: true,
-      complete: (results) => {
-        const gallery = Object.values(results.data).map(({ID}) => ID.match(/\/d\/(.*)\//)[1]);
-
-        this.setState({
-          gallery,
-        });
-      }
+    this.setState({
+      messages,
+      countries,
+      gallery,
+      selectedCountry,
+      isReady: true,
     });
   }
 
@@ -91,12 +81,10 @@ export class App extends React.Component {
               <div className={s.mainInfo}>
                 {
                   this.state.selectedMode === ViewMode.MESSAGES ? (
-                    <ErrorBoundary>
-                      <Messages
-                        data={this.state.messages[this.state.selectedCountry]}
-                        selectedCountry={this.state.selectedCountry}
-                      />
-                    </ErrorBoundary>
+                    <Messages
+                      data={this.state.messages[this.state.selectedCountry]}
+                      selectedCountry={this.state.selectedCountry}
+                    />
                   ) : (
                     <Gallery driveIds={this.state.gallery}/>
                   )

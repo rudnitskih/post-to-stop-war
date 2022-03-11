@@ -1,30 +1,15 @@
-export const getSiteLang = () => {
-  return (window.location.pathname || '').replace('/', '') || 'ua';
-}
+import {getSiteLang} from "./urlUtils";
+
+const MULTIPLE_LANGUAGES_IN_COLUMN_SIGN = ' + ';
 
 const getLocale = () => getSiteLang() === 'ua' ? 'uk' : 'en';
 
 const languageNames = new Intl.DisplayNames([getLocale()], {type: 'language'});
 const regionNames = new Intl.DisplayNames([getLocale()], {type: 'region'});
 
-export const filterWrongMessages = (data) => {
-  return data.filter((row) => {
-    const { Country, LocalizedMessage, Hidden } = row;
-    const hasError = countryToLanguage[Country] === undefined || !LocalizedMessage;
-
-    if (hasError) {
-      console.error('Row with issues', row);
-    }
-
-    return !hasError && (!Hidden || (new URLSearchParams(window.location.search)).get('showAll') !== null);
-  });
-}
-
 export const getCountryDisplayName = (countryCode) => {
   return regionNames.of(countryCode);
 }
-
-const MULTIPLE_LANGUAGES_IN_COLUMN_SIGN = ' + ';
 
 export const getCountryLanguageDisplayNames = (countryCode) => {
   const columnsLanguages = getLocalesForCountry(countryCode);
@@ -56,7 +41,7 @@ export const getLocaleDirection = (locale) => {
 }
 
 // https://wiki.openstreetmap.org/wiki/Nominatim/Country_Codes
-const countryToLanguage = {
+export const countryToLanguage = {
   DE: 'de',
   DK: 'da',
   CN: 'zh',

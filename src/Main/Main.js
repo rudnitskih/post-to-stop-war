@@ -4,7 +4,7 @@ import logo from './logo.svg';
 import post from './post.png';
 import {t} from "../translate";
 import classNames from "classnames";
-import {getSiteLang} from "../helpers";
+import {getSiteLang} from "../urlUtils";
 
 export class Main extends Component {
   render() {

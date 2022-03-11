@@ -1,4 +1,4 @@
-import {getSiteLang} from "./helpers";
+import {getSiteLang} from "./urlUtils";
 
 const keys = {
   'main.title.1': {
