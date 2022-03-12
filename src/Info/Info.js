@@ -8,6 +8,7 @@ import safeLifeLogo from './safelife-logo.png';
 import standWithUkraineLogo from './stand-with-ukraine-logo.png';
 import stopputinLogo from './stopputin-logo.png';
 import classNames from "classnames";
+import {logEvent} from "../utils/anayliticsUtils";
 
 
 const supportWays = [
@@ -97,7 +98,16 @@ export class Info extends Component {
                       <p className={s.description}>{description}</p>
                       {
                         cta && (
-                          <a className={s.link} href={ctaLink} rel="noreferrer" target="_blank">{cta}</a>
+                          <a
+                            className={s.link}
+                            href={ctaLink}
+                            rel="noreferrer"
+                            target="_blank"
+                            onClick={() => logEvent('OPEN_PARTNER_PAGE', {
+                              url: ctaLink
+                            })}>
+                            {cta}
+                          </a>
                         )
                       }
                     </div>

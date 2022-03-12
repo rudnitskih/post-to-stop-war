@@ -46,6 +46,7 @@
   transition: all .25s;
   margin-left: 10px;
   cursor: pointer;
+  text-transform: capitalize;
 
   &:hover:not(.selected) {
     opacity: 1;

@@ -12,6 +12,7 @@ import {Gallery} from "./Gallery";
 import {ModeSelector, ViewMode} from "./ModeSelector";
 import {logError} from "./utils/errorHandlingUtils";
 import {getSelectedCountry, getSiteLang, setSelectedCountry, setSiteLang} from "./utils/urlUtils";
+import {logEvent} from "./utils/anayliticsUtils";
 
 export class App extends React.Component {
   state = {
@@ -59,12 +60,14 @@ export class App extends React.Component {
     if (getSelectedCountry() !== country) {
       this.setState({selectedCountry: country, selectedMode: ViewMode.MESSAGES});
       setSelectedCountry(country);
+      logEvent('CHANGE_COUNTRY', {country});
     }
   };
 
   setSiteLang = (siteLang) => {
     if (getSiteLang() !== siteLang) {
       setSiteLang(siteLang);
+      logEvent('CHANGE_SITE_LANG', {siteLang});
       this.forceUpdate();
     }
   };

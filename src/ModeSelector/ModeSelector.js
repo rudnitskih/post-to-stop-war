@@ -3,6 +3,7 @@ import s from './ModeSelector.module.scss';
 import classNames from "classnames";
 import {t} from "../utils/translate";
 import {Content} from "../Content";
+import {logEvent} from "../utils/anayliticsUtils";
 
 export const ViewMode = {
   MESSAGES: 'MESSAGES',
@@ -14,6 +15,7 @@ export class ModeSelector extends Component {
     const {value} = e.target;
     if (value !== this.props.value) {
       this.props.onChange(value);
+      logEvent('CHANGE_MODE');
     }
   };
 

@@ -20,21 +20,19 @@ export class Main extends Component {
               <span className={s.domain}>in.ua</span>
             </div>
 
+
             <div className={s.languageSelector}>
-              <button
-                onClick={() => setSiteLang('ua')}
-                className={classNames(s.languageItem, {
-                  [s.selected]: getSiteLang() === 'ua',
-                })}>
-                Ua
-              </button>
-              <a
-                onClick={() => setSiteLang('en')}
-                className={classNames(s.languageItem, {
-                  [s.selected]: getSiteLang() === 'en',
-                })}>
-                En
-              </a>
+              {
+                ['ua', 'en'].map((siteLang) => (
+                  <button
+                    onClick={() => setSiteLang(siteLang)}
+                    className={classNames(s.languageItem, {
+                      [s.selected]: getSiteLang() === siteLang,
+                    })}>
+                    {siteLang}
+                  </button>
+                ))
+              }
             </div>
           </div>
 
