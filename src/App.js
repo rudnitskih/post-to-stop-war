@@ -11,8 +11,7 @@ import {combineMessages, loadSpreadsheet} from "./utils/dataUtils";
 import {Gallery} from "./Gallery";
 import {ModeSelector, ViewMode} from "./ModeSelector";
 import {logError} from "./utils/errorHandlingUtils";
-
-const SELECTED_COUNTRY_KEY = 'selectedCountry';
+import {getSelectedCountry, getSiteLang, setSelectedCountry, setSiteLang} from "./utils/urlUtils";
 
 export class App extends React.Component {
   state = {
@@ -41,7 +40,7 @@ export class App extends React.Component {
         })
         .sort((a, b) => a.displayName.localeCompare(b.displayName));
 
-      const selectedCountry = localStorage.getItem(SELECTED_COUNTRY_KEY) || countries[0].countryCode;
+      const selectedCountry = getSelectedCountry() || countries[0].countryCode;
       const gallery = Object.values(googleDriveUrls).map(({ID}) => ID.match(/\/d\/(.*)\//)[1]);
 
       this.setState({
@@ -57,38 +56,49 @@ export class App extends React.Component {
   }
 
   setCountry = (country) => {
-    this.setState({selectedCountry: country, selectedMode: ViewMode.MESSAGES});
-    localStorage.setItem(SELECTED_COUNTRY_KEY, country);
-  }
+    if (getSelectedCountry() !== country) {
+      this.setState({selectedCountry: country, selectedMode: ViewMode.MESSAGES});
+      setSelectedCountry(country);
+    }
+  };
+
+  setSiteLang = (siteLang) => {
+    if (getSiteLang() !== siteLang) {
+      setSiteLang(siteLang);
+      this.forceUpdate();
+    }
+  };
 
   render() {
+    const {isReady, countries, selectedMode, selectedCountry, messages, gallery} = this.state;
+
     return (
       <div>
-        <Main />
+        <Main setSiteLang={this.setSiteLang}/>
 
         {
-          this.state.isReady && (
+          isReady && (
             <>
               <CountrySelector
-                countries={this.state.countries}
-                selectedCountry={this.state.selectedCountry}
+                countries={countries}
+                selectedCountry={selectedCountry}
                 onChange={this.setCountry}
               />
 
               <ModeSelector
-                value={this.state.selectedMode}
+                value={selectedMode}
                 onChange={(selectedMode) => this.setState({selectedMode})}
               />
 
               <div className={s.mainInfo}>
                 {
-                  this.state.selectedMode === ViewMode.MESSAGES ? (
+                  selectedMode === ViewMode.MESSAGES ? (
                     <Messages
-                      data={this.state.messages[this.state.selectedCountry]}
-                      selectedCountry={this.state.selectedCountry}
+                      data={messages[selectedCountry]}
+                      selectedCountry={selectedCountry}
                     />
                   ) : (
-                    <Gallery driveIds={this.state.gallery}/>
+                    <Gallery driveIds={gallery}/>
                   )
                 }
               </div>

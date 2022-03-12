@@ -8,6 +8,8 @@ import {getSiteLang} from "../utils/urlUtils";
 
 export class Main extends Component {
   render() {
+    const {setSiteLang} = this.props;
+
     return (
       <div className={s.root}>
         <div className={s.inner}>
@@ -19,15 +21,15 @@ export class Main extends Component {
             </div>
 
             <div className={s.languageSelector}>
-              <a
-                href="/"
+              <button
+                onClick={() => setSiteLang('ua')}
                 className={classNames(s.languageItem, {
                   [s.selected]: getSiteLang() === 'ua',
                 })}>
                 Ua
-              </a>
+              </button>
               <a
-                href="/en"
+                onClick={() => setSiteLang('en')}
                 className={classNames(s.languageItem, {
                   [s.selected]: getSiteLang() === 'en',
                 })}>

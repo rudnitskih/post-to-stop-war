@@ -34,17 +34,18 @@
 }
 
 .languageItem {
+  @extend %reset-button;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
   opacity: 0.7;
-  text-decoration: none;
   width: 40px;
   height: 40px;
   font-size: 14px;
   transition: all .25s;
   margin-left: 10px;
+  cursor: pointer;
 
   &:hover:not(.selected) {
     opacity: 1;
