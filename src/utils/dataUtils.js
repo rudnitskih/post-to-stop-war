@@ -45,7 +45,7 @@ const filterWrongMessages = (data, spreadsheetName) => {
       return true;
     }
 
-    logMessage(`${error} on ${i} line in "${spreadsheetName}"`);
+    logMessage(`${error} on ${i + 1} line in "${spreadsheetName}"`);
   });
 }
 
