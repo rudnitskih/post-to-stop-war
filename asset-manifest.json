@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.6cf93a98.css",
-    "main.js": "/static/js/main.ba794523.js",
+    "main.css": "/static/css/main.76ac1ca6.css",
+    "main.js": "/static/js/main.e6ad54f9.js",
     "static/js/787.00f9fb66.chunk.js": "/static/js/787.00f9fb66.chunk.js",
     "static/media/main.jpg": "/static/media/main.db17b30191f16376171c.jpg",
     "static/media/post.png": "/static/media/post.b67475802cc8900aee2f.png",
@@ -11,12 +11,12 @@
     "static/media/logo.svg": "/static/media/logo.90f028e46716ed88ccd2b747693e952a.svg",
     "static/media/stopputin-logo.png": "/static/media/stopputin-logo.0a2615492fe854d0939b.png",
     "index.html": "/index.html",
-    "main.6cf93a98.css.map": "/static/css/main.6cf93a98.css.map",
-    "main.ba794523.js.map": "/static/js/main.ba794523.js.map",
+    "main.76ac1ca6.css.map": "/static/css/main.76ac1ca6.css.map",
+    "main.e6ad54f9.js.map": "/static/js/main.e6ad54f9.js.map",
     "787.00f9fb66.chunk.js.map": "/static/js/787.00f9fb66.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6cf93a98.css",
-    "static/js/main.ba794523.js"
+    "static/css/main.76ac1ca6.css",
+    "static/js/main.e6ad54f9.js"
   ]
 }
