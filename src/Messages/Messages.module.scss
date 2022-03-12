@@ -39,8 +39,10 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .index {
-  padding-top: 30px;
+  position: relative;
+  padding: 30px 0 0 20px;
   flex: 0 0 50px;
+  box-sizing: border-box;
   font-size: 16px;
   line-height: 26px;
   font-weight: 600;
@@ -50,9 +52,23 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
     border-top: $border;
   }
 
+  .highlighted & {
+    background-color: #FF0000;
+  }
+
   @include for-phone-only {
     display: none;
   }
+}
+
+.highlightedLabel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(270deg);
+  font-size: 22px;
+  line-height: 1;
+  color: #fff;
 }
 
 .message {
@@ -100,6 +116,10 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
       border-top: none;
       padding: 11px 20px;
     }
+  }
+
+  .highlighted & {
+    font-weight: 600;
   }
 
   p {

@@ -56,7 +56,7 @@ class MessagesPure extends Component {
               }
             </div>
             {
-              data.map(({UkrainianMessage, LocalizedMessage, LocalizedMessage_2}, i) => {
+              data.map(({UkrainianMessage, LocalizedMessage, LocalizedMessage_2, highlighted}, i) => {
                 const localesForCountry = getLocalesForCountry(selectedCountry);
 
                 return (
@@ -64,9 +64,14 @@ class MessagesPure extends Component {
                     key={i}
                     className={classNames(s.row, {
                       [s.oneColumn]: isOneColumn,
+                      [s.highlighted]: highlighted,
                     })}
                   >
-                    <div className={s.index}>{i + 1}.</div>
+                    <div className={s.index}>{
+                      highlighted ? (
+                        <div className={s.highlightedLabel}>HIGHLIGHTED</div>
+                      ) : `${i + 1}.`
+                    }</div>
 
                     {
                       [

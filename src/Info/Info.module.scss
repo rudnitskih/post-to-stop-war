@@ -1,7 +1,7 @@
 @import "../mixins";
 
 .root {
-  padding: 90px 0 70px;
+  padding: 50px 0 70px;
   background-color: #F4F4F4;
 
   @include for-phone-only {

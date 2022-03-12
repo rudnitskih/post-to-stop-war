@@ -6,10 +6,10 @@ import {logMessage} from "./errorHandlingUtils";
 export * from './localeUtils';
 
 export const combineMessages = (generalMessages, messagesOfTheDay) => {
-  generalMessages = filterWrongMessages(generalMessages);
-  messagesOfTheDay = filterWrongMessages(messagesOfTheDay)
+  generalMessages = filterWrongMessages(generalMessages, 'All Messages');
+  messagesOfTheDay = filterWrongMessages(messagesOfTheDay, 'Messages of The Day')
     .map((messageOfTheDay) => ({
-      highlight: true,
+      highlighted: true,
       ...messageOfTheDay,
     }));
 
@@ -28,8 +28,8 @@ export const combineMessages = (generalMessages, messagesOfTheDay) => {
   }, {});
 };
 
-const filterWrongMessages = (data) => {
-  return data.filter((row) => {
+const filterWrongMessages = (data, spreadsheetName) => {
+  return data.filter((row, i) => {
     const {Country, LocalizedMessage, Hidden} = row;
     let error = null;
 
@@ -45,12 +45,7 @@ const filterWrongMessages = (data) => {
       return true;
     }
 
-    const errorInfo = Object.values(row)
-      .filter(Boolean)
-      .map((value) => value.substring(0, 20))
-      .join('__')
-
-    logMessage(`${error} ${errorInfo}`);
+    logMessage(`${error} on ${i} line in "${spreadsheetName}"`);
   });
 }
 
