@@ -25,6 +25,7 @@ export class Main extends Component {
               {
                 ['ua', 'en'].map((siteLang) => (
                   <button
+                    key={siteLang}
                     onClick={() => setSiteLang(siteLang)}
                     className={classNames(s.languageItem, {
                       [s.selected]: getSiteLang() === siteLang,

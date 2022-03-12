@@ -5,6 +5,7 @@ import classNames from "classnames";
 import {Content} from "../Content";
 import showdown from "showdown";
 import * as Sentry from "@sentry/react";
+import {logEvent} from "../utils/anayliticsUtils";
 
 const markdownConverter = new showdown.Converter();
 
@@ -88,12 +89,11 @@ class MessagesPure extends Component {
                         .filter(({visible}) => visible)
                         .map(({content, locale}) => {
                           return (
-                            <div
+                            <Message
+                              content={content}
+                              locale={locale}
                               key={locale}
-                              dir={getLocaleDirection(locale)}
-                              className={classNames(s.message, locale)}>
-                              <Message content={content}/>
-                            </div>
+                            />
                           );
                         })
                     }
@@ -112,6 +112,13 @@ export const Messages = Sentry.withErrorBoundary(
   {fallback: <p>Couldn't load messages 😢 </p> }
 )
 
-const Message = Sentry.withErrorBoundary(({content}) => {
-  return <div className={s.messageContent} dangerouslySetInnerHTML={{__html: markdownConverter.makeHtml(content)}}/>;
-}, {fallback: <div />});
+const Message = Sentry.withErrorBoundary(({content, locale}) => {
+  return (
+    <div
+      dir={getLocaleDirection(locale)}
+      onCopy={() => logEvent('COPY_MESSAGE', {locale})}
+      className={classNames(s.message, locale)}
+      dangerouslySetInnerHTML={{__html: markdownConverter.makeHtml(content)}}
+    />
+  );
+}, {fallback: <div/>});
