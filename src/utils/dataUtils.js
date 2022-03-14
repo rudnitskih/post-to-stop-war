@@ -46,6 +46,8 @@ const filterWrongMessages = (data, spreadsheetName) => {
     }
 
     logMessage(`${error} on ${i + 1} line in "${spreadsheetName}"`);
+
+    return false;
   });
 }
 
