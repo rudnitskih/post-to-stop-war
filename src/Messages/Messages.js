@@ -6,6 +6,7 @@ import {Content} from "../Content";
 import showdown from "showdown";
 import * as Sentry from "@sentry/react";
 import {logEvent} from "../utils/anayliticsUtils";
+import {ShareMenu} from "./ShareMenu/ShareMenu";
 
 const markdownConverter = new showdown.Converter();
 
@@ -118,12 +119,18 @@ export const Messages = Sentry.withErrorBoundary(
 )
 
 const Message = Sentry.withErrorBoundary(({content, locale}) => {
+  const htmlContent = markdownConverter.makeHtml(content);
+
   return (
-    <div
-      dir={getLocaleDirection(locale)}
-      onCopy={() => logEvent('COPY_MESSAGE', {locale})}
-      className={classNames(s.message, locale)}
-      dangerouslySetInnerHTML={{__html: markdownConverter.makeHtml(content)}}
-    />
+    <>
+      <div
+        dir={getLocaleDirection(locale)}
+        onCopy={() => logEvent('COPY_MESSAGE', {locale})}
+        className={classNames(s.message, locale)}
+        dangerouslySetInnerHTML={{__html: htmlContent}}
+      />
+
+      <ShareMenu markdownContent={content} htmlContent={htmlContent} locale={content} />
+    </>
   );
 }, {fallback: <div/>});
