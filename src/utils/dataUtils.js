@@ -16,12 +16,18 @@ export const combineMessages = (generalMessages, messagesOfTheDay) => {
   const groupedGeneralMessages = groupBy(generalMessages, 'Country');
   const groupedMessagesOfTheDay = groupBy(messagesOfTheDay, 'Country');
 
-  return Object.entries(groupedGeneralMessages).reduce((acc, [country, messages]) => {
+  const countries = [...new Set([
+    ...Object.keys(groupedGeneralMessages),
+    ...Object.keys(groupedMessagesOfTheDay)
+  ])];
+
+  return countries.reduce((acc, country) => {
     const messagesOfTheDayForCountry = groupedMessagesOfTheDay[country];
+    const generalMessagesForCountry = groupedGeneralMessages[country]
 
     acc[country] = [
       ...(messagesOfTheDayForCountry ? messagesOfTheDayForCountry : []),
-      ...messages
+      ...(generalMessagesForCountry ? generalMessagesForCountry : [])
     ];
 
     return acc;
