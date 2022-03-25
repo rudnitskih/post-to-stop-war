@@ -9,9 +9,11 @@ export const combineMessages = (generalMessages, messagesOfTheDay) => {
   generalMessages = filterWrongMessages(generalMessages, 'All Messages');
   messagesOfTheDay = filterWrongMessages(messagesOfTheDay, 'Messages of The Day')
     .map((messageOfTheDay) => ({
-      highlighted: true,
+      highlighted: messageOfTheDay['GeneralMessage'] !== 'TRUE',
       ...messageOfTheDay,
-    }));
+    }))
+    .sort((a, b) => (a.highlighted === b.highlighted) ? 0 : a.highlighted ? -1 : 1);
+
 
   const groupedGeneralMessages = groupBy(generalMessages, 'Country');
   const groupedMessagesOfTheDay = groupBy(messagesOfTheDay, 'Country');
@@ -36,6 +38,10 @@ export const combineMessages = (generalMessages, messagesOfTheDay) => {
 
 const filterWrongMessages = (data, spreadsheetName) => {
   return data.filter((row, i) => {
+    if (Object.values(row).filter((value) => /\w/.test(value)).length === 0) {
+      return false;
+    }
+
     const {Country, LocalizedMessage, Hidden} = row;
     let error = null;
 
@@ -51,7 +57,7 @@ const filterWrongMessages = (data, spreadsheetName) => {
       return true;
     }
 
-    logMessage(`${error} on ${i + 1} line in "${spreadsheetName}"`);
+    logMessage(`${error} on ${i + 2} line in "${spreadsheetName}"`);
 
     return false;
   });
