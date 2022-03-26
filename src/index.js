@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
 
+console.log('---render.com---');
 
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({
