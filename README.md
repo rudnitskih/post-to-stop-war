@@ -11,9 +11,7 @@ This project is bootstrapped with [Create React App](https://github.com/facebook
 
 ## Deploy
 
-We use [surge.sh](https://surge.sh/) for static serving. Also pay for Pro version to allow use custom domain with HTTPS.
-
-To deploy just run `npm run deploy`. Currently, we also publish to GitHub Pages. Maybe it is good idea to avoid paying for Surge Pro just for HTTPS.
+We use [render.com](https://render.com) for static serving. Each time you push master to GitHub. Render.com CI build and publish new version.
 
 ## Optimizing images 
 
