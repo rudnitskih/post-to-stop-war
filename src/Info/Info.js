@@ -3,6 +3,7 @@ import s from './Info.module.scss';
 import {Content} from "../Content";
 import nbuLogo from './nbu-logo.png';
 import novaUkraineLogo from './nova-ukraine-logo.png';
+import redcrossLogo from './redcross-logo.png';
 import safeLifeLogo from './safelife-logo.png';
 import standWithUkraineLogo from './stand-with-ukraine-logo.png';
 import stopputinLogo from './stopputin-logo.png';
@@ -27,6 +28,16 @@ const supportWays = [
     description: 'The National Bank of Ukraine has decided to open a special fundraising account to support the Armed Forces of Ukraine.',
     cta: 'Donate',
     ctaLink: 'https://bank.gov.ua/en/news/all/natsionalniy-bank-vidkriv-spetsrahunok-dlya-zboru-koshtiv-na-potrebi-armiyi',
+  },
+  {
+    image: redcrossLogo,
+    imageStyles: {
+      width: 172,
+    },
+    title: 'The Red Cross Ukraine Emergency Appeal',
+    description: 'All funds will be used to help those in need, affected by armed conflict, blood collection, mobilization of volunteers and resources, and emergency activities.',
+    cta: 'Donate',
+    ctaLink: 'https://donate.redcrossredcrescent.org/ua/donate/~my-donation',
   },
   {
     image: safeLifeLogo,
