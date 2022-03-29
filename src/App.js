@@ -32,14 +32,7 @@ export class App extends React.Component {
       ]);
 
       const combinedMessages = combineMessages(rawMessages, rawMessagesOfTheDay);
-      const countries = Object.keys(combinedMessages)
-        .map((countryCode) => {
-          return {
-            countryCode,
-            displayName: getCountryDisplayName(countryCode),
-          };
-        })
-        .sort((a, b) => a.displayName.localeCompare(b.displayName));
+      const countries = this.getCountries(combinedMessages);
 
       const selectedCountry = getSelectedCountry() || countries[0].countryCode;
       const gallery = Object.values(googleDriveUrls).map(({ID}) => ID.match(/\/d\/(.*)\//)[1]);
@@ -56,6 +49,17 @@ export class App extends React.Component {
     }
   }
 
+  getCountries(combinedMessages) {
+    return Object.keys(combinedMessages)
+      .map((countryCode) => {
+        return {
+          countryCode,
+          displayName: getCountryDisplayName(countryCode),
+        };
+      })
+      .sort((a, b) => a.displayName.localeCompare(b.displayName));
+  }
+
   setCountry = (country) => {
     if (getSelectedCountry() !== country) {
       this.setState({selectedCountry: country, selectedMode: ViewMode.MESSAGES});
@@ -68,7 +72,7 @@ export class App extends React.Component {
     if (getSiteLang() !== siteLang) {
       setSiteLang(siteLang);
       logEvent('CHANGE_SITE_LANG', {siteLang});
-      this.forceUpdate();
+      this.setState({countries: this.getCountries(this.state.messages)});
     }
   };
 

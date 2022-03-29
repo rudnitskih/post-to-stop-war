@@ -3,16 +3,16 @@ import {getSiteLang} from "./urlUtils";
 const MULTIPLE_LANGUAGES_IN_COLUMN_SIGN = ' + ';
 
 const getLocale = () => getSiteLang() === 'ua' ? 'uk' : 'en';
-
-const languageNames = new Intl.DisplayNames([getLocale()], {type: 'language'});
-const regionNames = new Intl.DisplayNames([getLocale()], {type: 'region'});
+const getLanguageNames = () => new Intl.DisplayNames([getLocale()], {type: 'language'});
+const getRegionNames = () => new Intl.DisplayNames([getLocale()], {type: 'region'});
 
 export const getCountryDisplayName = (countryCode) => {
-  return regionNames.of(countryCode);
+  return getRegionNames().of(countryCode);
 }
 
 export const getCountryLanguageDisplayNames = (countryCode) => {
   const columnsLanguages = getLocalesForCountry(countryCode);
+  const languageNames = getLanguageNames();
 
   if (columnsLanguages) {
     return columnsLanguages.map((columnLanguages) => {
