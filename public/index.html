@@ -6,7 +6,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link href="https://npmcdn.com/flag-icons@6.1.1/css/flag-icons.min.css" rel="stylesheet">
+    <link
+        rel="stylesheet"
+        href="https://npmcdn.com/flag-icons@6.1.1/css/flag-icons<% if (process.env.NODE_ENV === 'production') { %>.min<% } %>.css"
+    >
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="viewport" content="initial-scale=1">
