@@ -28,14 +28,17 @@ export class App extends React.Component {
       const [rawMessages, rawMessagesOfTheDay, googleDriveUrls] = await Promise.all([
         loadSpreadsheet('2PACX-1vRsewWgD4f1l2Zs5nS-ZrT7oQLo4XORX1xOBuw-xSx51t1lmYL_p5wtId4GsE8-jPIh6CBDrzqzW11g'),
         loadSpreadsheet('2PACX-1vSNHdspxZB5vCFxPXQzSmjSVeeYfu99andRTmljGxN94f6u1VlsU8-MB129shMSwNdhHf7pnPkl5VWB'),
-        loadSpreadsheet('2PACX-1vRFb-ylDtmHAIzlBLulHm57kpFMIKcixeySaUEl1u-P-GTiJfPDf9LX_Lx5jxDUcRIKTGnKvxuCyOW4'),
+        loadSpreadsheet('2PACX-1vRFb-ylDtmHAIzlBLulHm57kpFMIKcixeySaUEl1u-P-GTiJfPDf9LX_Lx5jxDUcRIKTGnKvxuCyOW4')
+          .catch(() => ({})),
       ]);
 
       const combinedMessages = combineMessages(rawMessages, rawMessagesOfTheDay);
       const countries = this.getCountries(combinedMessages);
 
       const selectedCountry = getSelectedCountry() || countries[0].countryCode;
-      const gallery = Object.values(googleDriveUrls).map(({ID}) => ID.match(/\/d\/(.*)\//)[1]);
+      const gallery = Object.values(googleDriveUrls)
+        .map(({ID}) => typeof ID === 'string' && ID.match(/\/d\/(.*)\//)?.[1])
+        .filter(Boolean);
 
       this.setState({
         messages: combinedMessages,
@@ -92,10 +95,15 @@ export class App extends React.Component {
                 onChange={this.setCountry}
               />
 
-              <ModeSelector
-                value={selectedMode}
-                onChange={(selectedMode) => this.setState({selectedMode})}
-              />
+              {
+                gallery?.length !== 0 && (
+                  <ModeSelector
+                    value={selectedMode}
+                    onChange={(selectedMode) => this.setState({selectedMode})}
+                  />
+                )
+              }
+
 
               <div className={s.mainInfo}>
                 {
