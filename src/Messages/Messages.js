@@ -6,6 +6,7 @@ import {Content} from "../Content";
 import showdown from "showdown";
 import * as Sentry from "@sentry/react";
 import {logEvent} from "../utils/anayliticsUtils";
+import {ShareMenu} from "./ShareMenu/ShareMenu";
 
 const markdownConverter = new showdown.Converter();
 
@@ -118,12 +119,27 @@ export const Messages = Sentry.withErrorBoundary(
 )
 
 const Message = Sentry.withErrorBoundary(({content, locale}) => {
+  const isShareButtonsEnabled = document.location.href.includes('shareButtons');
+
+  const htmlContent = markdownConverter.makeHtml(content);
+
   return (
-    <div
-      dir={getLocaleDirection(locale)}
-      onCopy={() => logEvent('COPY_MESSAGE', {locale})}
-      className={classNames(s.message, locale)}
-      dangerouslySetInnerHTML={{__html: markdownConverter.makeHtml(content)}}
-    />
+      <div
+        dir={getLocaleDirection(locale)}
+        onCopy={() => logEvent('COPY_MESSAGE', {locale})}
+        className={classNames(s.message, locale, {
+          [s.withShareButtons]: isShareButtonsEnabled,
+        })}
+      >
+        <span dangerouslySetInnerHTML={{__html: htmlContent}} className={s.messageContent}/>
+
+        {
+          locale !== 'uk' && isShareButtonsEnabled && (
+            <div className={s.shareMenu}>
+              <ShareMenu markdownContent={content} />
+            </div>
+          )
+        }
+      </div>
   );
 }, {fallback: <div/>});
