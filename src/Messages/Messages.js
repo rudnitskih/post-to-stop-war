@@ -10,6 +10,8 @@ import {ShareMenu} from "./ShareMenu/ShareMenu";
 
 const markdownConverter = new showdown.Converter();
 
+const isShareButtonsEnabled = document.location.href.includes('shareButtons');
+
 class MessagesPure extends Component {
   render() {
     const {selectedCountry, data} = this.props;
@@ -122,15 +124,22 @@ const Message = Sentry.withErrorBoundary(({content, locale}) => {
   const htmlContent = markdownConverter.makeHtml(content);
 
   return (
-    <>
       <div
         dir={getLocaleDirection(locale)}
         onCopy={() => logEvent('COPY_MESSAGE', {locale})}
-        className={classNames(s.message, locale)}
-        dangerouslySetInnerHTML={{__html: htmlContent}}
-      />
+        className={classNames(s.message, locale, {
+          [s.withShareButtons]: isShareButtonsEnabled,
+        })}
+      >
+        <span dangerouslySetInnerHTML={{__html: htmlContent}} className={s.messageContent}/>
 
-      <ShareMenu markdownContent={content} htmlContent={htmlContent} locale={content} />
-    </>
+        {
+          locale !== 'uk' && isShareButtonsEnabled && (
+            <div className={s.shareMenu}>
+              <ShareMenu markdownContent={content} />
+            </div>
+          )
+        }
+      </div>
   );
 }, {fallback: <div/>});

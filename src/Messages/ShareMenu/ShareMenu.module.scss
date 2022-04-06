@@ -1,0 +1,83 @@
+@import "../../mixins";
+
+$border: 1px solid rgba(0, 0, 0, 0.1);
+
+.root {
+  display: flex;
+  align-items: center;
+  border-top: $border;
+  height: 50px;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 12px;
+
+  @include for-phone-only() {
+    padding-left: 12px;
+  }
+}
+
+.button {
+  @extend %reset-button;
+  cursor: pointer;
+  transition: color .2s;
+
+  path {
+    transition: fill .2s;
+  }
+
+  &:hover {
+    color: #c2c2c2;
+
+    path {
+      fill: #c2c2c2;
+    }
+  }
+}
+
+%standard-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 40px;
+}
+
+.copy {
+  display: flex;
+  align-items: center;
+  padding: 10px 17px 10px 10px;
+  text-transform: uppercase;
+
+  svg {
+    margin-right: 9px;
+  }
+}
+
+.divider {
+  content: "";
+  height: 100%;
+  border-right: $border;
+}
+
+.shareLabel {
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+.twitter {
+  @extend %standard-button;
+  position: relative;
+  top: -1px;
+}
+
+.nativeShare {
+  @extend %standard-button;
+  position: relative;
+  top: -1px;
+
+  &:hover {
+    path {
+      fill: none;
+    }
+  }
+}

@@ -29,7 +29,7 @@ const setPathname = (pathname) => {
   let newUrl = `${protocol}//${host}${pathname.toLowerCase()}`;
 
   if (search) {
-    newUrl += `?${search}`;
+    newUrl += `${search}`;
   }
 
   window.history.pushState({path: newUrl}, '', newUrl);
