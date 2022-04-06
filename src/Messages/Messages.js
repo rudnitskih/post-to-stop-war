@@ -10,8 +10,6 @@ import {ShareMenu} from "./ShareMenu/ShareMenu";
 
 const markdownConverter = new showdown.Converter();
 
-const isShareButtonsEnabled = document.location.href.includes('shareButtons');
-
 class MessagesPure extends Component {
   render() {
     const {selectedCountry, data} = this.props;
@@ -121,6 +119,8 @@ export const Messages = Sentry.withErrorBoundary(
 )
 
 const Message = Sentry.withErrorBoundary(({content, locale}) => {
+  const isShareButtonsEnabled = document.location.href.includes('shareButtons');
+
   const htmlContent = markdownConverter.makeHtml(content);
 
   return (
