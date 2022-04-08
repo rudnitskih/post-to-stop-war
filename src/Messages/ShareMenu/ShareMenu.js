@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {ReactComponent as CopyIcon} from './copy.svg';
 import {ReactComponent as TwitterIcon} from './twitter.svg';
+import {ReactComponent as FacebookIcon} from './facebook.svg';
 import {ReactComponent as ShareAOSIcon} from './share-aos.svg';
 import {ReactComponent as ShareIOSIcon} from './share-ios.svg';
 
@@ -22,8 +23,16 @@ export class ShareMenu extends Component {
     navigator.share({
       title: 'Post To Stop War',
       text: this.text,
-      url: document.location.href
     })
+  }
+
+  onFacebookShareClick = () => {
+    window.FB.ui({
+      method: 'share',
+      hashtag: '#StandWithUkraine',
+      quote: this.props.markdownContent,
+      href: document.location.href.includes('localhost') ? 'https://post-to-stop-war.in.ua/' : document.location.href,
+    });
   }
 
   get isShareApiAvailable() {
@@ -38,7 +47,7 @@ export class ShareMenu extends Component {
     return (
       <div className={s.root}>
         <button className={classNames(s.button, s.copy)}
-                onClick={() => copy(this.text)}>
+                onClick={this.onCopyClicked}>
           <CopyIcon/>
           Copy
         </button>
@@ -66,6 +75,11 @@ export class ShareMenu extends Component {
         >
           <TwitterIcon/>
         </a>
+
+        <button className={classNames(s.button, s.facebook)}
+                onClick={this.onFacebookShareClick}>
+          <FacebookIcon/>
+        </button>
       </div>
     );
   }

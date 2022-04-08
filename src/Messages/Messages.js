@@ -6,7 +6,7 @@ import {Content} from "../Content";
 import showdown from "showdown";
 import * as Sentry from "@sentry/react";
 import {logEvent} from "../utils/anayliticsUtils";
-import {ShareMenu} from "./ShareMenu/ShareMenu";
+import {ShareMenu} from "./ShareMenu";
 
 const markdownConverter = new showdown.Converter();
 

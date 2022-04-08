@@ -38,8 +38,10 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 40px;
+  width: 25px;
+  height: 30px;
+  position: relative;
+  top: -1px;
 }
 
 .copy {
@@ -66,14 +68,14 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
 
 .twitter {
   @extend %standard-button;
-  position: relative;
-  top: -1px;
+}
+
+.facebook {
+  @extend %standard-button;
 }
 
 .nativeShare {
   @extend %standard-button;
-  position: relative;
-  top: -1px;
 
   &:hover {
     path {
