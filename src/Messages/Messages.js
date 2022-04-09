@@ -115,7 +115,7 @@ class MessagesPure extends Component {
 
 export const Messages = Sentry.withErrorBoundary(
   MessagesPure,
-  {fallback: <p>Couldn't load messages 😢 </p> }
+  {fallback: <Content><p>Couldn't load messages 😢 </p></Content> }
 )
 
 const Message = Sentry.withErrorBoundary(({content, locale}) => {

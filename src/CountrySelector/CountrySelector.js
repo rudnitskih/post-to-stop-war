@@ -46,6 +46,11 @@ export class CountrySelector extends Component {
               onChange={({value}) => {
                 onChange(value);
               }}
+              filterOption={({value}, searchValue) => {
+                const {displayName} = countries.find(({countryCode}) => countryCode === value);
+
+                return !displayName || displayName.toLowerCase().includes((searchValue || '').toLowerCase());
+              }}
               placeholder={t('country_selector.title')}
               defaultMenuIsOpen={true}
               autoFocus={true}
