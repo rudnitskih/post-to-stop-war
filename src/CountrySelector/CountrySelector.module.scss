@@ -11,6 +11,10 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
 
   @include for-phone-only {
     margin: 32px 0;
+
+    .withMobileSelector & {
+      display: none;
+    }
   }
 }
 
@@ -21,10 +25,15 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
 
   @include for-phone-only {
     padding: 12px 0;
+
+    .withMobileSelector & {
+      padding: 0;
+      border: none;
+    }
   }
 }
 
-.contentInner {
+.desktopSelector {
   display: flex;
   flex-wrap: wrap;
   margin: -12px;
@@ -33,6 +42,10 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
     flex-wrap: nowrap;
     overflow: auto;
     margin: 0;
+
+    .withMobileSelector & {
+      display: none;
+    }
   }
 }
 
@@ -80,4 +93,26 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
   .selected & {
     color: #fff;
   }
+}
+
+.mobileSelect {
+  display: none;
+  margin-top: 30px;
+  width: 100%;
+
+  @include for-phone-only {
+    .withMobileSelector & {
+      display: block;
+    }
+  }
+}
+
+.mobileOption {
+  display: flex;
+  align-items: center;
+}
+
+.mobileFlag {
+  flex: 0 0 30px;
+  margin-right: 10px;
 }

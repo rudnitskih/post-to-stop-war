@@ -1,9 +1,15 @@
+@import "../mixins";
+
 $initial-background: #F5F5F5;
 
 .root {
   display: flex;
   margin-top: 70px;
   justify-content: center;
+
+  @include for-phone-only() {
+    margin-top: 20px;
+  }
 }
 
 .input {

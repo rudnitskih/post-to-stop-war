@@ -1,27 +1,34 @@
 import React, {Component} from 'react';
 import s from './CountrySelector.module.scss';
 import classNames from 'classnames';
+import Select from 'react-select';
 import {Content} from "../Content";
 import {t} from "../utils/translate";
 
 export class CountrySelector extends Component {
   render() {
+    const isMobileSelectorEnabled = document.location.href.includes('mobileSelector');
+
+    const {countries, selectedCountry, onChange} = this.props;
+
     return (
-      <Content>
+      <Content className={classNames({
+        [s.withMobileSelector]: isMobileSelectorEnabled,
+      })}>
         <h2 className={s.heading}>{t('country_selector.title')}</h2>
 
         <div className={s.content}>
-          <div className={s.contentInner}>
+          <div className={s.desktopSelector}>
             {
-              this.props.countries
+              countries
                 .map(({countryCode, displayName}) => {
                   return (
                     <button
                       key={countryCode}
                       className={classNames(s.country, {
-                        [s.selected]: this.props.selectedCountry === countryCode,
+                        [s.selected]: selectedCountry === countryCode,
                       })}
-                      onClick={() => this.props.onChange(countryCode)}
+                      onClick={() => onChange(countryCode)}
                     >
                       <span className={`${s.flag} fi fi-${countryCode.toLowerCase()}`}/>
                       <span className={s.name}>{displayName}</span>
@@ -31,6 +38,29 @@ export class CountrySelector extends Component {
                 })
             }
           </div>
+
+          {
+            <Select
+              className={s.mobileSelect}
+              isSearchable={true}
+              onChange={({value}) => {
+                onChange(value);
+              }}
+              placeholder={t('country_selector.title')}
+              defaultMenuIsOpen={true}
+              autoFocus={true}
+              options={countries.map(({countryCode, displayName}) => ({
+                value: countryCode,
+                label: (
+                  <div className={s.mobileOption}>
+                    <span className={`${s.mobileFlag} fi fi-${countryCode.toLowerCase()}`}/>
+                    {displayName}
+                  </div>
+                ),
+              }))}
+              defaultValue={selectedCountry}
+            />
+          }
         </div>
       </Content>
     )
