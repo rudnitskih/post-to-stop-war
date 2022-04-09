@@ -35,7 +35,12 @@ export class App extends React.Component {
       const combinedMessages = combineMessages(rawMessages, rawMessagesOfTheDay);
       const countries = this.getCountries(combinedMessages);
 
-      const selectedCountry = getSelectedCountry() || countries[0].countryCode;
+      let selectedCountry = getSelectedCountry();
+
+      if (!selectedCountry || !countries.includes(selectedCountry.countryCode)) {
+        selectedCountry = countries[0].countryCode;
+      }
+
       const gallery = Object.values(googleDriveUrls)
         .map(({ID}) => typeof ID === 'string' && ID.match(/\/d\/(.*)\//)?.[1])
         .filter(Boolean);
