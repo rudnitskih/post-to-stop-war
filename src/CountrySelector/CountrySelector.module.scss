@@ -10,11 +10,7 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
   font-weight: 600;
 
   @include for-phone-only {
-    margin: 32px 0;
-
-    .withMobileSelector & {
       display: none;
-    }
   }
 }
 
@@ -24,12 +20,8 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 24px 0;
 
   @include for-phone-only {
-    padding: 12px 0;
-
-    .withMobileSelector & {
       padding: 0;
       border: none;
-    }
   }
 }
 
@@ -39,13 +31,7 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
   margin: -12px;
 
   @include for-phone-only {
-    flex-wrap: nowrap;
-    overflow: auto;
-    margin: 0;
-
-    .withMobileSelector & {
       display: none;
-    }
   }
 }
 
@@ -101,9 +87,7 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
   width: 100%;
 
   @include for-phone-only {
-    .withMobileSelector & {
       display: block;
-    }
   }
 }
 

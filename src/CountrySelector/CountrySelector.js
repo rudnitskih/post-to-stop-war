@@ -7,14 +7,10 @@ import {t} from "../utils/translate";
 
 export class CountrySelector extends Component {
   render() {
-    const isMobileSelectorEnabled = document.location.href.includes('mobileSelector');
-
     const {countries, selectedCountry, onChange} = this.props;
 
     return (
-      <Content className={classNames({
-        [s.withMobileSelector]: isMobileSelectorEnabled,
-      })}>
+      <Content>
         <h2 className={s.heading}>{t('country_selector.title')}</h2>
 
         <div className={s.content}>
