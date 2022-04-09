@@ -119,22 +119,18 @@ export const Messages = Sentry.withErrorBoundary(
 )
 
 const Message = Sentry.withErrorBoundary(({content, locale}) => {
-  const isShareButtonsEnabled = document.location.href.includes('shareButtons');
-
   const htmlContent = markdownConverter.makeHtml(content);
 
   return (
       <div
         dir={getLocaleDirection(locale)}
         onCopy={() => logEvent('COPY_MESSAGE', {locale})}
-        className={classNames(s.message, locale, {
-          [s.withShareButtons]: isShareButtonsEnabled,
-        })}
+        className={classNames(s.message, locale)}
       >
         <span dangerouslySetInnerHTML={{__html: htmlContent}} className={s.messageContent}/>
 
         {
-          locale !== 'uk' && isShareButtonsEnabled && (
+          locale !== 'uk' && (
             <div className={s.shareMenu}>
               <ShareMenu markdownContent={content} />
             </div>

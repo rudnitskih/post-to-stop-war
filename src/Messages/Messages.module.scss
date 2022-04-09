@@ -90,7 +90,7 @@ $border: 1px solid rgba(0, 0, 0, 0.1);
     font-family: sans-serif;
   }
 
-  &.withShareButtons:not(:global(.uk)) {
+  &:not(:global(.uk)) {
     padding-bottom: 70px;
   }
 
