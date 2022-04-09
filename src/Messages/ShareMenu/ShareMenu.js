@@ -27,7 +27,7 @@ export class ShareMenu extends Component {
   }
 
   onFacebookShareClick = () => {
-    window.FB.ui({
+    window?.FB.ui({
       method: 'share',
       hashtag: '#StandWithUkraine',
       quote: this.props.markdownContent,
