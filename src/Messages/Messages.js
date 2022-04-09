@@ -123,11 +123,10 @@ const Message = Sentry.withErrorBoundary(({content, locale}) => {
 
   return (
       <div
-        dir={getLocaleDirection(locale)}
         onCopy={() => logEvent('COPY_MESSAGE', {locale})}
         className={classNames(s.message, locale)}
       >
-        <span dangerouslySetInnerHTML={{__html: htmlContent}} className={s.messageContent}/>
+        <span dangerouslySetInnerHTML={{__html: htmlContent}} dir={getLocaleDirection(locale)}/>
 
         {
           locale !== 'uk' && (
