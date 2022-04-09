@@ -19,11 +19,17 @@ export class ShareMenu extends Component {
     copy(this.text);
   };
 
-  onNativeShare = () => {
-    navigator.share({
-      title: 'Post To Stop War',
-      text: this.text,
-    })
+  onNativeShare = async () => {
+    try {
+      await navigator.share({
+        title: 'Post To Stop War',
+        text: this.text,
+      })
+    } catch(e) {
+      if (!e.toString().includes('AbortError')) {
+        throw e;
+      }
+    }
   }
 
   onFacebookShareClick = () => {
