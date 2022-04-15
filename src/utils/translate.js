@@ -18,7 +18,7 @@ const keys = {
     en: 'Goal',
   },
   'main.description': {
-    ua: 'Цей ресурс створений, щоб легко і швидко передавати закордон найважливіші месиджі про війну. Всі вони вже' +
+    ua: 'Цей ресурс створений, щоб легко і швидко передавати за кордон найважливіші месиджі про війну. Всі вони вже' +
       ' перекладені мовами цих країн. Можете також використовувати картинки з нашої галереї постерів. Сподіваємося, наш ресурс стане вам надійним помічником! Постимо, репостимо, поширюємо, щоб зупинити війну!',
     en: 'This resource is designed to quickly and easily share abroad the most important messages about the war. All of the messages have already been translated into the languages of different countries. You can also use pictures from our poster gallery. We hope our resource will be a reliable assistant to you! Let\'s post, repost, and share to stop the war!',
   },
