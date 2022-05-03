@@ -1,18 +1,25 @@
 import React from 'react';
+import { Routes, Route } from "react-router-dom";
 import s from './App.module.scss';
 import './global.scss';
-import {CountrySelector} from "./CountrySelector";
+import {CountrySelector} from "./old/CountrySelector";
 import {Messages} from "./Messages";
-import {Main} from "./Main";
-import {Info} from "./Info";
+import {Main} from "./old/Main";
+import {Info} from "./old/Info";
 import {Footer} from "./Footer";
 import {getCountryDisplayName} from "./utils/localeUtils";
 import {combineMessages, loadSpreadsheet} from "./utils/dataUtils";
 import {Gallery} from "./Gallery";
-import {ModeSelector, ViewMode} from "./ModeSelector";
+import {ModeSelector, ViewMode} from "./old/ModeSelector";
 import {logError} from "./utils/errorHandlingUtils";
 import {getSelectedCountry, getSiteLang, setSelectedCountry, setSiteLang} from "./utils/urlUtils";
 import {logEvent} from "./utils/anayliticsUtils";
+import {getContent, getMessages} from "./utils/backend";
+import {setTranslations} from "./utils/translate";
+import {AppRoutes} from "./utils/navigationUtils";
+import {ProjectPage} from "./ProjectPage";
+import {JoinPage} from "./JoinPage";
+import {Header} from "./Header/Header";
 
 export class App extends React.Component {
   state = {
@@ -20,36 +27,18 @@ export class App extends React.Component {
     messages: {},
     countries: [],
     gallery: [],
-    selectedMode: ViewMode.MESSAGES
   };
 
   async componentDidMount() {
     try {
-      const [rawMessages, rawMessagesOfTheDay, googleDriveUrls] = await Promise.all([
-        loadSpreadsheet('2PACX-1vRsewWgD4f1l2Zs5nS-ZrT7oQLo4XORX1xOBuw-xSx51t1lmYL_p5wtId4GsE8-jPIh6CBDrzqzW11g'),
-        loadSpreadsheet('2PACX-1vSNHdspxZB5vCFxPXQzSmjSVeeYfu99andRTmljGxN94f6u1VlsU8-MB129shMSwNdhHf7pnPkl5VWB'),
-        loadSpreadsheet('2PACX-1vRFb-ylDtmHAIzlBLulHm57kpFMIKcixeySaUEl1u-P-GTiJfPDf9LX_Lx5jxDUcRIKTGnKvxuCyOW4')
-          .catch(() => ({})),
+      const [messages, translations] = await Promise.all([
+        getMessages(),
+        getContent()
       ]);
 
-      const combinedMessages = combineMessages(rawMessages, rawMessagesOfTheDay);
-      const countries = this.getCountries(combinedMessages);
-
-      let selectedCountry = getSelectedCountry();
-
-      if (!selectedCountry || !countries.includes(selectedCountry.countryCode)) {
-        selectedCountry = countries[0].countryCode;
-      }
-
-      const gallery = Object.values(googleDriveUrls)
-        .map(({ID}) => typeof ID === 'string' && ID.match(/\/d\/(.*)\//)?.[1])
-        .filter(Boolean);
+      setTranslations(translations);
 
       this.setState({
-        messages: combinedMessages,
-        countries,
-        gallery,
-        selectedCountry,
         isReady: true,
       });
     } catch (error) {
@@ -57,79 +46,39 @@ export class App extends React.Component {
     }
   }
 
-  getCountries(combinedMessages) {
-    return Object.keys(combinedMessages)
-      .map((countryCode) => {
-        return {
-          countryCode,
-          displayName: getCountryDisplayName(countryCode),
-        };
-      })
-      .sort((a, b) => a.displayName.localeCompare(b.displayName));
+  render() {
+    const {isReady} = this.state;
+
+    return isReady ? (
+      <>
+        <Header />
+
+        <Routes>
+          <Route path="/">
+            {this.renderInnerRoutes()}
+          </Route>
+          <Route path="/:locale">
+            {this.renderInnerRoutes()}
+          </Route>
+        </Routes>
+
+        <Footer/>
+      </>
+    ) : <></>;
   }
 
-  setCountry = (country) => {
-    if (getSelectedCountry() !== country) {
-      this.setState({selectedCountry: country, selectedMode: ViewMode.MESSAGES});
-      setSelectedCountry(country);
-      logEvent('CHANGE_COUNTRY', {country});
-    }
-  };
-
-  setSiteLang = (siteLang) => {
-    if (getSiteLang() !== siteLang) {
-      setSiteLang(siteLang);
-      logEvent('CHANGE_SITE_LANG', {siteLang});
-      this.setState({countries: this.getCountries(this.state.messages)});
-    }
-  };
-
-  render() {
-    const {isReady, countries, selectedMode, selectedCountry, messages, gallery} = this.state;
-
+  renderInnerRoutes = () => {
     return (
-      <div>
-        <Main setSiteLang={this.setSiteLang}/>
-
-        {
-          isReady && (
-            <>
-              <CountrySelector
-                countries={countries}
-                selectedCountry={selectedCountry}
-                onChange={this.setCountry}
-              />
-
-              {
-                gallery?.length !== 0 && (
-                  <ModeSelector
-                    value={selectedMode}
-                    onChange={(selectedMode) => this.setState({selectedMode})}
-                  />
-                )
-              }
-
-
-              <div className={s.mainInfo}>
-                {
-                  selectedMode === ViewMode.MESSAGES ? (
-                    <Messages
-                      data={messages[selectedCountry]}
-                      selectedCountry={selectedCountry}
-                    />
-                  ) : (
-                    <Gallery driveIds={gallery}/>
-                  )
-                }
-              </div>
-            </>
-          )
-        }
-
-        <Info/>
-        <Footer/>
-      </div>
-    );
+      <>
+        <Route path={AppRoutes.Gallery} element={<Gallery />} />
+        <Route path={AppRoutes.Project} element={<ProjectPage />} />
+        <Route path={AppRoutes.Join} element={<JoinPage />} />
+        <Route index element={<Messages />} />
+        <Route path=":language" element={<Messages />} />
+        <Route path="/:locale/:language" element={<Messages />} />
+        <Route path="*" element={<Messages />} />
+      </>
+    )
   }
 }
 

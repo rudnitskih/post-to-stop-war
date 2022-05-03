@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
+import { BrowserRouter } from "react-router-dom";
 
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({
@@ -19,7 +20,9 @@ if (process.env.NODE_ENV === 'production') {
 
 ReactDOM.render(
   <Sentry.ErrorBoundary fallback={<p>An error has occurred 😢</p>}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Sentry.ErrorBoundary>,
   document.getElementById('root')
 );

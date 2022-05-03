@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Masonry from 'react-masonry-css';
 import s from './Gallery.module.scss';
-import {Content} from "../Content";
+import {Content} from "../old/Content";
 
 export class Gallery extends Component {
   state = {

@@ -8,7 +8,7 @@ import safeLifeLogo from './safelife-logo.png';
 import standWithUkraineLogo from './stand-with-ukraine-logo.png';
 import stopputinLogo from './stopputin-logo.png';
 import classNames from "classnames";
-import {logEvent} from "../utils/anayliticsUtils";
+import {logEvent} from "../../utils/anayliticsUtils";
 
 
 const supportWays = [

@@ -3,7 +3,7 @@ import s from './CountrySelector.module.scss';
 import classNames from 'classnames';
 import Select from 'react-select';
 import {Content} from "../Content";
-import {t} from "../utils/translate";
+import {t} from "../../utils/translate";
 
 export class CountrySelector extends Component {
   render() {
