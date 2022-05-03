@@ -1,40 +1,6 @@
 import {countryToLanguage} from './localeUtils';
 import {getQueryParam} from "./urlUtils";
-import Papa from "papaparse";
 import {logMessage} from "./errorHandlingUtils";
-
-export * from './localeUtils';
-
-export const combineMessages = (generalMessages, messagesOfTheDay) => {
-  generalMessages = filterWrongMessages(generalMessages, 'All Messages');
-  messagesOfTheDay = filterWrongMessages(messagesOfTheDay, 'Messages of The Day')
-    .map((messageOfTheDay) => ({
-      highlighted: messageOfTheDay['GeneralMessage'] !== 'TRUE',
-      ...messageOfTheDay,
-    }))
-    .sort((a, b) => (a.highlighted === b.highlighted) ? 0 : a.highlighted ? -1 : 1);
-
-
-  const groupedGeneralMessages = groupBy(generalMessages, 'Country');
-  const groupedMessagesOfTheDay = groupBy(messagesOfTheDay, 'Country');
-
-  const countries = [...new Set([
-    ...Object.keys(groupedGeneralMessages),
-    ...Object.keys(groupedMessagesOfTheDay)
-  ])];
-
-  return countries.reduce((acc, country) => {
-    const messagesOfTheDayForCountry = groupedMessagesOfTheDay[country];
-    const generalMessagesForCountry = groupedGeneralMessages[country]
-
-    acc[country] = [
-      ...(messagesOfTheDayForCountry ? messagesOfTheDayForCountry : []),
-      ...(generalMessagesForCountry ? generalMessagesForCountry : [])
-    ];
-
-    return acc;
-  }, {});
-};
 
 const filterWrongMessages = (data, spreadsheetName) => {
   return data.filter((row, i) => {
@@ -62,21 +28,6 @@ const filterWrongMessages = (data, spreadsheetName) => {
     return false;
   });
 }
-
-export const loadSpreadsheet = (spreadsheetID) => {
-  return new Promise((resolve, reject) => {
-    Papa.parse(`https://docs.google.com/spreadsheets/d/e/${spreadsheetID}/pub?output=csv`, {
-      download: true,
-      header: true,
-      complete: (results) => {
-        resolve(results.data);
-      },
-      error: (error) => {
-        reject(error);
-      }
-    });
-  });
-};
 
 // https://stackoverflow.com/a/34890276
 const groupBy = function (xs, key) {
