@@ -1,0 +1,11 @@
+@import "../mixins";
+
+.root {
+  max-width: 520px;
+  margin: 20px auto 35px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+}

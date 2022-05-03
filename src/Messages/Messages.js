@@ -8,18 +8,22 @@ import {logEvent} from "../utils/anayliticsUtils";
 import {ShareMenu} from "./ShareMenu";
 import {Heading} from "../Heading/Heading";
 import {t} from "../utils/translate";
+import {LanguageSelector} from "../LanguageSelector";
+import {useParams} from "react-router";
 
 const markdownConverter = new showdown.Converter();
 
-function MessagesPure() {
+function MessagesPure({messages}) {
+  const {language} = useParams();
 
   return (
-    <>
+    <div className={s.root}>
       <Heading>{t('main.title')}</Heading>
-      <div className={s.content}>
 
+      <div className={s.content}>
+        <LanguageSelector locales={Object.keys(messages)} selectedLocale={language}/>
       </div>
-    </>
+    </div>
   );
 }
 

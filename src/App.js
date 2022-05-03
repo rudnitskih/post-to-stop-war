@@ -2,13 +2,12 @@ import React from 'react';
 import { Routes, Route } from "react-router-dom";
 import s from './App.module.scss';
 import './global.scss';
-import {CountrySelector} from "./old/CountrySelector";
 import {Messages} from "./Messages";
 import {Main} from "./old/Main";
 import {Info} from "./old/Info";
 import {Footer} from "./Footer";
 import {getCountryDisplayName} from "./utils/localeUtils";
-import {combineMessages, loadSpreadsheet} from "./utils/dataUtils";
+import {combineMessages, loadSpreadsheet, prepareMessages} from "./utils/dataUtils";
 import {Gallery} from "./Gallery";
 import {ModeSelector, ViewMode} from "./old/ModeSelector";
 import {logError} from "./utils/errorHandlingUtils";
@@ -23,23 +22,21 @@ import {Header} from "./Header/Header";
 
 export class App extends React.Component {
   state = {
-    isReady: false,
-    messages: {},
-    countries: [],
-    gallery: [],
+    messages: null,
   };
 
   async componentDidMount() {
     try {
-      const [messages, translations] = await Promise.all([
+      let [messages, translations] = await Promise.all([
         getMessages(),
         getContent()
       ]);
 
       setTranslations(translations);
+      messages = prepareMessages(messages);
 
       this.setState({
-        isReady: true,
+        messages,
       });
     } catch (error) {
       logError(error);
@@ -47,9 +44,9 @@ export class App extends React.Component {
   }
 
   render() {
-    const {isReady} = this.state;
+    const {messages} = this.state;
 
-    return isReady ? (
+    return messages ? (
       <>
         <Header />
 
@@ -68,15 +65,17 @@ export class App extends React.Component {
   }
 
   renderInnerRoutes = () => {
+    const {messages} = this.state;
+
     return (
       <>
+        <Route index element={<Messages messages={messages} />} />
+        <Route path=":language" element={<Messages messages={messages} />} />
+        <Route path="*" element={<Messages messages={messages} />} />
+
         <Route path={AppRoutes.Gallery} element={<Gallery />} />
         <Route path={AppRoutes.Project} element={<ProjectPage />} />
         <Route path={AppRoutes.Join} element={<JoinPage />} />
-        <Route index element={<Messages />} />
-        <Route path=":language" element={<Messages />} />
-        <Route path="/:locale/:language" element={<Messages />} />
-        <Route path="*" element={<Messages />} />
       </>
     )
   }

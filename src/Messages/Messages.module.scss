@@ -1,5 +1,10 @@
 @import "../mixins";
 
+.root {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
 .content {
   background: #F4F4F4;
 }

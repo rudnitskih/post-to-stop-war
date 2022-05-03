@@ -1,29 +1,51 @@
-import {countryToLanguage} from './localeUtils';
+import {ukrainianToCodeLocale} from './localeUtils';
 import {getQueryParam} from "./urlUtils";
 import {logMessage} from "./errorHandlingUtils";
+import {getTranslations} from "./translate";
 
-const filterWrongMessages = (data, spreadsheetName) => {
+
+export const prepareMessages = (messages) => {
+  const tagsTranslations = Object.fromEntries(Object.entries(getTranslations()).filter(([key]) => key.startsWith('main.tags')).map(
+    ([key, {uk}]) => [uk, key]
+  ));
+
+  return groupBy(
+    filterWrongMessages(messages).map((rawMessage) => {
+      const {Language, Attachment, Message, Tags} = rawMessage;
+      return {
+        date: new Date(rawMessage.Date),
+        locale: ukrainianToCodeLocale[Language],
+        poster: Attachment[0]?.thumbnails?.large?.url,
+        content: Message,
+        tags: Array.isArray(Tags) ? Tags.map((tagInUkrainian) => tagsTranslations[tagInUkrainian]) : [],
+      };
+    }).sort((a, b) => a.date - b.date),
+    'locale',
+  );
+};
+
+const filterWrongMessages = (data) => {
   return data.filter((row, i) => {
-    if (Object.values(row).filter((value) => /\w/.test(value)).length === 0) {
-      return false;
-    }
-
-    const {Country, LocalizedMessage, Hidden} = row;
+    const {Language, Date, Attachment, Message} = row;
     let error = null;
 
-    if (!Country) {
+    if (!Language) {
       error = 'MISSING_LOCALE';
-    } else if (countryToLanguage[Country] === undefined) {
+    } else if (ukrainianToCodeLocale[Language] === undefined) {
       error = 'WRONG_LOCALE';
-    } else if (!LocalizedMessage) {
-      error = 'MISSING_LOCALIZED_MESSAGE';
+    } else if (!Message) {
+      error = 'MISSING_MESSAGE';
+    } else if (!Date) {
+      error = 'MISSING_DATE';
+    } else if (!Attachment[0]?.thumbnails?.large?.url) {
+      error = 'MISSING_POSTER';
     }
 
-    if (!error && (!Hidden || getQueryParam('showAll') !== null)) {
+    if (!error || getQueryParam('showAll') !== null) {
       return true;
     }
 
-    logMessage(`${error} on ${i + 2} line in "${spreadsheetName}"`);
+    logMessage(`${error} on ${i} line in "Messages"`);
 
     return false;
   });
