@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import Masonry from 'react-masonry-css';
 import s from './Gallery.module.scss';
 import {Content} from "../old/Content";
+import {Heading} from "../Heading/Heading";
+import {t} from "../utils/translate";
 
 export class Gallery extends Component {
   state = {
@@ -60,6 +62,10 @@ export class Gallery extends Component {
   }
 
   render() {
+    return <div ref={this.rootRef}>
+      <Heading>{t('gallery.title')}</Heading>
+    </div>;
+
     return (
       <Content rootRef={this.rootRef}>
         <Masonry
