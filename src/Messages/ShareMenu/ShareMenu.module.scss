@@ -1,82 +1,72 @@
 @import "../../mixins";
 
-$border: 1px solid rgba(0, 0, 0, 0.1);
-
 .root {
   display: flex;
   align-items: center;
-  border-top: $border;
-  height: 50px;
   text-transform: uppercase;
   font-weight: 400;
   font-size: 12px;
-
-  @include for-phone-only() {
-    padding-left: 12px;
-  }
 }
 
 .button {
   @extend %reset-button;
   cursor: pointer;
-  transition: color .2s;
-
-  path {
-    transition: fill .2s;
-  }
-
-  &:hover {
-    color: #c2c2c2;
-
-    path {
-      fill: #c2c2c2;
-    }
-  }
-}
-
-%standard-button {
+  color: #DE0303;
+  border: 1px solid #DE0303;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 25px;
-  height: 30px;
-  position: relative;
-  top: -1px;
+  line-height: 1;
+  height: 35px;
+  width: 50px;
+  transition: all .3s ease-in-out;
+  box-sizing: border-box;
+  margin-right: 15px;
+
+  path {
+    transition: fill .2s ease-in-out;
+  }
+
+  &:hover {
+    border-color: #9A0101;
+    color: #9A0101;
+
+    path {
+      fill: #9A0101;
+    }
+  }
 }
 
 .copy {
   display: flex;
   align-items: center;
-  padding: 10px 17px 10px 10px;
+  padding: 0 15px;
   text-transform: uppercase;
+  width: auto;
+  color: #A2A2A2;
+  border-color: #A2A2A2;
 
   svg {
     margin-right: 9px;
   }
-}
 
-.divider {
-  content: "";
-  height: 100%;
-  border-right: $border;
-}
+  &:hover {
+    border-color: darken(#A2A2A2, 20%);
+    color: darken(#A2A2A2, 20%);
 
-.shareLabel {
-  margin-left: 20px;
-  margin-right: 10px;
+    path {
+      fill: darken(#A2A2A2, 20%);
+    }
+  }
 }
 
 .twitter {
-  @extend %standard-button;
 }
 
 .facebook {
-  @extend %standard-button;
 }
 
 .nativeShare {
-  @extend %standard-button;
-
   &:hover {
     path {
       fill: none;

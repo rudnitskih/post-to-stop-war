@@ -52,26 +52,6 @@ export class ShareMenu extends Component {
   render() {
     return (
       <div className={s.root}>
-        <button className={classNames(s.button, s.copy)}
-                onClick={this.onCopyClicked}>
-          <CopyIcon/>
-          Copy
-        </button>
-
-        <div className={s.divider}/>
-
-        <span className={s.shareLabel}>Share:</span>
-
-        {
-          this.isShareApiAvailable && (
-            <button className={classNames(s.button, s.nativeShare)} onClick={this.onNativeShare}>
-              {
-                this.isAndroid ? <ShareAOSIcon /> : <ShareIOSIcon/>
-              }
-            </button>
-          )
-        }
-
         <a
           className={classNames(s.button, s.twitter)}
           href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(this.text)}`}
@@ -85,6 +65,23 @@ export class ShareMenu extends Component {
         <button className={classNames(s.button, s.facebook)}
                 onClick={this.onFacebookShareClick}>
           <FacebookIcon/>
+        </button>
+
+        {
+          this.isShareApiAvailable && (
+            <button className={classNames(s.button, s.nativeShare)}
+                    onClick={this.onNativeShare}>
+              {
+                this.isAndroid ? <ShareAOSIcon/> : <ShareIOSIcon/>
+              }
+            </button>
+          )
+        }
+
+        <button className={classNames(s.button, s.copy)}
+                onClick={this.onCopyClicked}>
+          <CopyIcon/>
+          Copy
         </button>
       </div>
     );

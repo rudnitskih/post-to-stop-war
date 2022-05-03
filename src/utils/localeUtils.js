@@ -1,7 +1,11 @@
 import {getSiteLang} from "./urlUtils";
 
+const rtlLocales = ['ar', 'he', 'fa'];
+
 const getLocale = () => getSiteLang() === 'ua' ? 'uk' : 'en';
-export const getLocaleDisplayName = (code) => (new Intl.DisplayNames([getLocale()], {type: 'language'})).of(code);
+export const getLocaleDisplayName = (code) => capitalizeFirstLetter(
+  (new Intl.DisplayNames([getLocale()], {type: 'language'})).of(code)
+);
 
 export const getLocaleDirection = (locale) => {
   return rtlLocales.includes(locale) ? 'rtl' : 'ltr';
@@ -44,4 +48,7 @@ export const ukrainianToCodeLocale = {
   Японська: 'ja',
 };
 
-const rtlLocales = ['ar', 'he', 'fa'];
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

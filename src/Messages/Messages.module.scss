@@ -1,10 +1,80 @@
 @import "../mixins";
 
 .root {
+}
+
+.root {
+  background: #F4F4F4;
+}
+
+.content {
+  padding: 25px 0 50px;
   max-width: var(--content-width);
   margin: 0 auto;
 }
 
-.content {
-  background: #F4F4F4;
+.tags {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.tag {
+  @extend %reset-button;
+  cursor: pointer;
+  background-color: #FFF;
+  font-size: 12px;
+  line-height: 30px;
+  padding: 0 20px;
+  margin: 0 5px;
+  border-radius: 100px;
+  transition: background-color .3s ease-in-out;
+
+  &:hover:not(.active) {
+    background-color: #E5E5E5;
+  }
+
+  &.active {
+    background-color: #EECFCF;
+  }
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px -16px 0;
+}
+
+.card {
+  flex: 0 1 352px;
+  margin: 0 16px;
+  background-color: #fff;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+}
+
+.poster {
+  max-width: 100%;
+}
+
+.cardInner {
+  padding: 15px;
+}
+
+.cardDate {
+  font-size: 12px;
+  line-height: 24px;
+  color: #A5A3A3;
+}
+
+.message {
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.shareMenu {
+  margin-top: 30px;
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import s from './Messages.module.scss';
 import {getLocaleDirection} from "../utils/localeUtils";
 import classNames from "classnames";
@@ -14,16 +14,69 @@ import {useParams} from "react-router";
 const markdownConverter = new showdown.Converter();
 
 function MessagesPure({messages}) {
-  const {language} = useParams();
+  let {language, locale} = useParams();
+  language ??= locale || 'en';
+
+  const languageMessages = messages[language];
+  const tags = Array.from(new Set(messages[language].flatMap(({tags}) => tags)));
+
+  const [selectedTag, setSelectedTag] = useState(null);
+
 
   return (
-    <div className={s.root}>
+    <>
       <Heading>{t('main.title')}</Heading>
 
-      <div className={s.content}>
-        <LanguageSelector locales={Object.keys(messages)} selectedLocale={language}/>
+      <div className={s.root}>
+        <div className={s.content}>
+          <LanguageSelector
+            locales={Object.keys(messages)}
+            selectedLocale={language}
+          />
+
+          <ul className={s.tags}>
+            {
+              tags.map((tag) => {
+                return (
+                  <li>
+                    <button
+                      className={classNames(s.tag, {[s.active]: selectedTag === tag})}
+                      onClick={() => setSelectedTag(tag)}
+                    >
+                      {t(tag)}
+                    </button>
+                  </li>
+                );
+              })
+            }
+          </ul>
+
+          <div className={s.cards}>
+            {
+              languageMessages.map(({date, poster, content}) => {
+                return (
+                  <div className={s.card}>
+                    <img src={poster}
+                         className={s.poster} alt=""/>
+
+                    <div className={s.cardInner}>
+                      <span className={s.cardDate}>{date.toLocaleDateString(language)}</span>
+                      <Message locale={language}
+                               content={content}/>
+
+                      <div className={s.shareMenu}>
+                        <ShareMenu markdownContent={content}
+                                   poster={poster}/>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            }
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -41,14 +94,6 @@ const Message = Sentry.withErrorBoundary(({content, locale}) => {
         className={classNames(s.message, locale)}
       >
         <span dangerouslySetInnerHTML={{__html: htmlContent}} dir={getLocaleDirection(locale)}/>
-
-        {
-          locale !== 'uk' && (
-            <div className={s.shareMenu}>
-              <ShareMenu markdownContent={content} />
-            </div>
-          )
-        }
       </div>
   );
 }, {fallback: <div/>});
