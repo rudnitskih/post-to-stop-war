@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import s from './Main.module.scss';
 import logo from './logo.svg';
 import post from './post.png';
-import {t} from "../utils/translate";
+import {t} from "../../utils/translate";
 import classNames from "classnames";
-import {getSiteLang} from "../utils/urlUtils";
+import {getSiteLang} from "../../utils/urlUtils";
 
 export class Main extends Component {
   render() {

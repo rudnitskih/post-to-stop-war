@@ -1,4 +1,4 @@
-@import "../mixins";
+@import "../../mixins";
 
 .root {
   width: 100vw;
@@ -6,7 +6,7 @@
   padding: 30px 0 100px;
   box-sizing: border-box;
   max-width: 100%;
-  background-image: url("./main.jpg");
+  background-image: url("main.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: bottom;
