@@ -6,8 +6,10 @@ export const setTranslations = (translations) => {
   window.app.translationKeys = translations;
 }
 
+export const getTranslations = () => window.app.translationKeys;
+
 export function t(key) {
-  const keys = window.app.translationKeys;
+  const keys = getTranslations();
   let lang = getSiteLang();
 
   if (lang !== 'en') {
