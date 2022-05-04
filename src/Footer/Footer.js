@@ -9,11 +9,11 @@ import {ReactComponent as PinterestIcon } from './pinterest.svg';
 import {ReactComponent as TwitterIcon } from './twitter.svg';
 
 const socials = [
-  {Icon: FacebookIcon, url: 'TODO', title: 'facebook'},
-  {Icon: InstagramIcon, url: 'TODO', title: 'instagram'},
-  {Icon: TwitterIcon, url: 'TODO', title: 'twitter'},
-  {Icon: PinterestIcon, url: 'TODO', title: 'pinterest'},
-  {Icon: LinkedinIcon, url: 'TODO', title: 'linkedin'},
+  {Icon: FacebookIcon, urlKey: 'social.link.facebook', title: 'facebook'},
+  {Icon: InstagramIcon, urlKey: 'social.link.instagram', title: 'instagram'},
+  {Icon: TwitterIcon, urlKey: 'social.link.twitter', title: 'twitter'},
+  {Icon: PinterestIcon, urlKey: 'social.link.pinterest', title: 'pinterest'},
+  {Icon: LinkedinIcon, urlKey: 'social.link.linkedin', title: 'linkedin'},
 ];
 
 export class Footer extends Component {
@@ -26,10 +26,10 @@ export class Footer extends Component {
             <p className={s.description}>{t('footer.description')}</p>
             <ul className={s.socials}>
               {
-                socials.map(({Icon, url, title}) => {
+                socials.map(({Icon, urlKey, title}) => {
                   return (
                     <li key={title}>
-                      <a className={s.social} href={url} title={title}><Icon /></a>
+                      <a className={s.social} href={t(urlKey)} title={title}><Icon /></a>
                     </li>
                   )
                 })
