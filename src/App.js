@@ -24,6 +24,7 @@ import {Partners} from "./Partners";
 export class App extends React.Component {
   state = {
     messages: null,
+    selectedTag: null,
   };
 
   async componentDidMount() {
@@ -67,19 +68,24 @@ export class App extends React.Component {
   }
 
   renderInnerRoutes = () => {
-    const {messages} = this.state;
 
     return (
       <>
-        <Route index element={<Messages messages={messages} />} />
-        <Route path=":language" element={<Messages messages={messages} />} />
-        <Route path="*" element={<Messages messages={messages} />} />
+        <Route index element={this.renderMessages()} />
+        <Route path=":language" element={this.renderMessages()} />
+        <Route path="*" element={this.renderMessages()} />
 
         <Route path={AppRoutes.Gallery} element={<Gallery />} />
         <Route path={AppRoutes.Project} element={<ProjectPage />} />
         <Route path={AppRoutes.Join} element={<JoinPage />} />
       </>
     )
+  }
+
+  renderMessages = () => {
+    const {messages} = this.state;
+
+    return <Messages messages={messages} />;
   }
 }
 
