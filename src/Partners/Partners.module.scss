@@ -1,0 +1,41 @@
+.root {
+  max-width: var(--content-width);
+  margin: 50px auto;
+  display: flex;
+  justify-content: center;
+}
+
+.support {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("./army.png");
+  flex: 0 1 529px;
+  height: 94px;
+  text-decoration: none;
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+  }
+
+  &:hover:after {
+    opacity: 0.2;
+  }
+}
+
+.supportText {
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 36px;
+  margin-left: 40px;
+  color: #FFF;
+}

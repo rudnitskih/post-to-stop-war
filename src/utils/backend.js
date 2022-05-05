@@ -25,8 +25,8 @@ export const getMessages = async () => {
 export const getContent = async () => {
   return (await getAirtableData('tblU1cR6MIJoY14zJ')).reduce((acc, row) => {
     acc[row.key] = {
-      uk: row['Ukrainian'],
-      en: row['English'],
+      uk: row['Ukrainian']?.trim(),
+      en: row['English']?.trim(),
     }
 
     return acc;
