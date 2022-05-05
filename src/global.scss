@@ -12,3 +12,12 @@ body {
   margin: 0;
   padding: 0;
 }
+
+a {
+  color: #000;
+  transition: color .3s ease-in-out;
+
+  &:hover {
+    color: #7B7B7B;
+  }
+}
