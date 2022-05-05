@@ -1,4 +1,5 @@
 import {getSiteLang} from "./urlUtils";
+import showdown from "showdown";
 
 export const setTranslations = (translations) => {
   if (!window.app) window.app = {};
@@ -8,7 +9,9 @@ export const setTranslations = (translations) => {
 
 export const getTranslations = () => window.app.translationKeys;
 
-export function t(key) {
+const markdownConverter = new showdown.Converter();
+
+export function t(key, isMarkdown) {
   const keys = getTranslations();
   let lang = getSiteLang();
 
@@ -16,5 +19,7 @@ export function t(key) {
     lang = 'uk';
   }
 
-  return keys[key]?.[lang] || (keys[key] ? Object.values(keys[key])[0] : '');
+  const content = keys[key]?.[lang] || (keys[key] ? Object.values(keys[key])[0] : '');
+
+  return isMarkdown ? markdownConverter.makeHtml(content) : content;
 }
