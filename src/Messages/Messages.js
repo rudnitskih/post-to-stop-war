@@ -38,7 +38,7 @@ function MessagesPure({messages}) {
             {
               tags.map((tag) => {
                 return (
-                  <li>
+                  <li key={tag}>
                     <button
                       className={classNames(s.tag, {[s.active]: selectedTag === tag})}
                       onClick={() => setSelectedTag(tag)}
@@ -53,11 +53,13 @@ function MessagesPure({messages}) {
 
           <div className={s.cards}>
             {
-              languageMessages.map(({date, poster, content}) => {
+              languageMessages.map(({date, poster, content}, i) => {
                 return (
-                  <div className={s.card}>
-                    <img src={poster}
-                         className={s.poster} alt=""/>
+                  <div className={s.card}
+                       key={i}>
+                    <div className={s.poster}>
+                      <img src={poster} alt=""/>
+                    </div>
 
                     <div className={s.cardInner}>
                       <span className={s.cardDate}>{date.toLocaleDateString(language)}</span>
