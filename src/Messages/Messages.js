@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './Messages.module.scss';
 import {getLocaleDirection} from "../utils/localeUtils";
 import classNames from "classnames";
@@ -22,6 +22,9 @@ function MessagesPure({messages}) {
 
   const [selectedTag, setSelectedTag] = useState(null);
 
+  useEffect(() => {
+    setSelectedTag(null);
+  }, [language])
 
   return (
     <>
@@ -53,7 +56,7 @@ function MessagesPure({messages}) {
 
           <div className={s.cards}>
             {
-              languageMessages.map(({date, poster, content}, i) => {
+              languageMessages.filter(({tags}) => !selectedTag || tags.includes(selectedTag)).map(({date, poster, content}, i) => {
                 return (
                   <div className={s.card}
                        key={i}>
