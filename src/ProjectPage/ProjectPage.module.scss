@@ -1,0 +1,34 @@
+.root {
+  max-width: 810px;
+  margin: 0 auto;
+}
+
+.content {
+  margin: 60px 0;
+}
+
+.item:not(:last-child):after {
+  content: "";
+  display: block;
+  width: 84px;
+  height: 1px;
+  background-color: #D4D4D4;
+  margin: 30px 0;
+}
+
+.itemTitle {
+  font-size: 24px;
+  line-height: 48px;
+  font-weight: 700;
+  color: #DE0303;
+  margin: 0;
+}
+
+.itemContent {
+  font-size: 14px;
+  line-height: 24px;
+
+  ul {
+    padding-left: 20px;
+  }
+}
