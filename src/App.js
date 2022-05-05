@@ -19,6 +19,7 @@ import {AppRoutes} from "./utils/navigationUtils";
 import {ProjectPage} from "./ProjectPage";
 import {JoinPage} from "./JoinPage";
 import {Header} from "./Header/Header";
+import {Partners} from "./Partners";
 
 export class App extends React.Component {
   state = {
@@ -59,6 +60,7 @@ export class App extends React.Component {
           </Route>
         </Routes>
 
+        <Partners />
         <Footer/>
       </>
     ) : <></>;

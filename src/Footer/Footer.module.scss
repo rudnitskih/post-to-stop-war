@@ -21,32 +21,6 @@
   margin-left: 40px;
 }
 
-.socials {
-  display: flex;
-  list-style: none;
-  align-items: center;
-  margin-left: auto;
-}
-
-.social {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 21px;
-  height: 21px;
-  margin: 0 12px;
-
-  path {
-    transition: fill .3s ease-in-out;
-  }
-
-  &:hover {
-    path {
-      fill: #B4B4B4;
-    }
-  }
-}
-
 .copyright {
   display: block;
   font-weight: 600;

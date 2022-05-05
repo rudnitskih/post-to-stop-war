@@ -18,9 +18,8 @@ export class ProjectPage extends Component {
             {title: 'project.item_5.title', content: 'project.item_5.content'},
           ].map(({title, content}) => {
             return (
-              <div className={s.item}>
-                <h4 key={title}
-                    className={s.itemTitle}>{t(title)}</h4>
+              <div className={s.item} key={title}>
+                <Heading apperance="H3">{t(title)}</Heading>
                 <p className={s.itemContent}
                    dangerouslySetInnerHTML={{__html: t(content, true)}}/>
               </div>

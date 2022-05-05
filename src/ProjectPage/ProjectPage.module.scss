@@ -1,5 +1,5 @@
 .root {
-  max-width: 810px;
+  max-width: var(--small-content-width);
   margin: 0 auto;
 }
 
@@ -14,14 +14,6 @@
   height: 1px;
   background-color: #D4D4D4;
   margin: 30px 0;
-}
-
-.itemTitle {
-  font-size: 24px;
-  line-height: 48px;
-  font-weight: 700;
-  color: #DE0303;
-  margin: 0;
 }
 
 .itemContent {
