@@ -37,7 +37,7 @@ const filterWrongMessages = (data) => {
       error = 'MISSING_MESSAGE';
     } else if (!Date) {
       error = 'MISSING_DATE';
-    } else if (!Attachment[0]?.thumbnails?.large?.url) {
+    } else if (!Attachment?.[0]?.thumbnails?.large?.url) {
       error = 'MISSING_POSTER';
     }
 
