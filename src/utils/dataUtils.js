@@ -26,28 +26,35 @@ export const prepareMessages = (messages) => {
 
 const filterWrongMessages = (data) => {
   return data.filter((row, i) => {
-    const {Language, Date, Attachment, Message} = row;
-    let error = null;
 
-    if (!Language) {
-      error = 'MISSING_LOCALE';
-    } else if (ukrainianToCodeLocale[Language] === undefined) {
-      error = 'WRONG_LOCALE';
-    } else if (!Message) {
-      error = 'MISSING_MESSAGE';
-    } else if (!Date) {
-      error = 'MISSING_DATE';
-    } else if (!Attachment?.[0]?.thumbnails?.large?.url) {
-      error = 'MISSING_POSTER';
+    try {
+      const {Language, Date, Attachment, Message} = row;
+      let error = null;
+
+      if (!Language) {
+        error = 'MISSING_LOCALE';
+      } else if (ukrainianToCodeLocale[Language] === undefined) {
+        error = 'WRONG_LOCALE';
+      } else if (!Message) {
+        error = 'MISSING_MESSAGE';
+      } else if (!Date) {
+        error = 'MISSING_DATE';
+      } else if (!Attachment?.[0]?.thumbnails?.large?.url) {
+        error = 'MISSING_POSTER';
+      }
+
+      if (error) {
+        throw new Error(error);
+      } else {
+        return true;
+      }
+    } catch (e) {
+      logMessage(`${e.message} on ${i} line in "Messages"`);
+
+      if (getQueryParam('showAll') !== null) {
+        return true;
+      }
     }
-
-    if (!error || getQueryParam('showAll') !== null) {
-      return true;
-    }
-
-    logMessage(`${error} on ${i} line in "Messages"`);
-
-    return false;
   });
 }
 
