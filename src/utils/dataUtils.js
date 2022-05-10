@@ -1,8 +1,6 @@
 import {ukrainianToCodeLocale} from './localeUtils';
 import {getQueryParam} from "./urlUtils";
-import {logMessage} from "./errorHandlingUtils";
 import {getTranslations} from "./translate";
-
 
 export const prepareMessages = (messages) => {
   const tagsTranslations = Object.fromEntries(Object.entries(getTranslations()).filter(([key]) => key.startsWith('main.tags')).map(
