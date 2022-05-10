@@ -55,27 +55,30 @@ function MessagesPure({messages}) {
 
           <div className={s.cards}>
             {
-              languageMessages.filter(({tags}) => !selectedTag || tags.includes(selectedTag)).map(({date, poster, content}, i) => {
-                return (
-                  <div className={s.card}
-                       key={i}>
-                    <div className={s.poster}>
-                      <img src={poster} alt=""/>
-                    </div>
+              languageMessages
+                .filter(({tags}) => !selectedTag || tags.includes(selectedTag))
+                .map(({date, poster, content}, i) => {
+                  return (
+                    <div className={s.card}
+                         key={i}>
+                      <div className={s.poster}>
+                        <img src={poster}
+                             alt=""/>
+                      </div>
 
-                    <div className={s.cardInner}>
-                      <span className={s.cardDate}>{date.toLocaleDateString(language)}</span>
-                      <Message locale={language}
-                               content={content}/>
+                      <div className={s.cardInner}>
+                        <span className={s.cardDate}>{date.toLocaleDateString(language)}</span>
+                        <Message locale={language}
+                                 content={content}/>
 
-                      <div className={s.shareMenu}>
-                        <ShareMenu markdownContent={content}
-                                   poster={poster}/>
+                        <div className={s.shareMenu}>
+                          <ShareMenu markdownContent={content}
+                                     poster={poster}/>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })
+                  );
+                })
             }
           </div>
         </div>

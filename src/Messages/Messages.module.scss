@@ -44,6 +44,16 @@
   display: flex;
   flex-wrap: wrap;
   margin: 10px -16px 0;
+
+  @media (max-width: 795px) {
+    justify-content: center;
+  }
+
+  @media (max-width: 1180px) {
+    max-width: (352px + 32px) * 2;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .card {
@@ -54,6 +64,11 @@
   background-color: #fff;
   box-shadow: 0 8px 8px rgba(0, 0, 0, 0.05);
   border-radius: 5px;
+
+  @include for-phone-only() {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 .poster {
