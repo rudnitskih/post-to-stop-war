@@ -5,7 +5,7 @@ import classNames from "classnames";
 import showdown from "showdown";
 import * as Sentry from "@sentry/react";
 import {logEvent} from "../utils/anayliticsUtils";
-import {ShareMenu} from "./ShareMenu";
+import {ShareMenu} from "../ShareMenu";
 import {Heading} from "../Heading/Heading";
 import {t} from "../utils/translate";
 import {LanguageSelector} from "../LanguageSelector";
@@ -74,8 +74,7 @@ function MessagesPure({messages}) {
                                  content={content}/>
 
                         <div className={s.shareMenu}>
-                          <ShareMenu markdownContent={content}
-                                     poster={poster}/>
+                          <ShareMenu text={content} poster={poster}/>
                         </div>
                       </div>
                     </div>
