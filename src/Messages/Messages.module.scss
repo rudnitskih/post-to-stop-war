@@ -5,6 +5,10 @@
   padding: 0 var(--gutter);
 }
 
+.headingWrapper {
+  padding: 0 var(--gutter);
+}
+
 .content {
   padding: 25px 0 50px;
   max-width: var(--content-width);
@@ -24,7 +28,7 @@
   @extend %reset-button;
   cursor: pointer;
   background-color: #FFF;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 30px;
   padding: 0 20px;
   margin: 0 5px;
@@ -104,8 +108,8 @@
 
 .message {
   flex-grow: 1;
-  font-size: 12px;
-  line-height: 15px;
+  font-size: 14px;
+  line-height: 1.3;
 }
 
 .shareMenu {

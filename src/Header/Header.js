@@ -69,7 +69,8 @@ export function Header() {
                     <NavLink to={getPageLink(path)}
                              className={({isActive}) => classNames(s.link, {
                                [s.active]: isActive,
-                             })}>
+                             })}
+                             onClick={() => setIsMenuOpen(false)}>
                       {t(titleKey)}
                     </NavLink>
                   </li>
@@ -86,9 +87,12 @@ export function Header() {
               {title: 'En', path: 'en'},
             ].map(({title, path}) => {
               return (
-                <Link key={title} to={getLangLink(path)} className={classNames(s.langItem, {
-                  [s.active]: path.includes('en') ? langPart === 'en' : langPart !== 'en'
-                })}>
+                <Link key={title}
+                      to={getLangLink(path)}
+                      className={classNames(s.langItem, {
+                        [s.active]: path.includes('en') ? langPart === 'en' : langPart !== 'en'
+                      })}
+                      onClick={() => setIsMenuOpen(false)}>
                   {title}
                 </Link>
               )

@@ -28,7 +28,9 @@ function MessagesPure({messages}) {
 
   return (
     <>
-      <Heading>{t('main.title')}</Heading>
+      <div className={s.headingWrapper}>
+        <Heading>{t('main.title')}</Heading>
+      </div>
 
       <div className={s.root}>
         <div className={s.content}>
