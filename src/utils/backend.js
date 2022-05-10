@@ -1,22 +1,9 @@
-const Airtable = require('airtable');
-const airtableBase = new Airtable({apiKey: 'keyG6p1dsBC4ZRjNZ'}).base('appQSXeCJyvjWfmwR');
+const getAirtableData = async (tableId) => {
+  const response = await fetch(`https://v1.nocodeapi.com/rudnitskih/airtable/IqXAPQmtDjOXxDtO?tableName=${tableId}&perPage=all`);
+  const {records} = await response.json();
 
-
-const getAirtableData = (tableId) => {
-  let fields = []
-
-  return new Promise((resolve, reject) => {
-    airtableBase(tableId).select({
-      view: "Grid view"
-    }).eachPage(function page(records, fetchNextPage) {
-      fields = records.map(({fields}) => fields);
-
-      fetchNextPage();
-    }, function done(err) {
-      if (err) { reject(err) } else (resolve(fields))
-    });
-  });
-}
+  return records.map(({fields}) => fields);
+};
 
 export const getMessages = async () => {
   return getAirtableData('tblHGaLwTLMlN7eNL');

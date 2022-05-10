@@ -14,11 +14,11 @@ import {useParams} from "react-router";
 const markdownConverter = new showdown.Converter();
 
 function MessagesPure({messages}) {
-  let {language, locale} = useParams();
-  language ??= locale || 'en';
+  let {language} = useParams();
+  language ??= 'en';
 
-  const languageMessages = messages[language];
-  const tags = Array.from(new Set(messages[language].flatMap(({tags}) => tags)));
+  const languageMessages = messages[language] || [];
+  const tags = Array.from(new Set(languageMessages.flatMap(({tags}) => tags)));
 
   const [selectedTag, setSelectedTag] = useState(null);
 
@@ -34,7 +34,6 @@ function MessagesPure({messages}) {
         <div className={s.content}>
           <LanguageSelector
             locales={Object.keys(messages)}
-            selectedLocale={language}
           />
 
           <ul className={s.tags}>

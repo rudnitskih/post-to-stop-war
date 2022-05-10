@@ -7,13 +7,22 @@ import {useLocation, useNavigate} from "react-router";
 
 export function LanguageSelector(props) {
   const navigate = useNavigate();
-  const locale = useLocation().pathname.split('/')[1];
-  let {locales, selectedLocale } = props;
+  const [,locale, language] = useLocation().pathname.split('/');
+  let {locales } = props;
 
   locales = locales.map((code) => ({
     code,
     displayName: getLocaleDisplayName(code),
   })).sort((a, b) => a.displayName.localeCompare(b.displayName));
+
+  const options = locales.map(({code, displayName}) => ({
+    value: code,
+    label: (
+      <div className={s.option}>
+        {displayName}
+      </div>
+    ),
+  }));
 
   return (
     <Select
@@ -29,16 +38,16 @@ export function LanguageSelector(props) {
       }}
       placeholder={t('main.select.placeholder')}
       autoFocus={true}
-      options={locales.map(({code, displayName}) => ({
-        value: code,
-        label: (
-          <div className={s.option}>
-            {/*<span className={`${s.mobileFlag} fi fi-${countryCode.toLowerCase()}`}/>*/}
-            {displayName}
-          </div>
-        ),
-      }))}
-      defaultValue={selectedLocale}
+      options={options}
+      value={language && options.find(({value}) => language === value)}
+      styles={{
+        control: (provided) => ({
+          ...provided,
+          textAlign: 'center',
+          height: '50px',
+          border: '2px solid #E18888',
+        }),
+      }}
     />
   );
 }
