@@ -1,22 +1,26 @@
 import React, {Component} from 'react';
+import { saveAs } from 'file-saver';
 import {ReactComponent as CopyIcon} from './copy.svg';
 import {ReactComponent as TwitterIcon} from './twitter.svg';
 import {ReactComponent as FacebookIcon} from './facebook.svg';
 import {ReactComponent as ShareAOSIcon} from './share-aos.svg';
 import {ReactComponent as ShareIOSIcon} from './share-ios.svg';
+import {ReactComponent as DownloadIcon} from './download.svg';
 
 import copy from 'copy-to-clipboard';
 import s from './ShareMenu.module.scss';
 import classNames from "classnames";
 
 export class ShareMenu extends Component {
-
-  get text() {
-    return `${this.props.markdownContent} #StandWithUkraine`;
+  get hashtag() {
+    return '#StandWithUkraine';
+  }
+  get textWithHashtag() {
+    return this.props.text ? `${this.props.text} ${this.hashtag}` : undefined;
   }
 
   onCopyClicked = () => {
-    copy(this.text);
+    copy(this.textWithHashtag);
   };
 
   onNativeShare = async () => {
@@ -24,7 +28,7 @@ export class ShareMenu extends Component {
       await navigator.share({
         files: [this.props.poster],
         title: 'Post To Stop War',
-        text: this.text,
+        text: this.textWithHashtag,
       })
     } catch(e) {
       if (!e.toString().includes('AbortError')) {
@@ -36,11 +40,14 @@ export class ShareMenu extends Component {
   onFacebookShareClick = () => {
     window?.FB.ui({
       method: 'share',
-      hashtag: '#StandWithUkraine',
+      hashtag: this.hashtag,
       media: [this.props.poster],
-      quote: this.props.markdownContent,
-      // href: document.location.href.includes('localhost') ? 'https://post-to-stop-war.in.ua/' : document.location.href,
+      quote: this.props.text,
     });
+  }
+
+  downloadPoster = () => {
+
   }
 
   get isShareApiAvailable() {
@@ -51,20 +58,33 @@ export class ShareMenu extends Component {
     return navigator.userAgent.toLowerCase().indexOf("android") > -1;
   }
 
+  get isGalleryShare() {
+    return !this.props.text && this.props.poster;
+  }
+
+  download = () => {
+    saveAs(this.props.poster, this.props.posterName);
+  }
+
   render() {
     return (
-      <div className={s.root}>
-        <a
-          className={classNames(s.button, s.twitter)}
-          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(this.text)}`}
-          target="_blank"
-          rel="noreferrer"
-          title="Twitter"
-        >
-          <TwitterIcon/>
-        </a>
+      <div className={classNames(s.root, {[s.isGalleryShare]: this.isGalleryShare})}>
 
-        <button className={classNames(s.button, s.facebook)}
+        {
+          this.props.text && (
+            <a
+              className={classNames(s.button)}
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(this.textWithHashtag)}`}
+              target="_blank"
+              rel="noreferrer"
+              title="Twitter"
+            >
+              <TwitterIcon/>
+            </a>
+          )
+        }
+
+        <button className={classNames(s.button)}
                 onClick={this.onFacebookShareClick}>
           <FacebookIcon/>
         </button>
@@ -80,11 +100,24 @@ export class ShareMenu extends Component {
           )
         }
 
-        <button className={classNames(s.button, s.copy)}
-                onClick={this.onCopyClicked}>
-          <CopyIcon/>
-          Copy
-        </button>
+        {
+          this.props.text && (
+            <button className={classNames(s.button, s.copy)}
+                    onClick={this.onCopyClicked}>
+              <CopyIcon/>
+              Copy
+            </button>
+          )
+        }
+
+        {
+          this.isGalleryShare && (
+            <button className={classNames(s.button, s.download)} onClick={this.download}>
+              <DownloadIcon />
+
+            </button>
+          )
+        }
       </div>
     );
   }

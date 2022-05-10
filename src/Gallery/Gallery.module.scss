@@ -14,9 +14,57 @@
 .masonryGridColumn {
   padding-left: 20px;
   background-clip: padding-box;
+}
 
-  img {
-    margin-bottom: 20px;
-    max-width: 100%;
+.item {
+  position: relative;
+  margin-bottom: 20px;
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+  }
+
+  &:hover {
+    .shareMenu {
+      opacity: 1;
+    }
+
+    &:after {
+      opacity: 0.6;
+    }
+  }
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.shareMenu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  z-index: 1;
+
+  &:hover & {
+    opacity: 100%;
+
+    &:before {
+      opacity: 0.6;
+    }
   }
 }

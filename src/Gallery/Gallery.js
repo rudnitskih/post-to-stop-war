@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import Masonry from 'react-masonry-css';
 import s from './Gallery.module.scss';
-import {Content} from "../old/Content";
 import {Heading} from "../Heading/Heading";
 import {t} from "../utils/translate";
+import {ShareMenu} from "../ShareMenu";
 
 export class Gallery extends Component {
   state = {
@@ -52,7 +52,7 @@ export class Gallery extends Component {
     const bottomScroll = window.scrollY + window.innerHeight;
     const minColumnBottom = Math.min(
       ...[...this.rootRef.current
-        .querySelectorAll(`.${s.masonryGridColumn} img:last-child`)
+        .querySelectorAll(`.${s.masonryGridColumn} .${s.item}:last-child`)
       ].map((lastImgInColumn) => getTopOffset(lastImgInColumn) + lastImgInColumn.getBoundingClientRect().height)
     );
 
@@ -70,12 +70,18 @@ export class Gallery extends Component {
           breakpointCols={this.masonryCols}
           className={s.masonryGrid}
           columnClassName={s.masonryGridColumn}>
-          {this.props.items.slice(0, this.state.visibleCounter).map(({id, thumbnails}) => {
-            return <img
-              src={thumbnails?.large?.url}
-              key={id}
-              alt=""
-            />;
+          {this.props.items.slice(0, this.state.visibleCounter).map(({id, thumbnails, filename}) => {
+            const poster = thumbnails?.large?.url;
+
+            return (
+              <div className={s.item} key={id}>
+                <img src={poster} alt={filename} />
+
+                <div className={s.shareMenu}>
+                  <ShareMenu poster={poster} posterName={filename}/>
+                </div>
+              </div>
+            );
           })}
         </Masonry>
       </div>
