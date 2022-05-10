@@ -1,6 +1,7 @@
 .root {
   max-width: var(--small-content-width);
   margin: 0 auto;
+  padding: 0 var(--gutter);
 }
 
 .content {
