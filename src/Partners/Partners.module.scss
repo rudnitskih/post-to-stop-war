@@ -1,8 +1,29 @@
+@import "../mixins";
+
 .root {
   max-width: var(--content-width);
+  padding: 0 var(--gutter);
   margin: 50px auto;
+
+  @include for-phone-only() {
+    margin: 0 auto 20px;
+  }
+}
+
+.list {
   display: flex;
+  align-items: center;
   justify-content: center;
+  margin-bottom: 40px;
+}
+
+.listItem {
+  width: 100px;
+  margin: 0 40px;
+
+  @include for-phone-only() {
+    margin: 0 15px;
+  }
 }
 
 .support {
@@ -11,7 +32,8 @@
   align-items: center;
   justify-content: center;
   background-image: url("./army.png");
-  flex: 0 1 529px;
+  max-width: 529px;
+  margin: 0 auto;
   height: 94px;
   text-decoration: none;
 
