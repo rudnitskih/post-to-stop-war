@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link, NavLink} from "react-router-dom";
 import {useLocation} from "react-router";
 import s from './Header.module.scss';
@@ -8,6 +8,7 @@ import {t} from "../utils/translate";
 import classNames from "classnames";
 
 export function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = useLocation().pathname;
   const pathParts = pathname.split('/');
   const firstParameter = pathParts[1];
@@ -40,44 +41,56 @@ export function Header() {
 
   return (
     <header className={s.root}>
-      <NavLink to={getPageLink(menu[0].path)} className={s.logo}>
-        <img src={logo} alt="logo" />
+      <NavLink to={getPageLink(menu[0].path)}
+               className={s.logo}>
+        <img src={logo}
+             alt="logo"/>
       </NavLink>
 
+      <button onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className={classNames(s.hamburgerButton, {[s.active]: isMenuOpen})}>
+        <span className={s.hamburgerBox}>
+          <span className={s.hamburgerInner}/>
+        </span>
+      </button>
 
-      <nav>
-        <ul className={s.menu}>
+
+      <div className={classNames(s.navigationItems, {[s.active]: isMenuOpen})}>
+        <nav>
+          <ul className={s.menu}>
+            {
+              menu.map(({path, titleKey}) => {
+                return (
+                  <li key={titleKey}>
+                    <NavLink to={getPageLink(path)}
+                             className={({isActive}) => classNames(s.link, {
+                               [s.active]: isActive,
+                             })}>
+                      {t(titleKey)}
+                    </NavLink>
+                  </li>
+                )
+              })
+            }
+          </ul>
+        </nav>
+
+        <div className={s.langSelector}>
           {
-            menu.map(({path, titleKey}) => {
+            [
+              {title: 'Ua', path: ''},
+              {title: 'En', path: 'en'},
+            ].map(({title, path}) => {
               return (
-                <li key={titleKey}>
-                  <NavLink to={getPageLink(path)} className={({isActive}) => classNames(s.link, {
-                    [s.active]: isActive,
-                  })}>
-                    {t(titleKey)}
-                  </NavLink>
-                </li>
+                <Link key={title} to={getLangLink(path)} className={classNames(s.langItem, {
+                  [s.active]: path.includes('en') ? langPart === 'en' : langPart !== 'en'
+                })}>
+                  {title}
+                </Link>
               )
             })
           }
-        </ul>
-      </nav>
-
-      <div className={s.langSelector}>
-        {
-          [
-            {title: 'Ua', path: ''},
-            {title: 'En', path: 'en'},
-          ].map(({title, path}) => {
-            return (
-              <Link key={title} to={getLangLink(path)} className={classNames(s.langItem, {
-                [s.active]: path.includes('en') ? langPart === 'en' : langPart !== 'en'
-              })}>
-                {title}
-              </Link>
-            )
-          })
-        }
+        </div>
       </div>
 
     </header>

@@ -1,6 +1,13 @@
+@import "./mixins";
+
 html {
   --content-width: 1120px;
   --small-content-width: 810px;
+  --gutter: 30px;
+
+  @include for-phone-only() {
+    --gutter: 15px;
+  }
 }
 
 body, html {

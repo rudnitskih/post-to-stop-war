@@ -1,7 +1,10 @@
+@import "../mixins";
+
 .root {
   display: flex;
   list-style: none;
   align-items: center;
+  justify-content: center;
   margin-left: auto;
   padding: 0;
 

@@ -49,7 +49,7 @@ const filterWrongMessages = (data) => {
         return true;
       }
     } catch (e) {
-      logMessage(`${e.message} on ${i} line in "Messages"`);
+      console.error(`${e.message} on ${i} line in "Messages"`);
 
       if (getQueryParam('showAll') !== null) {
         return true;

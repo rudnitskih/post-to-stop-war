@@ -43,7 +43,7 @@ function MessagesPure({messages}) {
                   <li key={tag}>
                     <button
                       className={classNames(s.tag, {[s.active]: selectedTag === tag})}
-                      onClick={() => setSelectedTag(tag)}
+                      onClick={() => selectedTag === tag ? setSelectedTag(null) : setSelectedTag(tag)}
                     >
                       {t(tag)}
                     </button>
