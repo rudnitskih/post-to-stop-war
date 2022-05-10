@@ -70,7 +70,8 @@ export class Gallery extends Component {
           breakpointCols={this.masonryCols}
           className={s.masonryGrid}
           columnClassName={s.masonryGridColumn}>
-          {this.props.items.slice(0, this.state.visibleCounter).map(({id, thumbnails, filename}) => {
+          {this.props.items.slice(0, this.state.visibleCounter).map((item) => {
+            const {id, thumbnails, filename} = item;
             const poster = thumbnails?.large?.url;
 
             return (
@@ -78,7 +79,7 @@ export class Gallery extends Component {
                 <img src={poster} alt={filename} />
 
                 <div className={s.shareMenu}>
-                  <ShareMenu poster={poster} posterName={filename}/>
+                  <ShareMenu poster={item} posterName={filename}/>
                 </div>
               </div>
             );

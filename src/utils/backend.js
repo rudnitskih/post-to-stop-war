@@ -21,5 +21,5 @@ export const getContent = async () => {
 }
 
 export const getGallery = async () => {
-  return (await getAirtableData('tblrGKBALioqrnz1r')).filter(({Poster}) => Poster?.[0]?.thumbnails?.large?.url).map(({Poster}) => Poster?.[0]);
+  return (await getAirtableData('tblrGKBALioqrnz1r')).filter(({Poster}) => Poster?.[0]?.thumbnails?.large?.url).map(({Poster}) => Poster[0]);
 }

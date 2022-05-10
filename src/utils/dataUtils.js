@@ -2,6 +2,10 @@ import {ukrainianToCodeLocale} from './localeUtils';
 import {getQueryParam} from "./urlUtils";
 import {getTranslations} from "./translate";
 
+export const getPosterUrl = (poster) => {
+  return poster?.thumbnails?.large?.url;
+}
+
 export const prepareMessages = (messages) => {
   const tagsTranslations = Object.fromEntries(Object.entries(getTranslations()).filter(([key]) => key.startsWith('main.tags')).map(
     ([key, {uk}]) => [uk, key]
@@ -13,7 +17,7 @@ export const prepareMessages = (messages) => {
       return {
         date: new Date(rawMessage.Date),
         locale: ukrainianToCodeLocale[Language],
-        poster: Attachment[0]?.thumbnails?.large?.url,
+        poster: Attachment[0],
         content: Message,
         tags: Array.isArray(Tags) ? Tags.map((tagInUkrainian) => tagsTranslations[tagInUkrainian]) : [],
       };
