@@ -10,6 +10,7 @@ import {Heading} from "../Heading/Heading";
 import {t} from "../utils/translate";
 import {LanguageSelector} from "../LanguageSelector";
 import {useParams} from "react-router";
+import {getPosterUrl} from "../utils/dataUtils";
 
 const markdownConverter = new showdown.Converter();
 
@@ -64,8 +65,8 @@ function MessagesPure({messages}) {
                     <div className={s.card}
                          key={i}>
                       <div className={s.poster}>
-                        <img src={poster}
-                             alt=""/>
+                        <img src={getPosterUrl(poster)}
+                             alt={poster.filename}/>
                       </div>
 
                       <div className={s.cardInner}>

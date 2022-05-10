@@ -10,6 +10,7 @@ import {ReactComponent as DownloadIcon} from './download.svg';
 import copy from 'copy-to-clipboard';
 import s from './ShareMenu.module.scss';
 import classNames from "classnames";
+import {getPosterUrl} from "../utils/dataUtils";
 
 export class ShareMenu extends Component {
   get hashtag() {
@@ -25,8 +26,22 @@ export class ShareMenu extends Component {
 
   onNativeShare = async () => {
     try {
+      const {poster} = this.props;
+      let file;
+
+      console.log('Poster=', poster);
+
+      if (poster) {
+        const {filename, type} = poster;
+        const image = await fetch(getPosterUrl(poster));
+        const blob = await image.blob();
+        file = new File([blob], filename, { type });
+      }
+
+      console.log('File=', file);
+
       await navigator.share({
-        files: [this.props.poster],
+        files: file ? [file] : undefined,
         title: 'Post To Stop War',
         text: this.textWithHashtag,
       })
@@ -41,13 +56,9 @@ export class ShareMenu extends Component {
     window?.FB.ui({
       method: 'share',
       hashtag: this.hashtag,
-      media: [this.props.poster],
+      media: [getPosterUrl(this.props.poster)],
       quote: this.props.text,
     });
-  }
-
-  downloadPoster = () => {
-
   }
 
   get isShareApiAvailable() {
@@ -63,7 +74,7 @@ export class ShareMenu extends Component {
   }
 
   download = () => {
-    saveAs(this.props.poster, this.props.posterName);
+    saveAs(getPosterUrl(this.props.poster), this.props.poster.fileName);
   }
 
   render() {
