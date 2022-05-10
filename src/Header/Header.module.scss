@@ -9,7 +9,7 @@
 }
 
 @mixin for-mobile-header {
-  @media (max-width: 770px) { @content; }
+  @media (max-width: 800px) { @content; }
 }
 
 .root {
@@ -19,7 +19,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 42px;
   font-weight: 700;
 }
@@ -32,6 +32,7 @@
 
 .hamburgerButton {
   display: none;
+  cursor: pointer;
   @extend %reset-button;
 
   @include for-mobile-header() {
