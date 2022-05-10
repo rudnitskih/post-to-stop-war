@@ -41,12 +41,19 @@ export function LanguageSelector(props) {
       options={options}
       value={language && options.find(({value}) => language === value)}
       styles={{
-        control: (provided) => ({
-          ...provided,
-          textAlign: 'center',
-          height: '50px',
-          border: '2px solid #E18888',
-        }),
+        control: (provided, {isFocused}) => {
+          return {
+            ...provided,
+            textAlign: 'center',
+            cursor: 'pointer',
+            boxShadow: isFocused ? '0 0 10px 1px rgba(225, 136, 136, 0.3)' : undefined,
+            height: '50px',
+            border: '2px solid #E18888',
+            '&:hover': {
+              borderColor: '#E18888'
+            },
+          };
+        },
       }}
     />
   );
