@@ -28,9 +28,9 @@ export class JoinPage extends Component {
               return (
                 <div key={title}
                      className={s.helpItem}>
+                  <Icon className={s.helpIcon}/>
                   <h5 className={s.helpTitle}>{t(title)}</h5>
                   <p dangerouslySetInnerHTML={{__html: t(content, true)}}/>
-                  <Icon className={s.helpIcon}/>
                 </div>
               );
             })
