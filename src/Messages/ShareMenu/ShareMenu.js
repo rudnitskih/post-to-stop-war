@@ -22,6 +22,7 @@ export class ShareMenu extends Component {
   onNativeShare = async () => {
     try {
       await navigator.share({
+        files: [this.props.poster],
         title: 'Post To Stop War',
         text: this.text,
       })
@@ -36,8 +37,9 @@ export class ShareMenu extends Component {
     window?.FB.ui({
       method: 'share',
       hashtag: '#StandWithUkraine',
+      media: [this.props.poster],
       quote: this.props.markdownContent,
-      href: document.location.href.includes('localhost') ? 'https://post-to-stop-war.in.ua/' : document.location.href,
+      // href: document.location.href.includes('localhost') ? 'https://post-to-stop-war.in.ua/' : document.location.href,
     });
   }
 
