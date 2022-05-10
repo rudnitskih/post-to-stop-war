@@ -1,19 +1,12 @@
 import React from 'react';
-import { Routes, Route } from "react-router-dom";
-import s from './App.module.scss';
+import {Route, Routes} from "react-router-dom";
 import './global.scss';
 import {Messages} from "./Messages";
-import {Main} from "./old/Main";
-import {Info} from "./old/Info";
 import {Footer} from "./Footer";
-import {getCountryDisplayName} from "./utils/localeUtils";
-import {combineMessages, loadSpreadsheet, prepareMessages} from "./utils/dataUtils";
+import {prepareMessages} from "./utils/dataUtils";
 import {Gallery} from "./Gallery";
-import {ModeSelector, ViewMode} from "./old/ModeSelector";
 import {logError} from "./utils/errorHandlingUtils";
-import {getSelectedCountry, getSiteLang, setSelectedCountry, setSiteLang} from "./utils/urlUtils";
-import {logEvent} from "./utils/anayliticsUtils";
-import {getContent, getMessages} from "./utils/backend";
+import {getContent, getGallery, getMessages} from "./utils/backend";
 import {setTranslations} from "./utils/translate";
 import {AppRoutes} from "./utils/navigationUtils";
 import {ProjectPage} from "./ProjectPage";
@@ -22,23 +15,21 @@ import {Header} from "./Header/Header";
 import {Partners} from "./Partners";
 
 export class App extends React.Component {
-  state = {
-    messages: null,
-    selectedTag: null,
-  };
+  state = {};
 
   async componentDidMount() {
     try {
-      let [messages, translations] = await Promise.all([
+      let [messages, translations, gallery] = await Promise.all([
         getMessages(),
-        getContent()
+        getContent(),
+        getGallery(),
       ]);
 
       setTranslations(translations);
-      messages = prepareMessages(messages);
 
       this.setState({
-        messages,
+        messages: prepareMessages(messages),
+        gallery,
       });
     } catch (error) {
       logError(error);
@@ -75,7 +66,7 @@ export class App extends React.Component {
         <Route path=":language" element={this.renderMessages()} />
         <Route path="*" element={this.renderMessages()} />
 
-        <Route path={AppRoutes.Gallery} element={<Gallery />} />
+        <Route path={AppRoutes.Gallery} element={<Gallery items={this.state.gallery}/>} />
         <Route path={AppRoutes.Project} element={<ProjectPage />} />
         <Route path={AppRoutes.Join} element={<JoinPage />} />
       </>

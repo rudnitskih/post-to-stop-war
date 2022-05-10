@@ -1,3 +1,9 @@
+.root {
+  max-width: var(--content-width);
+  padding: 0 var(--gutter);
+  margin: 0 auto;
+}
+
 .masonryGrid {
   display: flex;
   margin-left: -20px; /* gutter size offset */

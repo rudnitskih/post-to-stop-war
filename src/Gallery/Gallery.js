@@ -62,25 +62,23 @@ export class Gallery extends Component {
   }
 
   render() {
-    return <div ref={this.rootRef}>
-      <Heading>{t('gallery.title')}</Heading>
-    </div>;
-
     return (
-      <Content rootRef={this.rootRef}>
+      <div ref={this.rootRef} className={s.root}>
+        <Heading>{t('gallery.title')}</Heading>
+
         <Masonry
           breakpointCols={this.masonryCols}
           className={s.masonryGrid}
           columnClassName={s.masonryGridColumn}>
-          {this.props.driveIds.slice(0, this.state.visibleCounter).map((driveId) => {
+          {this.props.items.slice(0, this.state.visibleCounter).map(({id, thumbnails}) => {
             return <img
-              src={`https://drive.google.com/uc?export=view&id=${driveId}`}
-              key={driveId}
+              src={thumbnails?.large?.url}
+              key={id}
               alt=""
             />;
           })}
         </Masonry>
-      </Content>
+      </div>
     );
   }
 }
