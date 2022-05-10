@@ -25,7 +25,11 @@ export function Header() {
   }
 
   const getPageLink = (page) => {
-    return langPart ? `${langPart}/${page}` : page;
+    if (page === AppRoutes.Main && langPart?.length === 2 && pagePart?.length === 2) {
+      return pathname;
+    } else {
+      return langPart && langPart !== 'ua' ? `${langPart}/${page}` : page;
+    }
   }
 
   const getLangLink = (lang) => {
