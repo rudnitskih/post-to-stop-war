@@ -39,22 +39,27 @@ function MessagesPure({messages}) {
             locales={Object.keys(messages)}
           />
 
-          <ul className={s.tags}>
-            {
-              tags.map((tag) => {
-                return (
-                  <li key={tag}>
-                    <button
-                      className={classNames(s.tag, {[s.active]: selectedTag === tag})}
-                      onClick={() => selectedTag === tag ? setSelectedTag(null) : setSelectedTag(tag)}
-                    >
-                      {t(tag)}
-                    </button>
-                  </li>
-                );
-              })
-            }
-          </ul>
+
+          {
+            tags.length > 1 && (
+              <ul className={s.tags}>
+                {
+                  tags.map((tag) => {
+                    return (
+                      <li key={tag}>
+                        <button
+                          className={classNames(s.tag, {[s.active]: selectedTag === tag})}
+                          onClick={() => selectedTag === tag ? setSelectedTag(null) : setSelectedTag(tag)}
+                        >
+                          {t(tag)}
+                        </button>
+                      </li>
+                    );
+                  })
+                }
+              </ul>
+            )
+          }
 
           <div className={s.cards}>
             {
