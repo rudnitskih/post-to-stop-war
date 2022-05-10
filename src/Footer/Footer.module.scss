@@ -1,16 +1,30 @@
+@import "../mixins";
+
 .root {
   background-color: #5B5B5B;
-  padding: 20px 0 35px;
+  padding: 20px var(--gutter) 35px;
+
+  @include for-phone-only() {
+    text-align: center;
+  }
 }
 
 .inner {
   max-width: var(--content-width);
   margin: 0 auto;
+
+  @include for-phone-only() {
+    padding: 0 40px;
+  }
 }
 
 .top {
   display: flex;
   align-items: center;
+
+  @include for-phone-only() {
+    display: block;
+  }
 }
 
 .description {
@@ -19,6 +33,10 @@
   font-size: 12px;
   line-height: 15px;
   margin-left: 40px;
+
+  @include for-phone-only() {
+    margin-left: 0;
+  }
 }
 
 .copyright {
