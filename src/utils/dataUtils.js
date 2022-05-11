@@ -21,7 +21,7 @@ export const prepareMessages = (messages) => {
         content: Message,
         tags: Array.isArray(Tags) ? Tags.map((tagInUkrainian) => tagsTranslations[tagInUkrainian]) : [],
       };
-    }).sort((a, b) => a.date - b.date),
+    }).sort((a, b) => b.date - a.date),
     'locale',
   );
 };
