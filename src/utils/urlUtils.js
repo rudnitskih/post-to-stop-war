@@ -17,7 +17,7 @@ export const setSelectedCountry = (selectedCountry) => {
 }
 
 export const getSiteLang = () => {
-  return (window.location.pathname.split('/')[1] || 'ua').toLowerCase();
+  return (window.location.pathname.split('/')[1] || 'en').toLowerCase();
 }
 
 export const getSelectedCountry = () => {
