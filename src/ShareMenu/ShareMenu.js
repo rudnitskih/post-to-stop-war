@@ -29,16 +29,12 @@ export class ShareMenu extends Component {
       const {poster} = this.props;
       let file;
 
-      console.log('Poster=', poster);
-
       if (poster) {
         const {filename, type} = poster;
         const image = await fetch(getPosterUrl(poster));
         const blob = await image.blob();
         file = new File([blob], filename, { type });
       }
-
-      console.log('File=', file);
 
       await navigator.share({
         files: file ? [file] : undefined,
@@ -74,7 +70,7 @@ export class ShareMenu extends Component {
   }
 
   download = () => {
-    saveAs(getPosterUrl(this.props.poster), this.props.poster.fileName);
+    saveAs(getPosterUrl(this.props.poster), this.props.poster.filename);
   }
 
   render() {
