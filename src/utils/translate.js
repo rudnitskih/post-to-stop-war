@@ -15,8 +15,8 @@ export function t(key, isMarkdown) {
   const keys = getTranslations();
   let lang = getSiteLang();
 
-  if (lang !== 'en') {
-    lang = 'uk';
+  if (lang !== 'ua') {
+    lang = 'en';
   }
 
   const content = keys[key]?.[lang] || (keys[key] ? Object.values(keys[key])[0] : '');

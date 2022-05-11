@@ -28,7 +28,7 @@ export function Header() {
     if (page === AppRoutes.Main && langPart?.length === 2 && pagePart?.length === 2) {
       return pathname;
     } else {
-      return langPart && langPart !== 'ua' ? `${langPart}/${page}` : page;
+      return langPart && langPart !== 'en' ? `${langPart}/${page}` : page;
     }
   }
 
@@ -83,14 +83,14 @@ export function Header() {
         <div className={s.langSelector}>
           {
             [
-              {title: 'Ua', path: ''},
-              {title: 'En', path: 'en'},
+              {title: 'En', path: ''},
+              {title: 'Ua', path: 'ua'},
             ].map(({title, path}) => {
               return (
                 <Link key={title}
                       to={getLangLink(path)}
                       className={classNames(s.langItem, {
-                        [s.active]: path.includes('en') ? langPart === 'en' : langPart !== 'en'
+                        [s.active]: path.includes('ua') ? langPart === 'ua' : langPart !== 'ua'
                       })}
                       onClick={() => setIsMenuOpen(false)}>
                   {title}
