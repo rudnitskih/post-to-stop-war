@@ -22,7 +22,7 @@ export class Partners extends Component {
               {url: 'partners.ucu.url', logo: ucuLogo},
               {url: 'partners.vzaemodia.url', logo: vzaemodiaLogo},
             ].map(({url, logo}) => (
-              <a className={s.listItem} key={url} target="_blank" href={t(url)}>
+              <a className={s.listItem} key={url} target="_blank" rel="noreferrer" href={t(url)}>
                 <img src={logo} alt="" />
               </a>
             ))
@@ -33,6 +33,7 @@ export class Partners extends Component {
         <a className={s.support}
            href={t('partners.support-link')}
            title={supportText}
+           rel="noreferrer"
            target="_blank">
           <FlagComponent/>
           <span className={s.supportText}>{supportText}</span>
