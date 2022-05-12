@@ -76,7 +76,7 @@ export class Gallery extends Component {
 
             return (
               <div className={s.item} key={id}>
-                <img src={poster} alt={filename} />
+                <img src={poster} alt={filename} className={s.itemImg} />
 
                 <div className={s.shareMenu}>
                   <ShareMenu poster={item} posterName={filename}/>

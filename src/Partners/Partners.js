@@ -23,7 +23,7 @@ export class Partners extends Component {
               {url: 'partners.vzaemodia.url', logo: vzaemodiaLogo},
             ].map(({url, logo}) => (
               <a className={s.listItem} key={url} target="_blank" rel="noreferrer" href={t(url)}>
-                <img src={logo} alt="" />
+                <img src={logo} alt="" className={s.logo} />
               </a>
             ))
           }
