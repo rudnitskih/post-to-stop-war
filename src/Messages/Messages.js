@@ -11,6 +11,7 @@ import {t} from "../utils/translate";
 import {LanguageSelector} from "../LanguageSelector";
 import {useParams} from "react-router";
 import {getPosterUrl} from "../utils/dataUtils";
+import {Tags} from "../Tags";
 
 const markdownConverter = new showdown.Converter();
 
@@ -39,27 +40,7 @@ function MessagesPure({messages}) {
             locales={Object.keys(messages)}
           />
 
-
-          {
-            tags.length > 1 && (
-              <ul className={s.tags}>
-                {
-                  tags.map((tag) => {
-                    return (
-                      <li key={tag}>
-                        <button
-                          className={classNames(s.tag, {[s.active]: selectedTag === tag})}
-                          onClick={() => selectedTag === tag ? setSelectedTag(null) : setSelectedTag(tag)}
-                        >
-                          {t(tag)}
-                        </button>
-                      </li>
-                    );
-                  })
-                }
-              </ul>
-            )
-          }
+          <Tags tags={tags} selectedTag={selectedTag} onChange={setSelectedTag} />
 
           <div className={s.cards}>
             {

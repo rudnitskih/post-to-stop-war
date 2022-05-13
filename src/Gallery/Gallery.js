@@ -4,10 +4,12 @@ import s from './Gallery.module.scss';
 import {Heading} from "../Heading/Heading";
 import {t} from "../utils/translate";
 import {ShareMenu} from "../ShareMenu";
+import {Tags} from "../Tags";
 
 export class Gallery extends Component {
   state = {
     visibleCounter: 0,
+    selectedTag: null,
   };
 
   rootRef = React.createRef();
@@ -18,6 +20,19 @@ export class Gallery extends Component {
     700: 2,
     500: 1
   };
+
+  get visibleItems() {
+    const {selectedTag, visibleCounter} = this.state;
+
+    return this.props.items
+      .filter(({tags}) => !selectedTag || tags.includes(selectedTag))
+      .slice(0, visibleCounter)
+  }
+
+  onTagChanged = (selectedTag) => {
+    this.loadedCounter = 0;
+    this.setState({selectedTag, visibleCounter: 4});
+  }
 
   componentDidMount() {
     this.setState({visibleCounter: 4});
@@ -62,15 +77,19 @@ export class Gallery extends Component {
   }
 
   render() {
+    const tags = Array.from(new Set(this.props.items.flatMap(({tags}) => tags)));
+
     return (
       <div ref={this.rootRef} className={s.root}>
         <Heading>{t('gallery.title')}</Heading>
+
+        <Tags tags={tags} selectedTag={this.state.selectedTag} onChange={this.onTagChanged}/>
 
         <Masonry
           breakpointCols={this.masonryCols}
           className={s.masonryGrid}
           columnClassName={s.masonryGridColumn}>
-          {this.props.items.slice(0, this.state.visibleCounter).map((item) => {
+          {this.visibleItems.map((item) => {
             const {id, thumbnails, filename} = item;
             const poster = thumbnails?.large?.url;
 

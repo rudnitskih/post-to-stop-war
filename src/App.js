@@ -3,7 +3,7 @@ import {Route, Routes} from "react-router-dom";
 import './global.scss';
 import {Messages} from "./Messages";
 import {Footer} from "./Footer";
-import {prepareMessages} from "./utils/dataUtils";
+import {prepareGallery, prepareMessages} from "./utils/dataUtils";
 import {Gallery} from "./Gallery";
 import {logError} from "./utils/errorHandlingUtils";
 import {getContent, getGallery, getMessages} from "./utils/backend";
@@ -29,7 +29,7 @@ export class App extends React.Component {
 
       this.setState({
         messages: prepareMessages(messages),
-        gallery,
+        gallery: prepareGallery(gallery),
       });
     } catch (error) {
       logError(error);
