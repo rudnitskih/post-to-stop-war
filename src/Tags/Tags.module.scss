@@ -4,6 +4,7 @@
   list-style: none;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
   margin: 0 auto;
   padding: 0;
@@ -16,7 +17,7 @@
   font-size: 13px;
   line-height: 30px;
   padding: 0 20px;
-  margin: 0 5px;
+  margin: 5px;
   border-radius: 100px;
   transition: background-color .3s ease-in-out;
 

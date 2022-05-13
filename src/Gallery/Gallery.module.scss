@@ -1,13 +1,22 @@
-.root {
-  max-width: var(--content-width);
+.headingWrapper {
   padding: 0 var(--gutter);
+}
+
+.root {
+  background: #F4F4F4;
+  padding: 0 var(--gutter);
+}
+
+.content {
+  padding: 35px 0 50px;
+  max-width: var(--content-width);
   margin: 0 auto;
 }
 
 .masonryGrid {
   display: flex;
   margin-left: -20px; /* gutter size offset */
-  margin-top: 30px;
+  margin-top: 25px;
   width: auto;
   min-height: 1000px;
 }
