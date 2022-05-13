@@ -16,8 +16,8 @@ import {Tags} from "../Tags";
 const markdownConverter = new showdown.Converter();
 
 function MessagesPure({messages}) {
-  let {language} = useParams();
-  language ??= 'en';
+  let {language, locale} = useParams();
+  language = language || locale === 'ua' ? 'uk' : 'en';
 
   const languageMessages = messages[language] || [];
   const tags = Array.from(new Set(languageMessages.flatMap(({tags}) => tags)));
