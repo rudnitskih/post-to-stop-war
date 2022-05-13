@@ -8,7 +8,7 @@ import {useLocation, useNavigate} from "react-router";
 export function LanguageSelector(props) {
   const navigate = useNavigate();
   const [,locale, language] = useLocation().pathname.split('/');
-  let {locales } = props;
+  let {locales} = props;
 
   locales = locales.map((code) => ({
     code,
@@ -29,7 +29,7 @@ export function LanguageSelector(props) {
       className={s.root}
       isSearchable={true}
       onChange={({value}) => {
-        navigate(locale ? `/${locale}/${value}` : `/ua/${value}`);
+        navigate(locale ? `/${locale}/${value}` : `/en/${value}`);
       }}
       filterOption={({value}, searchValue) => {
         const {displayName} = locales.find(({code}) => code === value);
