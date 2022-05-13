@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Link, NavLink} from "react-router-dom";
-import {useLocation} from "react-router";
+import {useLocation, useMatch, useParams} from "react-router";
 import s from './Header.module.scss';
 import logo from './logo.svg';
 import {AppRoutes} from "../utils/navigationUtils";
@@ -12,6 +12,9 @@ export function Header() {
   const pathname = useLocation().pathname;
   const pathParts = pathname.split('/');
   const firstParameter = pathParts[1];
+  const secondParameter = pathParts[2];
+  const isNotMainPage = firstParameter?.length > 2  || secondParameter?.length > 2;
+
   let langPart;
   let pagePart;
 
@@ -25,15 +28,20 @@ export function Header() {
   }
 
   const getPageLink = (page) => {
-    if (page === AppRoutes.Main && langPart?.length === 2 && pagePart?.length === 2) {
-      return pathname;
+    if (page) {
+      return langPart === 'ua' ? `/${langPart}/${page}` : `/${page}`;
     } else {
-      return langPart && langPart !== 'en' ? `${langPart}/${page}` : page;
+      return isNotMainPage ? (langPart === 'ua' ? '/ua' : '/') : pathname;
     }
   }
 
+
   const getLangLink = (lang) => {
-    return pagePart ? `${lang}/${pagePart}` : lang ? `${lang}/` : lang;
+    if (lang === '') {
+      return pagePart ? (isNotMainPage ? `/${pagePart}` : `/en/${pagePart}`) : '/';
+    } else {
+      return pagePart ? `/${lang}/${pagePart}` : `/${lang}/`;
+    }
   }
 
   const menu = [
@@ -70,6 +78,7 @@ export function Header() {
                              className={({isActive}) => classNames(s.link, {
                                [s.active]: isActive,
                              })}
+                             end={path === AppRoutes.Main && isNotMainPage}
                              onClick={() => setIsMenuOpen(false)}>
                       {t(titleKey)}
                     </NavLink>
@@ -90,7 +99,7 @@ export function Header() {
                 <Link key={title}
                       to={getLangLink(path)}
                       className={classNames(s.langItem, {
-                        [s.active]: path.includes('ua') ? langPart === 'ua' : langPart !== 'ua'
+                        [s.active]: path === 'ua' ? langPart === 'ua' : langPart !== 'ua'
                       })}
                       onClick={() => setIsMenuOpen(false)}>
                   {title}

@@ -5,6 +5,7 @@ import {Heading} from "../Heading/Heading";
 import {t} from "../utils/translate";
 import {ShareMenu} from "../ShareMenu";
 import {Tags} from "../Tags";
+import {Page} from "../Page";
 
 export class Gallery extends Component {
   state = {
@@ -80,12 +81,12 @@ export class Gallery extends Component {
     const tags = Array.from(new Set(this.props.items.flatMap(({tags}) => tags)));
 
     return (
-      <div ref={this.rootRef}>
+      <Page>
         <div className={s.headingWrapper}>
           <Heading>{t('gallery.title')}</Heading>
         </div>
 
-        <div className={s.root}>
+        <div className={s.root} ref={this.rootRef}>
           <div className={s.content}>
             <Tags tags={tags} selectedTag={this.state.selectedTag} onChange={this.onTagChanged}/>
 
@@ -110,7 +111,7 @@ export class Gallery extends Component {
             </Masonry>
           </div>
         </div>
-      </div>
+      </Page>
     );
   }
 }

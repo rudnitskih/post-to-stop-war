@@ -2,7 +2,6 @@ import React from 'react';
 import {Route, Routes} from "react-router-dom";
 import './global.scss';
 import {Messages} from "./Messages";
-import {Footer} from "./Footer";
 import {prepareGallery, prepareMessages} from "./utils/dataUtils";
 import {Gallery} from "./Gallery";
 import {logError} from "./utils/errorHandlingUtils";
@@ -11,8 +10,6 @@ import {setTranslations} from "./utils/translate";
 import {AppRoutes} from "./utils/navigationUtils";
 import {ProjectPage} from "./ProjectPage";
 import {JoinPage} from "./JoinPage";
-import {Header} from "./Header/Header";
-import {Partners} from "./Partners";
 
 export class App extends React.Component {
   state = {};
@@ -40,21 +37,14 @@ export class App extends React.Component {
     const {messages} = this.state;
 
     return messages ? (
-      <>
-        <Header />
-
-        <Routes>
-          <Route path="/">
-            {this.renderInnerRoutes()}
-          </Route>
-          <Route path="/:locale">
-            {this.renderInnerRoutes()}
-          </Route>
-        </Routes>
-
-        <Partners />
-        <Footer/>
-      </>
+      <Routes>
+        <Route path="/">
+          {this.renderInnerRoutes()}
+        </Route>
+        <Route path="/:locale">
+          {this.renderInnerRoutes()}
+        </Route>
+      </Routes>
     ) : <></>;
   }
 
@@ -62,11 +52,15 @@ export class App extends React.Component {
 
     return (
       <>
-        <Route index element={this.renderMessages()} />
-        <Route path=":language" element={this.renderMessages()} />
-        <Route path="*" element={this.renderMessages()} />
+        <Route index
+               element={this.renderMessages()}/>
+        <Route path=":language"
+               element={this.renderMessages()}/>
+        <Route path="*"
+               element={this.renderMessages()}/>
 
-        <Route path={AppRoutes.Gallery} element={<Gallery items={this.state.gallery}/>} />
+        <Route path={AppRoutes.Gallery}
+               element={<Gallery items={this.state.gallery}/>}/>
         <Route path={AppRoutes.Project} element={<ProjectPage />} />
         <Route path={AppRoutes.Join} element={<JoinPage />} />
       </>

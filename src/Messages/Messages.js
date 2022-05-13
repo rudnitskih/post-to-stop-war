@@ -12,12 +12,13 @@ import {LanguageSelector} from "../LanguageSelector";
 import {useParams} from "react-router";
 import {getPosterUrl} from "../utils/dataUtils";
 import {Tags} from "../Tags";
+import {Page} from "../Page";
 
 const markdownConverter = new showdown.Converter();
 
 function MessagesPure({messages}) {
   let {language, locale} = useParams();
-  language = language || locale === 'ua' ? 'uk' : 'en';
+  language = language || (locale === 'ua' ? 'uk' : 'en');
 
   const languageMessages = messages[language] || [];
   const tags = Array.from(new Set(languageMessages.flatMap(({tags}) => tags)));
@@ -29,7 +30,7 @@ function MessagesPure({messages}) {
   }, [language])
 
   return (
-    <>
+    <Page>
       <div className={s.headingWrapper}>
         <Heading>{t('main.title')}</Heading>
       </div>
@@ -71,7 +72,7 @@ function MessagesPure({messages}) {
           </div>
         </div>
       </div>
-    </>
+    </Page>
   );
 }
 
