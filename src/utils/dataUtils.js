@@ -6,11 +6,15 @@ export const getPosterUrl = (poster) => {
   return poster?.thumbnails?.large?.url;
 }
 
-export const prepareMessages = (messages) => {
+export const normalizeTags = (Tags) => {
   const tagsTranslations = Object.fromEntries(Object.entries(getTranslations()).filter(([key]) => key.startsWith('main.tags')).map(
-    ([key, {uk}]) => [uk, key]
+    ([key, {ua}]) => [ua, key]
   ));
 
+  return Array.isArray(Tags) ? Tags.map((tagInUkrainian) => tagsTranslations[tagInUkrainian]) : []
+}
+
+export const prepareMessages = (messages) => {
   return groupBy(
     filterWrongMessages(messages).map((rawMessage) => {
       const {Language, Attachment, Message, Tags} = rawMessage;
@@ -19,12 +23,18 @@ export const prepareMessages = (messages) => {
         locale: ukrainianToCodeLocale[Language],
         poster: Attachment[0],
         content: Message,
-        tags: Array.isArray(Tags) ? Tags.map((tagInUkrainian) => tagsTranslations[tagInUkrainian]) : [],
+        tags: normalizeTags(Tags),
       };
     }).sort((a, b) => b.date - a.date),
     'locale',
   );
 };
+
+export const prepareGallery = (galleryBase) => {
+  return galleryBase
+    .filter(({Poster}) => Poster?.[0]?.thumbnails?.large?.url)
+    .map(({Poster, Tags}) => ({...Poster[0], tags: normalizeTags(Tags)}))
+}
 
 const filterWrongMessages = (data) => {
   return data.filter((row, i) => {
