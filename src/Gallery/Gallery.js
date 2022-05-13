@@ -80,30 +80,36 @@ export class Gallery extends Component {
     const tags = Array.from(new Set(this.props.items.flatMap(({tags}) => tags)));
 
     return (
-      <div ref={this.rootRef} className={s.root}>
-        <Heading>{t('gallery.title')}</Heading>
+      <div ref={this.rootRef}>
+        <div className={s.headingWrapper}>
+          <Heading>{t('gallery.title')}</Heading>
+        </div>
 
-        <Tags tags={tags} selectedTag={this.state.selectedTag} onChange={this.onTagChanged}/>
+        <div className={s.root}>
+          <div className={s.content}>
+            <Tags tags={tags} selectedTag={this.state.selectedTag} onChange={this.onTagChanged}/>
 
-        <Masonry
-          breakpointCols={this.masonryCols}
-          className={s.masonryGrid}
-          columnClassName={s.masonryGridColumn}>
-          {this.visibleItems.map((item) => {
-            const {id, thumbnails, filename} = item;
-            const poster = thumbnails?.large?.url;
+            <Masonry
+              breakpointCols={this.masonryCols}
+              className={s.masonryGrid}
+              columnClassName={s.masonryGridColumn}>
+              {this.visibleItems.map((item) => {
+                const {id, thumbnails, filename} = item;
+                const poster = thumbnails?.large?.url;
 
-            return (
-              <div className={s.item} key={id}>
-                <img src={poster} alt={filename} className={s.itemImg} />
+                return (
+                  <div className={s.item} key={id}>
+                    <img src={poster} alt={filename} className={s.itemImg} />
 
-                <div className={s.shareMenu}>
-                  <ShareMenu poster={item} posterName={filename}/>
-                </div>
-              </div>
-            );
-          })}
-        </Masonry>
+                    <div className={s.shareMenu}>
+                      <ShareMenu poster={item} posterName={filename}/>
+                    </div>
+                  </div>
+                );
+              })}
+            </Masonry>
+          </div>
+        </div>
       </div>
     );
   }
