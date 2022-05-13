@@ -8,7 +8,6 @@ import stroomLogo from "./stroom.png";
 import ucuLogo from "./ucu.svg";
 import vzaemodiaLogo from "./vzaemodia.png";
 
-
 export class Partners extends Component {
   render() {
     const supportText = t('partners.support');
