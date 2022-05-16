@@ -25,7 +25,9 @@ export class Socials extends Component {
             return (
               <li key={title}>
                 <a className={s.social}
-                   href={t(urlKey)}
+                   href={t(urlKey).replaceAll('\\', '')} // remove airtable escaping
+                   target="_blank"
+                   rel="noopener"
                    title={title}><Icon/></a>
               </li>
             );
