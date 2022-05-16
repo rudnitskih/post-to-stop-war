@@ -31,7 +31,6 @@ export const prepareMessages = (messages) => {
 };
 
 export const prepareGallery = (galleryBase) => {
-  debugger
   return shuffleArray(
     galleryBase
       .filter(({Poster}) => Poster?.length > 0)
