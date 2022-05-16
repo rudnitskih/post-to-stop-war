@@ -21,7 +21,7 @@ export class Socials extends Component {
             {Icon: TwitterIcon, urlKey: 'social.link.twitter', title: 'twitter'},
             {Icon: PinterestIcon, urlKey: 'social.link.pinterest', title: 'pinterest'},
             {Icon: LinkedinIcon, urlKey: 'social.link.linkedin', title: 'linkedin'},
-          ].map(({Icon, urlKey, title}) => {
+          ].filter(({urlKey}) => t(urlKey)).map(({Icon, urlKey, title}) => {
             return (
               <li key={title}>
                 <a className={s.social}
