@@ -103,12 +103,19 @@ export class Gallery extends Component {
                     <img src={poster} alt={filename} className={s.itemImg} />
 
                     <div className={s.shareMenu}>
-                      <ShareMenu poster={item} posterName={filename}/>
+                      <ShareMenu poster={item}
+                                 posterName={filename}/>
                     </div>
                   </div>
                 );
               })}
             </Masonry>
+
+            <div className={s.footer}>
+              <Heading apperance="H4">
+                <div dangerouslySetInnerHTML={{__html: t('gallery.for-creators', true)}}/>
+              </Heading>
+            </div>
           </div>
         </div>
       </Page>

@@ -41,9 +41,11 @@ export class JoinPage extends Component {
 
           <Heading apperance="H3">{t('join.ideas.title')}</Heading>
 
-          <p dangerouslySetInnerHTML={{__html: t('join.ideas.part_1', true)}}/>
+          <div className={s.contact} dangerouslySetInnerHTML={{__html: t('join.ideas.part_1', true)}}/>
 
           <Socials large={true}/>
+
+          <div className={s.contact} dangerouslySetInnerHTML={{__html: t('join.ideas.part_2', true)}}/>
         </div>
       </Page>
     );

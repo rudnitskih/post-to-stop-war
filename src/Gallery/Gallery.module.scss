@@ -78,3 +78,17 @@
     }
   }
 }
+
+.footer {
+  white-space: pre-wrap;
+  text-align: center;
+
+  a {
+    color: #DE0303;
+    transition: color .3s ease-in-out;
+
+    &:hover {
+      color: darken(#DE0303, 20%);
+    }
+  }
+}
