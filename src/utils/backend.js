@@ -1,5 +1,5 @@
 const getAirtableData = async (tableId) => {
-  const response = await fetch(`https://v1.nocodeapi.com/rudnitskih/airtable/IqXAPQmtDjOXxDtO?tableName=${tableId}&perPage=all`);
+  const response = await fetch(`https://v1.nocodeapi.com/rudnitskih/airtable/IqXAPQmtDjOXxDtO?tableName=${tableId}&perPage=all&cacheTime=300`);
   const {records} = await response.json();
 
   return records.map(({fields}) => fields);
