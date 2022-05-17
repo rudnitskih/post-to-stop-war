@@ -15,7 +15,7 @@ import {useLocation} from "react-router";
 
 const App = () => {
   const [gallery, setGallery] = useState(null);
-  const [messages, setMessages] = useState(window.app.messages);
+  const [messages, setMessages] = useState(null);
   const [,,maybeLanguage] = useLocation().pathname.split('/');
 
   useEffect(async () => {
@@ -67,7 +67,7 @@ const App = () => {
     return <Messages messages={messages} onLanguageChanged={onLanguageChanged}/>;
   }
 
-  return window.app.messages ? (
+  return messages ? (
     <Routes>
       <Route path="/">
         {renderInnerRoutes()}
