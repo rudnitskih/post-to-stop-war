@@ -1,12 +1,32 @@
-const getAirtableData = async (tableId) => {
-  const response = await fetch(`https://v1.nocodeapi.com/rudnitskih/airtable/IqXAPQmtDjOXxDtO?tableName=${tableId}&perPage=all&cacheTime=300`);
+import {codeLocaleToUkrainian, getLocale} from "./localeUtils";
+
+const encodeGetParams = p =>
+  Object.entries(p).map(kv => kv.map(encodeURIComponent).join("=")).join("&");
+
+const getAirtableData = async (tableId, {filterByFormula} = {}) => {
+  let params = {
+    tableName: tableId,
+    cacheTime: 60,
+  }
+
+  if (filterByFormula) {
+    params.filterByFormula = filterByFormula;
+  } else {
+    params.perPage = 'all';
+  }
+
+  const response = await fetch(`https://v1.nocodeapi.com/rudnitskih/airtable/IqXAPQmtDjOXxDtO?${encodeGetParams(params)}`);
   const {records} = await response.json();
 
   return records.map(({fields}) => fields);
 };
 
-export const getMessages = async () => {
-  return getAirtableData('tblHGaLwTLMlN7eNL');
+export const getMessages = async (language) => {
+  language = codeLocaleToUkrainian[language] || codeLocaleToUkrainian[getLocale()];
+
+  return getAirtableData('tblHGaLwTLMlN7eNL', {
+    filterByFormula: `({Language} = "${language}")`
+  });
 }
 
 export const getContent = async () => {

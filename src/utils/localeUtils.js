@@ -1,8 +1,8 @@
-import {getSiteLang} from "./urlUtils";
-
 const rtlLocales = ['ar', 'he', 'fa'];
 
-const getLocale = () => getSiteLang() === 'ua' ? 'uk' : 'en';
+
+export const getLocale = () => window.location.pathname.split('/')?.[1]?.toLowerCase() === 'ua' ? 'uk' : 'en';
+
 export const getLocaleDisplayName = (code) => capitalizeFirstLetter(
   (new Intl.DisplayNames([getLocale()], {type: 'language'})).of(code)
 );
@@ -11,44 +11,84 @@ export const getLocaleDirection = (locale) => {
   return rtlLocales.includes(locale) ? 'rtl' : 'ltr';
 };
 
-export const ukrainianToCodeLocale = {
-  Албанська: 'sq',
-  Англійська: 'en',
-  Арабська: 'ar',
-  Білоруська: 'be',
-  Боснійська: 'bs',
-  Вірменська: 'hy',
-  Гінді: 'hi',
-  Грузинська: 'ka',
-  Данська: 'da',
-  Іврит: 'he',
-  Іспанська: 'es',
-  Італійська: 'it',
-  Китайська: 'zh',
-  Латиська: 'lv',
-  Литовська: 'lt',
-  Німецька: 'de',
-  Норвезька: 'no',
-  Перська: 'fa',
-  Польська: 'pl',
-  Португальська: 'pt',
-  Російська: 'ru',
-  Румунська: 'ro',
-  Сербська: 'srp',
-  Словацька: 'sk',
-  Турецька: 'tr',
-  Угорська: 'hu',
-  Українська: 'uk',
-  Філіппінська: 'tl',
-  Фінська: 'fi',
-  Французька: 'fr',
-  Хорватська: 'hr',
-  Чеська: 'cs',
-  Шведська: 'sv',
-  Японська: 'ja',
+export const availableLanguages = [
+  'be',
+  'uk',
+  'fi',
+  'hy',
+  'ka',
+  'en',
+  'es',
+  'ru',
+  'fr',
+  'de',
+  'it',
+  'pt',
+  'pl',
+  'srp',
+  'bs',
+  'hr',
+  'lt',
+  'fa',
+  'tr',
+  'hu',
+  'ro',
+  'hi',
+  'cs',
+  'ja',
+  'tl',
+  'he',
+  'da'
+]
+
+export const codeLocaleToUkrainian = {
+  ar: 'Арабська',
+  be: 'Білоруська',
+  bs: 'Боснійська',
+  cs: 'Чеська',
+  da: 'Данська',
+  de: 'Німецька',
+  en: 'Англійська',
+  es: 'Іспанська',
+  fa: 'Перська',
+  fi: 'Фінська',
+  fr: 'Французька',
+  he: 'Іврит',
+  hi: 'Гінді',
+  hr: 'Хорватська',
+  hu: 'Угорська',
+  hy: 'Вірменська',
+  it: 'Італійська',
+  ja: 'Японська',
+  ka: 'Грузинська',
+  lt: 'Литовська',
+  lv: 'Латиська',
+  no: 'Норвезька',
+  pl: 'Польська',
+  pt: 'Португальська',
+  ro: 'Румунська',
+  ru: 'Російська',
+  sk: 'Словацька',
+  sq: 'Албанська',
+  srp: 'Сербська',
+  sv: 'Шведська',
+  tl: 'Філіппінська',
+  tr: 'Турецька',
+  uk: 'Українська',
+  zh: 'Китайська'
 };
 
+export const ukrainianToCodeLocale = swapKeysAndValues(codeLocaleToUkrainian);
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+// https://bobbyhadz.com/blog/javascript-swap-object-key-and-value#:~:text=To%20swap%20the%20keys%20and,with%20swapped%20keys%20and%20values.
+function swapKeysAndValues(obj) {
+  const swapped = Object.entries(obj).map(
+    ([key, value]) => [value, key]
+  );
+
+  return Object.fromEntries(swapped);
 }

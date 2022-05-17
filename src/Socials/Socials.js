@@ -27,7 +27,7 @@ export class Socials extends Component {
                 <a className={s.social}
                    href={t(urlKey).replaceAll('\\', '')} // remove airtable escaping
                    target="_blank"
-                   rel="noopener"
+                   rel="noreferrer"
                    title={title}><Icon/></a>
               </li>
             );

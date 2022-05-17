@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Link, NavLink} from "react-router-dom";
-import {useLocation, useMatch, useParams} from "react-router";
+import {useLocation} from "react-router";
 import s from './Header.module.scss';
 import logo from './logo.svg';
 import {AppRoutes} from "../utils/navigationUtils";

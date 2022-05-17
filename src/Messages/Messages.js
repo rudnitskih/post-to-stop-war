@@ -16,17 +16,24 @@ import {Page} from "../Page";
 
 const markdownConverter = new showdown.Converter();
 
-function MessagesPure({messages}) {
-  let {language, locale} = useParams();
+function MessagesPure({messages, onLanguageChanged}) {
+  let { language, locale } = useParams();
   language = language || (locale === 'ua' ? 'uk' : 'en');
 
-  const languageMessages = messages[language] || [];
+  const [languageMessages, setLanguageMessages] = useState(messages[language] || []);
+  const [selectedTag, setSelectedTag] = useState(null);
+
   const tags = Array.from(new Set(languageMessages.flatMap(({tags}) => tags)));
 
-  const [selectedTag, setSelectedTag] = useState(null);
+  useEffect(async () => {
+    if (messages[language]) {
+      setLanguageMessages(messages[language]);
+    }
+  }, [language, messages]);
 
   useEffect(() => {
     setSelectedTag(null);
+    onLanguageChanged(language);
   }, [language])
 
   return (
