@@ -1,3 +1,5 @@
+@import "../mixins";
+
 .h1 {
   font-size: 30px;
   line-height: 36px;
@@ -25,4 +27,8 @@
   font-weight: 600;
   color: #000;
   margin: 0;
+
+  @include for-phone-only() {
+    font-size: 20px;
+  }
 }

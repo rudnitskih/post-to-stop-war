@@ -6,15 +6,17 @@ import {t} from "../utils/translate";
 import {ShareMenu} from "../ShareMenu";
 import {Tags} from "../Tags";
 import {Page} from "../Page";
+import {Pagination} from "../Pagination";
+
+const ITEMS_PER_PAGE = 12;
+const initialRange = [0, ITEMS_PER_PAGE];
 
 export class Gallery extends Component {
   state = {
-    visibleCounter: 0,
     selectedTag: null,
+    activeRange: initialRange,
   };
 
-  rootRef = React.createRef();
-  loadedCounter = 0;
   masonryCols = {
     default: 4,
     1100: 3,
@@ -22,62 +24,26 @@ export class Gallery extends Component {
     500: 1
   };
 
-  get visibleItems() {
-    const {selectedTag, visibleCounter} = this.state;
+  get filteredItems() {
+    const {selectedTag} = this.state;
 
     return this.props.items
-      .filter(({tags}) => !selectedTag || tags.includes(selectedTag))
-      .slice(0, visibleCounter)
+      .filter(({tags}) => !selectedTag || tags.includes(selectedTag));
   }
 
   onTagChanged = (selectedTag) => {
-    this.loadedCounter = 0;
-    this.setState({selectedTag, visibleCounter: 4});
-  }
-
-  componentDidMount() {
-    this.setState({visibleCounter: 4});
-
-    this.rootRef.current.addEventListener('load', this.handleItemLoaded, true);
-
-    window.addEventListener('scroll', this.handleWindowScroll);
-  }
-
-  handleItemLoaded = () => {
-    this.loadedCounter++;
-
-    if (this.loadedCounter === this.state.visibleCounter) {
-      this.loadMoreItemsIfNeeded();
-    }
+    this.setState({selectedTag, activeRange: initialRange});
   };
 
-  handleWindowScroll = debounce(() => {
-    this.loadMoreItemsIfNeeded();
-  }, 200);
-
-  componentWillUnmount() {
-    this.rootRef.current.removeEventListener('load', this.handleItemLoaded, true);
-    window.removeEventListener('scroll', this.handleWindowScroll);
-  }
-
-  loadMoreItemsIfNeeded() {
-    if (this.loadedCounter < this.state.visibleCounter) {
-      return;
-    }
-
-    const bottomScroll = window.scrollY + window.innerHeight;
-    const minColumnBottom = Math.min(
-      ...[...this.rootRef.current
-        .querySelectorAll(`.${s.masonryGridColumn} .${s.item}:last-child`)
-      ].map((lastImgInColumn) => getTopOffset(lastImgInColumn) + lastImgInColumn.getBoundingClientRect().height)
-    );
-
-    if (minColumnBottom < bottomScroll) {
-      this.setState({visibleCounter: this.state.visibleCounter + 4});
-    }
-  }
+  setActiveRange = (activeRange) => {
+    this.setState({activeRange});
+    window.scrollTo({
+      top: 0,
+    });
+  };
 
   render() {
+    const {activeRange} = this.state;
     const tags = Array.from(new Set(this.props.items.flatMap(({tags}) => tags)));
 
     return (
@@ -86,30 +52,44 @@ export class Gallery extends Component {
           <Heading>{t('gallery.title')}</Heading>
         </div>
 
-        <div className={s.root} ref={this.rootRef}>
+        <div className={s.root}>
           <div className={s.content}>
-            <Tags tags={tags} selectedTag={this.state.selectedTag} onChange={this.onTagChanged}/>
+            <Tags tags={tags}
+                  selectedTag={this.state.selectedTag}
+                  onChange={this.onTagChanged}/>
 
             <Masonry
               breakpointCols={this.masonryCols}
               className={s.masonryGrid}
               columnClassName={s.masonryGridColumn}>
-              {this.visibleItems.map((item) => {
-                const {id, thumbnails, filename} = item;
-                const poster = thumbnails?.large?.url;
+              {this.filteredItems
+                .slice(activeRange[0], activeRange[1])
+                .map((item) => {
+                  const {id, thumbnails, filename} = item;
+                  const poster = thumbnails?.large?.url;
 
-                return (
-                  <div className={s.item} key={id}>
-                    <img src={poster} alt={filename} className={s.itemImg} />
+                  return (
+                    <div className={s.item}
+                         key={id}>
+                      <img src={poster}
+                           alt={filename}
+                           className={s.itemImg}/>
 
-                    <div className={s.shareMenu}>
-                      <ShareMenu poster={item}
-                                 posterName={filename}/>
+                      <div className={s.shareMenu}>
+                        <ShareMenu poster={item}
+                                   posterName={filename}/>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </Masonry>
+
+            <Pagination
+              itemsCount={this.filteredItems.length}
+              itemsPerPage={ITEMS_PER_PAGE}
+              activeRange={activeRange}
+              onChange={this.setActiveRange}
+            />
 
             <div className={s.footer}>
               <Heading apperance="H4">

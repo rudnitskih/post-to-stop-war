@@ -13,9 +13,11 @@ import {useParams} from "react-router";
 import {getPosterUrl} from "../utils/dataUtils";
 import {Tags} from "../Tags";
 import {Page} from "../Page";
-import {ITEMS_PER_PAGE, Pagination} from "../Pagination/Pagination";
+import {Pagination} from "../Pagination";
 
 const markdownConverter = new showdown.Converter();
+
+const ITEMS_PER_PAGE = 6;
 
 function MessagesPure({messages, onLanguageChanged}) {
   const initialRange = [0, ITEMS_PER_PAGE];
@@ -26,6 +28,14 @@ function MessagesPure({messages, onLanguageChanged}) {
   const [languageMessages, setLanguageMessages] = useState(messages[language] || []);
   const [selectedTag, setSelectedTag] = useState(null);
   const [activeRange, setActiveRange] = useState(initialRange);
+
+  const onPaginationClick = (newRange) => {
+    setActiveRange(newRange);
+
+    contentRef.current.scrollIntoView({
+      behavior: 'smooth',
+    });
+  }
 
   const tags = Array.from(new Set(languageMessages.flatMap(({tags}) => tags)));
 
@@ -95,9 +105,9 @@ function MessagesPure({messages, onLanguageChanged}) {
 
           <Pagination
             itemsCount={filteredMessages.length}
+            itemsPerPage={ITEMS_PER_PAGE}
             activeRange={activeRange}
-            onChange={setActiveRange}
-            contentRef={contentRef}
+            onChange={onPaginationClick}
           />
         </div>
       </div>

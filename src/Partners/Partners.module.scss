@@ -62,7 +62,11 @@
 .supportText {
   font-weight: 700;
   font-size: 30px;
-  line-height: 36px;
+  line-height: 1.2;
   margin-left: 40px;
   color: #FFF;
+
+  @include for-phone-only() {
+    font-size: 24px;
+  }
 }
