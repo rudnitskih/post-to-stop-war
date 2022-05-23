@@ -4,6 +4,7 @@ import Select from 'react-select';
 import {t} from "../utils/translate";
 import {availableLanguages, getLocaleDisplayName} from "../utils/localeUtils";
 import {useLocation, useNavigate} from "react-router";
+import {logEvent} from "../utils/anayliticsUtils";
 
 export function LanguageSelector(props) {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ export function LanguageSelector(props) {
       isSearchable={true}
       onChange={({value}) => {
         navigate(locale ? `/${locale}/${value}` : `/en/${value}`);
+        logEvent('CHANGE_LANGUAGE', {value});
       }}
       filterOption={({value}, searchValue) => {
         const {displayName} = languages.find(({code}) => code === value);
