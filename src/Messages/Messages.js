@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import s from './Messages.module.scss';
 import {getLocaleDirection} from "../utils/localeUtils";
 import classNames from "classnames";
@@ -13,17 +13,24 @@ import {useParams} from "react-router";
 import {getPosterUrl} from "../utils/dataUtils";
 import {Tags} from "../Tags";
 import {Page} from "../Page";
+import {ITEMS_PER_PAGE, Pagination} from "../Pagination/Pagination";
 
 const markdownConverter = new showdown.Converter();
 
 function MessagesPure({messages, onLanguageChanged}) {
-  let { language, locale } = useParams();
+  const initialRange = [0, ITEMS_PER_PAGE];
+  const contentRef = useRef(null);
+  let {language, locale} = useParams();
   language = language || (locale === 'ua' ? 'uk' : 'en');
 
   const [languageMessages, setLanguageMessages] = useState(messages[language] || []);
   const [selectedTag, setSelectedTag] = useState(null);
+  const [activeRange, setActiveRange] = useState(initialRange);
 
   const tags = Array.from(new Set(languageMessages.flatMap(({tags}) => tags)));
+
+  const filteredMessages = languageMessages
+    .filter(({tags}) => !selectedTag || tags.includes(selectedTag));
 
   useEffect(async () => {
     if (messages[language]) {
@@ -34,7 +41,11 @@ function MessagesPure({messages, onLanguageChanged}) {
   useEffect(() => {
     setSelectedTag(null);
     onLanguageChanged(language);
-  }, [language])
+  }, [language]);
+
+  useEffect(() => {
+    setActiveRange(initialRange);
+  }, [languageMessages, selectedTag]);
 
   return (
     <Page>
@@ -43,17 +54,20 @@ function MessagesPure({messages, onLanguageChanged}) {
       </div>
 
       <div className={s.root}>
-        <div className={s.content}>
+        <div className={s.content}
+             ref={contentRef}>
           <LanguageSelector
             locales={Object.keys(messages)}
           />
 
-          <Tags tags={tags} selectedTag={selectedTag} onChange={setSelectedTag} />
+          <Tags tags={tags}
+                selectedTag={selectedTag}
+                onChange={setSelectedTag}/>
 
           <div className={s.cards}>
             {
-              languageMessages
-                .filter(({tags}) => !selectedTag || tags.includes(selectedTag))
+              filteredMessages
+                .slice(activeRange[0], activeRange[1])
                 .map(({date, poster, content}, i) => {
                   return (
                     <div className={s.card}
@@ -69,7 +83,8 @@ function MessagesPure({messages, onLanguageChanged}) {
                                  content={content}/>
 
                         <div className={s.shareMenu}>
-                          <ShareMenu text={content} poster={poster}/>
+                          <ShareMenu text={content}
+                                     poster={poster}/>
                         </div>
                       </div>
                     </div>
@@ -77,6 +92,13 @@ function MessagesPure({messages, onLanguageChanged}) {
                 })
             }
           </div>
+
+          <Pagination
+            itemsCount={filteredMessages.length}
+            activeRange={activeRange}
+            onChange={setActiveRange}
+            contentRef={contentRef}
+          />
         </div>
       </div>
     </Page>
