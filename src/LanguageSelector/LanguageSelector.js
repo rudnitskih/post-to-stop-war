@@ -6,7 +6,7 @@ import {availableLanguages, getLocaleDisplayName} from "../utils/localeUtils";
 import {useLocation, useNavigate} from "react-router";
 import {logEvent} from "../utils/anayliticsUtils";
 
-export function LanguageSelector(props) {
+export function LanguageSelector() {
   const navigate = useNavigate();
   const [,locale, language] = useLocation().pathname.split('/');
 
