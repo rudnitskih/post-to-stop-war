@@ -18,9 +18,9 @@ import {Pagination} from "../Pagination";
 const markdownConverter = new showdown.Converter();
 
 const ITEMS_PER_PAGE = 6;
+const initialRange = [0, ITEMS_PER_PAGE];
 
 function MessagesPure({messages, onLanguageChanged}) {
-  const initialRange = [0, ITEMS_PER_PAGE];
   const contentRef = useRef(null);
   let {language, locale} = useParams();
   language = language || (locale === 'ua' ? 'uk' : 'en');
@@ -42,7 +42,7 @@ function MessagesPure({messages, onLanguageChanged}) {
   const filteredMessages = languageMessages
     .filter(({tags}) => !selectedTag || tags.includes(selectedTag));
 
-  useEffect(async () => {
+  useEffect(() => {
     if (messages[language]) {
       setLanguageMessages(messages[language]);
     }
@@ -51,7 +51,7 @@ function MessagesPure({messages, onLanguageChanged}) {
   useEffect(() => {
     setSelectedTag(null);
     onLanguageChanged(language);
-  }, [language]);
+  }, [language, onLanguageChanged]);
 
   useEffect(() => {
     setActiveRange(initialRange);

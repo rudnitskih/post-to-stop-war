@@ -25,7 +25,7 @@ export class Tags extends Component {
               <li key={tag}>
                 <button
                   className={classNames(s.tag, {[s.active]: selectedTag === tag})}
-                  onClick={onClick}
+                  onClick={() => onClick(tag)}
                 >
                   {t(tag)}
                 </button>

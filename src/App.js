@@ -18,20 +18,20 @@ const App = () => {
   const [messages, setMessages] = useState(null);
   const [,,maybeLanguage] = useLocation().pathname.split('/');
 
-  useEffect(async () => {
-    try {
-      let [rawMessages, translations, gallery] = await Promise.all([
-        getMessages(maybeLanguage?.length === 2 ? maybeLanguage : undefined),
-        getContent(),
-        getGallery(),
-      ]);
+  useEffect(() => {
+      const initApp = async function() {
+        let [rawMessages, translations, gallery] = await Promise.all([
+          getMessages(maybeLanguage?.length === 2 ? maybeLanguage : undefined),
+          getContent(),
+          getGallery(),
+        ]);
 
-      setTranslations(translations);
-      setGallery(prepareGallery(gallery));
-      setMessages(prepareMessages(rawMessages));
-    } catch (error) {
-      logError(error);
-    }
+        setTranslations(translations);
+        setGallery(prepareGallery(gallery));
+        setMessages(prepareMessages(rawMessages));
+      }
+
+      initApp().catch(logError);
   }, []);
 
   const onLanguageChanged = async (language) => {
