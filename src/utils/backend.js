@@ -4,10 +4,10 @@ import {getQueryParam} from "./urlUtils";
 const encodeGetParams = p =>
   Object.entries(p).map(kv => kv.map(encodeURIComponent).join("=")).join("&");
 
-const getAirtableData = async (tableId, {filterByFormula} = {}) => {
+const getAirtableData = async (tableId, {filterByFormula, cacheTime} = {}) => {
   let params = {
     tableName: tableId,
-    cacheTime: getQueryParam('force') === 'true' ? 0 : 300,
+    cacheTime: getQueryParam('force') === 'true' ? 0 : cacheTime,
   }
 
   if (filterByFormula) {
@@ -26,12 +26,13 @@ export const getMessages = async (language) => {
   language = codeLocaleToUkrainian[language] || codeLocaleToUkrainian[getLocale()];
 
   return getAirtableData('tblHGaLwTLMlN7eNL', {
+    cacheTime: 300,
     filterByFormula: getQueryParam('loadAll') === 'true' ? undefined : `({Language} = "${language}")`
   });
 }
 
 export const getContent = async () => {
-  return (await getAirtableData('tblU1cR6MIJoY14zJ')).reduce((acc, row) => {
+  return (await getAirtableData('tblU1cR6MIJoY14zJ', {cacheTime: 600})).reduce((acc, row) => {
     acc[row.key] = {
       ua: row['Ukrainian']?.trim(),
       en: row['English']?.trim(),
@@ -42,5 +43,5 @@ export const getContent = async () => {
 }
 
 export const getGallery = async () => {
-  return getAirtableData('tblrGKBALioqrnz1r');
+  return getAirtableData('tblrGKBALioqrnz1r', {cacheTime: 600});
 }
