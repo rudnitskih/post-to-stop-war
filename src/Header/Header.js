@@ -52,64 +52,66 @@ export function Header() {
   ];
 
   return (
-    <header className={s.root}>
-      <NavLink to={getPageLink(menu[0].path)}
-               className={s.logo}>
-        <img src={logo}
-             alt="logo"/>
-      </NavLink>
+    <div className={s.root}>
+      <header className={s.content}>
+        <NavLink to={getPageLink(menu[0].path)}
+                 className={s.logo}>
+          <img src={logo}
+               alt="logo"/>
+        </NavLink>
 
-      <button onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={classNames(s.hamburgerButton, {[s.active]: isMenuOpen})}>
+        <button onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className={classNames(s.hamburgerButton, {[s.active]: isMenuOpen})}>
         <span className={s.hamburgerBox}>
           <span className={s.hamburgerInner}/>
         </span>
-      </button>
+        </button>
 
 
-      <div className={classNames(s.navigationItems, {[s.active]: isMenuOpen})}>
-        <nav>
-          <ul className={s.menu}>
+        <div className={classNames(s.navigationItems, {[s.active]: isMenuOpen})}>
+          <nav>
+            <ul className={s.menu}>
+              {
+                menu.map(({path, titleKey}) => {
+                  return (
+                    <li key={titleKey}>
+                      <NavLink to={getPageLink(path)}
+                               className={({isActive}) => classNames(s.link, {
+                                 [s.active]: isActive,
+                               })}
+                               end={path === AppRoutes.Main && isNotMainPage}
+                               onClick={() => setIsMenuOpen(false)}>
+                        {t(titleKey)}
+                      </NavLink>
+                    </li>
+                  )
+                })
+              }
+            </ul>
+          </nav>
+
+          <div className={s.langSelector}>
             {
-              menu.map(({path, titleKey}) => {
+              [
+                {title: 'En', path: ''},
+                {title: 'Ua', path: 'ua'},
+              ].map(({title, path}) => {
                 return (
-                  <li key={titleKey}>
-                    <NavLink to={getPageLink(path)}
-                             className={({isActive}) => classNames(s.link, {
-                               [s.active]: isActive,
-                             })}
-                             end={path === AppRoutes.Main && isNotMainPage}
-                             onClick={() => setIsMenuOpen(false)}>
-                      {t(titleKey)}
-                    </NavLink>
-                  </li>
+                  <Link key={title}
+                        to={getLangLink(path)}
+                        className={classNames(s.langItem, {
+                          [s.active]: path === 'ua' ? langPart === 'ua' : langPart !== 'ua'
+                        })}
+                        onClick={() => setIsMenuOpen(false)}>
+                    {title}
+                  </Link>
                 )
               })
             }
-          </ul>
-        </nav>
-
-        <div className={s.langSelector}>
-          {
-            [
-              {title: 'En', path: ''},
-              {title: 'Ua', path: 'ua'},
-            ].map(({title, path}) => {
-              return (
-                <Link key={title}
-                      to={getLangLink(path)}
-                      className={classNames(s.langItem, {
-                        [s.active]: path === 'ua' ? langPart === 'ua' : langPart !== 'ua'
-                      })}
-                      onClick={() => setIsMenuOpen(false)}>
-                  {title}
-                </Link>
-              )
-            })
-          }
+          </div>
         </div>
-      </div>
 
-    </header>
+      </header>
+    </div>
   );
 }

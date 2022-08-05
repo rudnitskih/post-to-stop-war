@@ -13,9 +13,18 @@
 }
 
 .root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  z-index: 1;
+}
+
+.content {
   max-width: var(--content-width);
   margin: 0 auto;
-  padding: 10px var(--gutter) 0;
+  padding: 10px var(--gutter);
   display: flex;
   align-items: center;
   justify-content: flex-end;
