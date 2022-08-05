@@ -11,6 +11,10 @@ export const getLocaleDirection = (locale) => {
   return rtlLocales.includes(locale) ? 'rtl' : 'ltr';
 };
 
+export const getMessagesLanguage = (desiredLanguageCode) => {
+  return codeLocaleToUkrainian[desiredLanguageCode] || codeLocaleToUkrainian[getLocale()];
+}
+
 export const availableLanguages = [
   'be',
   'uk',

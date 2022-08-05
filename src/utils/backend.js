@@ -23,8 +23,6 @@ const getAirtableData = async (tableId, {filterByFormula, cacheTime} = {}) => {
 };
 
 export const getMessages = async (language) => {
-  language = codeLocaleToUkrainian[language] || codeLocaleToUkrainian[getLocale()];
-
   return getAirtableData('tblHGaLwTLMlN7eNL', {
     cacheTime: 300,
     filterByFormula: getQueryParam('loadAll') === 'true' ? undefined : `({Language} = "${language}")`
@@ -40,8 +38,4 @@ export const getContent = async () => {
 
     return acc;
   }, {});
-}
-
-export const getGallery = async () => {
-  return getMessages('en');
 }

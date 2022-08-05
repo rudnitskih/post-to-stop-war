@@ -11,19 +11,27 @@ import {AppRoutes} from "./utils/navigationUtils";
 import {ProjectPage} from "./ProjectPage";
 import {JoinPage} from "./JoinPage";
 import {useLocation} from "react-router";
+import {codeLocaleToUkrainian, getMessagesLanguage} from "./utils/localeUtils";
 
 
 const App = () => {
   const [gallery, setGallery] = useState(null);
   const [messages, setMessages] = useState(null);
-  const [,,maybeLanguage] = useLocation().pathname.split('/');
+  const [,,maybeLanguageCode] = useLocation().pathname.split('/');
 
   useEffect(() => {
       const initApp = async function() {
+        const GALLERY_SOURCE_LANGUAGE = codeLocaleToUkrainian.en;
+        const language = getMessagesLanguage(
+          maybeLanguageCode?.length === 2 ? maybeLanguageCode : undefined
+        );
+        const messagesRequest = getMessages(language);
+
+
         let [rawMessages, translations, gallery] = await Promise.all([
-          getMessages(maybeLanguage?.length === 2 ? maybeLanguage : undefined),
+          messagesRequest,
           getContent(),
-          getGallery(),
+          GALLERY_SOURCE_LANGUAGE === language ? messagesRequest : getMessages(GALLERY_SOURCE_LANGUAGE),
         ]);
 
         setTranslations(translations);
@@ -36,7 +44,7 @@ const App = () => {
 
   const onLanguageChanged = async (language) => {
     if (!messages[language]) {
-      const messagesForLanguage = await getMessages(language);
+      const messagesForLanguage = await getMessages(getMessagesLanguage(language));
 
       setMessages({
         ...messages,
