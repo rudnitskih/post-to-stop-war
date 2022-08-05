@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {saveAs} from 'file-saver';
 import {ReactComponent as CopyIcon} from './copy.svg';
-import {ReactComponent as TwitterIcon} from './twitter.svg';
-import {ReactComponent as FacebookIcon} from './facebook.svg';
 import {ReactComponent as ShareAOSIcon} from './share-aos.svg';
 import {ReactComponent as ShareIOSIcon} from './share-ios.svg';
 import {ReactComponent as DownloadIcon} from './download.svg';
@@ -48,15 +46,6 @@ export class ShareMenu extends Component {
     }
   }
 
-  onFacebookShareClick = () => {
-    window?.FB.ui({
-      method: 'share',
-      hashtag: this.hashtag,
-      media: [getPosterUrl(this.props.poster)],
-      quote: this.props.text,
-    });
-  }
-
   get isShareApiAvailable() {
     return Boolean(window.navigator.share);
   }
@@ -66,7 +55,7 @@ export class ShareMenu extends Component {
   }
 
   get isGalleryShare() {
-    return !this.props.text && this.props.poster;
+    return !this.props.text;
   }
 
   download = () => {
@@ -76,28 +65,6 @@ export class ShareMenu extends Component {
   render() {
     return (
       <div className={classNames(s.root, {[s.isGalleryShare]: this.isGalleryShare})}>
-
-        {
-          this.props.text && (
-            <>
-              <a
-                className={classNames(s.button)}
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(this.textWithHashtag)}`}
-                target="_blank"
-                rel="noreferrer"
-                title="Twitter"
-              >
-                <TwitterIcon/>
-              </a>
-
-              <button className={classNames(s.button)}
-                      onClick={this.onFacebookShareClick}>
-                <FacebookIcon/>
-              </button>
-            </>
-          )
-        }
-
         {
           this.isShareApiAvailable && (
             <button className={classNames(s.button, s.nativeShare)}
@@ -120,7 +87,7 @@ export class ShareMenu extends Component {
         }
 
         {
-          this.isGalleryShare && (
+          this.props.poster && (
             <button className={classNames(s.button, s.download)} onClick={this.download}>
               <DownloadIcon />
 

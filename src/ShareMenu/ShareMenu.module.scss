@@ -50,20 +50,9 @@
   padding: 0 15px;
   text-transform: uppercase;
   width: auto;
-  color: #A2A2A2;
-  border-color: #A2A2A2;
 
   svg {
     margin-right: 9px;
-  }
-
-  &:hover {
-    border-color: darken(#A2A2A2, 20%);
-    color: darken(#A2A2A2, 20%);
-
-    path {
-      fill: darken(#A2A2A2, 20%);
-    }
   }
 }
 
