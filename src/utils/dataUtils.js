@@ -30,13 +30,10 @@ export const prepareMessages = (messages) => {
   );
 };
 
-export const prepareGallery = (galleryBase) => {
-  return shuffleArray(
-    galleryBase
-      .filter(({Poster}) => Poster?.length > 0)
-      .flatMap(({Poster, Tags}) => Poster.map((onePoster) => ({...onePoster, tags: normalizeTags(Tags)})))
-      .filter((poster) => poster?.thumbnails?.large?.url)
-  );
+export const prepareGallery = (messages) => {
+  return messages
+      .filter(({Attachment}) => Attachment?.[0]?.thumbnails?.large?.url)
+      .map(({Attachment, Tags}) => ({...Attachment[0], tags: normalizeTags(Tags)}));
 }
 
 const filterWrongMessages = (data) => {
@@ -78,13 +75,3 @@ const groupBy = function (xs, key) {
     return rv;
   }, {});
 };
-
-// https://stackoverflow.com/a/12646864
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-
-  return array;
-}

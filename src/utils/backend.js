@@ -43,5 +43,5 @@ export const getContent = async () => {
 }
 
 export const getGallery = async () => {
-  return getAirtableData('tblrGKBALioqrnz1r', {cacheTime: 600});
+  return getMessages('en');
 }

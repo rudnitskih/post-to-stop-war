@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { saveAs } from 'file-saver';
+import {saveAs} from 'file-saver';
 import {ReactComponent as CopyIcon} from './copy.svg';
 import {ReactComponent as TwitterIcon} from './twitter.svg';
 import {ReactComponent as FacebookIcon} from './facebook.svg';
@@ -79,22 +79,24 @@ export class ShareMenu extends Component {
 
         {
           this.props.text && (
-            <a
-              className={classNames(s.button)}
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(this.textWithHashtag)}`}
-              target="_blank"
-              rel="noreferrer"
-              title="Twitter"
-            >
-              <TwitterIcon/>
-            </a>
+            <>
+              <a
+                className={classNames(s.button)}
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(this.textWithHashtag)}`}
+                target="_blank"
+                rel="noreferrer"
+                title="Twitter"
+              >
+                <TwitterIcon/>
+              </a>
+
+              <button className={classNames(s.button)}
+                      onClick={this.onFacebookShareClick}>
+                <FacebookIcon/>
+              </button>
+            </>
           )
         }
-
-        <button className={classNames(s.button)}
-                onClick={this.onFacebookShareClick}>
-          <FacebookIcon/>
-        </button>
 
         {
           this.isShareApiAvailable && (
