@@ -87,8 +87,8 @@ export class ShareMenu extends Component {
         }
 
         {
-          this.props.poster && (
-            <button className={classNames(s.button, s.download)} onClick={this.download}>
+          this.props.poster && !this.isShareApiAvailable && (
+            <button className={s.button} onClick={this.download}>
               <DownloadIcon />
 
             </button>
