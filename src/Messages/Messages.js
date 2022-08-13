@@ -87,16 +87,7 @@ function MessagesPure({messages, onLanguageChanged}) {
                              alt={poster.filename}/>
                       </div>
 
-                      <div className={s.cardInner}>
-                        <span className={s.cardDate}>{date.toLocaleDateString(language)}</span>
-                        <Message locale={language}
-                                 content={content}/>
-
-                        <div className={s.shareMenu}>
-                          <ShareMenu text={content}
-                                     poster={poster}/>
-                        </div>
-                      </div>
+                      <CardInner locale={language} poster={poster} date={date} content={content}/>
                     </div>
                   );
                 })
@@ -120,15 +111,33 @@ export const Messages = Sentry.withErrorBoundary(
   {fallback: <p>Couldn't load messages 😢 </p> }
 )
 
-const Message = Sentry.withErrorBoundary(({content, locale}) => {
+const CardInner = Sentry.withErrorBoundary(({date, content, locale, poster}) => {
   const htmlContent = markdownConverter.makeHtml(content);
+  const textContent = htmlToPlainText(htmlContent);
 
   return (
+    <div className={s.cardInner}>
+      <span className={s.cardDate}>{date.toLocaleDateString(locale)}</span>
       <div
         onCopy={() => logEvent('COPY_MESSAGE', {locale})}
         className={classNames(s.message, locale)}
       >
         <span dangerouslySetInnerHTML={{__html: htmlContent}} dir={getLocaleDirection(locale)}/>
       </div>
+
+      <div className={s.shareMenu}>
+        <ShareMenu text={textContent}
+                   poster={poster}/>
+      </div>
+    </div>
   );
 }, {fallback: <div/>});
+
+function htmlToPlainText(html) {
+  // replace <p> to new line
+  html = html.replace(/<p[^>]*>/g, '').replace(/<\/p>/g, '\n')
+
+  return new DOMParser()
+    .parseFromString(html, "text/html")
+    .documentElement.textContent;
+}

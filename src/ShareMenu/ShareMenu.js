@@ -11,15 +11,8 @@ import classNames from "classnames";
 import {getPosterUrl} from "../utils/dataUtils";
 
 export class ShareMenu extends Component {
-  get hashtag() {
-    return '#StandWithUkraine';
-  }
-  get textWithHashtag() {
-    return this.props.text ? `${this.props.text} ${this.hashtag}` : undefined;
-  }
-
   onCopyClicked = () => {
-    copy(this.textWithHashtag);
+    copy(this.props.text);
   };
 
   onNativeShare = async () => {
@@ -37,7 +30,7 @@ export class ShareMenu extends Component {
       await navigator.share({
         files: file ? [file] : undefined,
         title: 'Post To Stop War',
-        text: this.textWithHashtag,
+        text: this.props.text,
       })
     } catch(e) {
       if (!e.toString().includes('AbortError')) {

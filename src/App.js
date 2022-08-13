@@ -5,7 +5,7 @@ import {Messages} from "./Messages";
 import {prepareGallery, prepareMessages} from "./utils/dataUtils";
 import {Gallery} from "./Gallery";
 import {logError} from "./utils/errorHandlingUtils";
-import {getContent, getGallery, getMessages} from "./utils/backend";
+import {getContent, getMessages} from "./utils/backend";
 import {setTranslations} from "./utils/translate";
 import {AppRoutes} from "./utils/navigationUtils";
 import {ProjectPage} from "./ProjectPage";

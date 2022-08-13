@@ -1,4 +1,3 @@
-import {codeLocaleToUkrainian, getLocale} from "./localeUtils";
 import {getQueryParam} from "./urlUtils";
 
 const encodeGetParams = p =>
