@@ -24,6 +24,14 @@
 
   path {
     transition: fill .3s ease-in-out;
+
+    .large & {
+      fill: #000;
+    }
+
+    .topBar & {
+      fill: #DE0303;
+    }
   }
 
   &:hover {
@@ -33,12 +41,10 @@
       .large & {
         fill: #7B7B7B;
       }
-    }
-  }
 
-  .large & {
-    path {
-      fill: #000;
+      .topBar & {
+        fill: #9A0101;
+      }
     }
   }
 }

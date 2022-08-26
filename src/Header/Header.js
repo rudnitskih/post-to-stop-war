@@ -6,6 +6,7 @@ import logo from './logo.svg';
 import {AppRoutes} from "../utils/navigationUtils";
 import {t} from "../utils/translate";
 import classNames from "classnames";
+import {Socials} from "../Socials/Socials";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -60,6 +61,10 @@ export function Header() {
                alt="logo"/>
         </NavLink>
 
+        <div className={s.socialsMobile}>
+          <Socials topBar={true} />
+        </div>
+
         <button onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className={classNames(s.hamburgerButton, {[s.active]: isMenuOpen})}>
         <span className={s.hamburgerBox}>
@@ -89,6 +94,10 @@ export function Header() {
               }
             </ul>
           </nav>
+
+          <div className={s.socialsNonMobile}>
+            <Socials topBar={true} />
+          </div>
 
           <div className={s.langSelector}>
             {

@@ -49,6 +49,25 @@
   }
 }
 
+.socialsNonMobile {
+  @media (min-width: 1200px) {
+    margin: 0 20px;
+  }
+
+  @include for-mobile-header() {
+    display: none;
+  }
+}
+
+.socialsMobile {
+  display: none;
+  margin-right: 20px;
+
+  @include for-mobile-header() {
+    display: block;
+  }
+}
+
 .hamburgerBox {
   display: block;
   width: 30px;
@@ -135,6 +154,14 @@
 
   &.active {
     background: #F4F4F4;
+  }
+
+  @media (min-width: 800px) and (max-width: 900px)  {
+    margin: 0;
+  }
+
+  @media (min-width: 900px) and (max-width: 1000px)  {
+    margin: 0 10px;
   }
 }
 

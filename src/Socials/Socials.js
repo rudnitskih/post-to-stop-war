@@ -13,6 +13,7 @@ export class Socials extends Component {
     return (
       <ul className={classNames(s.root, {
         [s.large]: this.props.large,
+        [s.topBar]: this.props.topBar,
       })}>
         {
           [
