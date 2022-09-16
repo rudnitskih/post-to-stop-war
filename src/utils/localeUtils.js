@@ -43,7 +43,8 @@ export const availableLanguages = [
   'ja',
   'tl',
   'he',
-  'da'
+  'da',
+  'sk',
 ]
 
 export const codeLocaleToUkrainian = {
