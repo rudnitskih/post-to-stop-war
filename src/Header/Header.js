@@ -8,13 +8,26 @@ import {t} from "../utils/translate";
 import classNames from "classnames";
 import {Socials} from "../Socials/Socials";
 
+const Donate = ({className}) => {
+  return (
+    <a
+      className={classNames(s.donate, className)}
+      href="https://supporting.ucu.edu.ua/en/donate/?order=721.9_post_to_stop_war"
+      target="_blank"
+      rel="noreferrer"
+    >
+      {t('header.donate')}
+    </a>
+  )
+}
+
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = useLocation().pathname;
   const pathParts = pathname.split('/');
   const firstParameter = pathParts[1];
   const secondParameter = pathParts[2];
-  const isNotMainPage = firstParameter?.length > 2  || secondParameter?.length > 2;
+  const isNotMainPage = firstParameter?.length > 2 || secondParameter?.length > 2;
 
   let langPart;
   let pagePart;
@@ -34,7 +47,7 @@ export function Header() {
     } else {
       return isNotMainPage ? (langPart === 'ua' ? '/ua' : '/') : pathname;
     }
-  }
+  };
 
 
   const getLangLink = (lang) => {
@@ -43,7 +56,7 @@ export function Header() {
     } else {
       return pagePart ? `/${lang}/${pagePart}` : `/${lang}/`;
     }
-  }
+  };
 
   const menu = [
     {path: AppRoutes.Main, titleKey: 'header.menu.messages'},
@@ -62,8 +75,11 @@ export function Header() {
         </NavLink>
 
         <div className={s.socialsMobile}>
-          <Socials topBar={true} />
+          <Socials topBar={true}/>
         </div>
+
+        <Donate className={s.donateMobile}/>
+
 
         <button onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className={classNames(s.hamburgerButton, {[s.active]: isMenuOpen})}>
@@ -71,7 +87,6 @@ export function Header() {
           <span className={s.hamburgerInner}/>
         </span>
         </button>
-
 
         <div className={classNames(s.navigationItems, {[s.active]: isMenuOpen})}>
           <nav>
@@ -89,15 +104,17 @@ export function Header() {
                         {t(titleKey)}
                       </NavLink>
                     </li>
-                  )
+                  );
                 })
               }
             </ul>
           </nav>
 
           <div className={s.socialsNonMobile}>
-            <Socials topBar={true} />
+            <Socials topBar={true}/>
           </div>
+
+          <Donate className={s.donateNonMobile}/>
 
           <div className={s.langSelector}>
             {
@@ -114,12 +131,11 @@ export function Header() {
                         onClick={() => setIsMenuOpen(false)}>
                     {title}
                   </Link>
-                )
+                );
               })
             }
           </div>
         </div>
-
       </header>
     </div>
   );

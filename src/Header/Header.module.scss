@@ -9,7 +9,7 @@
 }
 
 @mixin for-mobile-header {
-  @media (max-width: 800px) { @content; }
+  @media (max-width: 900px) { @content; }
 }
 
 .root {
@@ -51,7 +51,7 @@
 
 .socialsNonMobile {
   @media (min-width: 1200px) {
-    margin: 0 20px;
+    margin: 0 10px;
   }
 
   @include for-mobile-header() {
@@ -61,7 +61,7 @@
 
 .socialsMobile {
   display: none;
-  margin-right: 20px;
+  margin-right: 10px;
 
   @include for-mobile-header() {
     display: block;
@@ -145,7 +145,6 @@
   padding: 10px 15px;
   text-decoration: none;
   color: #000;
-  margin: 0 20px;
   transition: all .3s ease-in-out;
 
   &:hover:not(.active) {
@@ -156,12 +155,55 @@
     background: #F4F4F4;
   }
 
-  @media (min-width: 800px) and (max-width: 900px)  {
-    margin: 0;
+  @media (min-width: 1000px) and (max-width: 1100px)  {
+    margin: 0 5px;
   }
 
-  @media (min-width: 900px) and (max-width: 1000px)  {
+  @media (min-width: 1100px)  {
     margin: 0 10px;
+  }
+}
+
+.donate {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 18px;
+  line-height: 1;
+  font-size: 10px;
+  text-decoration: none;
+  color: #FFF;
+  background-color: #DE0303;
+  border-radius: 5px;
+  transition: all .3s ease-in-out;
+
+  &.donateNonMobile {
+
+    @include for-mobile-header() {
+      display: none;
+    }
+
+    @media (min-width: 850px) {
+      margin: 0 10px;
+    }
+
+    @media (min-width: 1200px) {
+      margin: 0 20px;
+    }
+  }
+
+  &.donateMobile {
+    display: none;
+
+    @include for-mobile-header() {
+      display: flex;
+      margin-right: 20px;
+    }
+  }
+
+  &:hover {
+    background-color: #9A0101;
+    color: #FFF;
   }
 }
 
