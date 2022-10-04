@@ -12,7 +12,7 @@ const Donate = ({className}) => {
   return (
     <a
       className={classNames(s.donate, className)}
-      href="https://supporting.ucu.edu.ua/en/donate/?order=721.9_post_to_stop_war"
+      href={t('header.donate_url')}
       target="_blank"
       rel="noreferrer"
     >
