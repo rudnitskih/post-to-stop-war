@@ -1,6 +1,7 @@
-import {ukrainianToCodeLocale} from './localeUtils';
+import {englishToCodeLocale, ukrainianToCodeLocale} from './localeUtils';
 import {getQueryParam} from "./urlUtils";
 import {getTranslations} from "./translate";
+import {isNewDB} from "./backend";
 
 export const getPosterUrl = (poster) => {
   return poster?.thumbnails?.large?.url;
@@ -20,7 +21,7 @@ export const prepareMessages = (messages) => {
       const {Language, Attachment, Message, Tags} = rawMessage;
       return {
         date: new Date(rawMessage.Date),
-        locale: ukrainianToCodeLocale[Language],
+        locale: isNewDB() ? englishToCodeLocale[Language] : ukrainianToCodeLocale[Language],
         poster: Attachment[0],
         content: Message,
         tags: normalizeTags(Tags),
@@ -45,8 +46,6 @@ const filterWrongMessages = (data) => {
 
       if (!Language) {
         error = 'MISSING_LOCALE';
-      } else if (ukrainianToCodeLocale[Language] === undefined) {
-        error = 'WRONG_LOCALE';
       } else if (!Message) {
         error = 'MISSING_MESSAGE';
       } else if (!Date) {

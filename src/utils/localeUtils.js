@@ -85,7 +85,45 @@ export const codeLocaleToUkrainian = {
   zh: 'Китайська'
 };
 
+export const codeLocaleToEnglish = {
+  ar: 'Arabic',
+  be: 'Belarusian',
+  bs: 'Bosnian',
+  cs: 'Czech',
+  da: 'Danish',
+  de: 'German',
+  en: 'English',
+  es: 'Spanish',
+  fa: 'Persian',
+  fi: 'Finnish',
+  fr: 'French',
+  he: 'Hebrew',
+  hi: 'Hindi',
+  hr: 'Croatian',
+  hu: 'Hungarian',
+  hy: 'Armenian',
+  it: 'Italian',
+  ja: 'Japanese',
+  ka: 'Georgian',
+  lt: 'Lithuanian',
+  lv: 'Latvian',
+  no: 'Norwegian',
+  pl: 'Polish',
+  pt: 'Portuguese',
+  ro: 'Romanian',
+  ru: 'Russian',
+  sk: 'Slovak',
+  sq: 'Albanian',
+  srp: 'Serbian',
+  sv: 'Swedish',
+  tl: 'Filipino',
+  tr: 'Turkish',
+  uk: 'Ukrainian',
+  zh: 'Chinese'
+}
+
 export const ukrainianToCodeLocale = swapKeysAndValues(codeLocaleToUkrainian);
+export const englishToCodeLocale = swapKeysAndValues(codeLocaleToEnglish);
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
