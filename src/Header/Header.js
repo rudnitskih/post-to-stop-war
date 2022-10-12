@@ -80,7 +80,6 @@ export function Header() {
 
         <Donate className={s.donateMobile}/>
 
-
         <button onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className={classNames(s.hamburgerButton, {[s.active]: isMenuOpen})}>
         <span className={s.hamburgerBox}>
