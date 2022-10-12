@@ -21,7 +21,7 @@ const App = () => {
 
   useEffect(() => {
       const initApp = async function() {
-        const GALLERY_SOURCE_LANGUAGE = codeLocaleToUkrainian.en;
+        const GALLERY_SOURCE_LANGUAGE = codeLocaleToUkrainian.uk;
         const language = getMessagesLanguage(
           maybeLanguageCode?.length === 2 ? maybeLanguageCode : undefined
         );
