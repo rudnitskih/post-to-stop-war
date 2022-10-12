@@ -23,7 +23,7 @@ const Donate = ({className}) => {
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const pathname = useLocation().pathname;
+  const {pathname, search} = useLocation();
   const pathParts = pathname.split('/');
   const firstParameter = pathParts[1];
   const secondParameter = pathParts[2];
@@ -68,7 +68,7 @@ export function Header() {
   return (
     <div className={s.root}>
       <header className={s.content}>
-        <NavLink to={getPageLink(menu[0].path)}
+        <NavLink to={`${getPageLink(menu[0].path)}${search}`}
                  className={s.logo}>
           <img src={logo}
                alt="logo"/>
@@ -95,7 +95,7 @@ export function Header() {
                 menu.map(({path, titleKey}) => {
                   return (
                     <li key={titleKey}>
-                      <NavLink to={getPageLink(path)}
+                      <NavLink to={`${getPageLink(path)}${search}`}
                                className={({isActive}) => classNames(s.link, {
                                  [s.active]: isActive,
                                })}
@@ -124,7 +124,7 @@ export function Header() {
               ].map(({title, path}) => {
                 return (
                   <Link key={title}
-                        to={getLangLink(path)}
+                        to={`${getLangLink(path)}${search}`}
                         className={classNames(s.langItem, {
                           [s.active]: path === 'ua' ? langPart === 'ua' : langPart !== 'ua'
                         })}

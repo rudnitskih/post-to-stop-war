@@ -29,7 +29,10 @@ export function LanguageSelector() {
       className={s.root}
       isSearchable={true}
       onChange={({value}) => {
-        navigate(locale ? `/${locale}/${value}` : `/en/${value}`);
+        navigate({
+          pathname: locale ? `/${locale}/${value}` : `/en/${value}`,
+          search: window.location.search,
+        });
         logEvent('CHANGE_LANGUAGE', {value});
       }}
       filterOption={({value}, searchValue) => {
