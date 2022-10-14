@@ -22,7 +22,7 @@ export const normalizeTags = (Tags) => {
 export const prepareMessages = (messages) => {
   return groupBy(
     filterWrongMessages(messages).map((rawMessage) => {
-      const [Language, Message] = Object.entries(rawMessage).filter(([key, value]) => {
+      const [Language, Message] = Object.entries(rawMessage).filter(([key]) => {
         return !Object.keys(MessagesFields).includes(key);
       })[0];
 
@@ -33,7 +33,7 @@ export const prepareMessages = (messages) => {
         content: Message,
         tags: normalizeTags(rawMessage[MessagesFields.Tags]),
       };
-    }).sort((a, b) => b.date - a.date),
+    }),
     'locale',
   );
 };

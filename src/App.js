@@ -5,37 +5,37 @@ import {Messages} from "./Messages";
 import {prepareGallery, prepareMessages, prepareTranslations} from "./utils/dataUtils";
 import {Gallery} from "./Gallery";
 import {logError} from "./utils/errorHandlingUtils";
-import {getContent, getMessages} from "./utils/backend";
+import {getInitialData, getMessages} from "./utils/backend";
 import {setTranslations} from "./utils/translate";
 import {AppRoutes} from "./utils/navigationUtils";
 import {ProjectPage} from "./ProjectPage";
 import {JoinPage} from "./JoinPage";
-import {useLocation} from "react-router";
 import {codeLocaleToEnglish, getMessagesLanguage} from "./utils/localeUtils";
 
 const App = () => {
-  const [gallery, setGallery] = useState(null);
+  const [gallery, setGallery] = useState([]);
   const [messages, setMessages] = useState(null);
-  const [,,maybeLanguageCode] = useLocation().pathname.split('/');
 
   useEffect(() => {
       const initApp = async function() {
+        // set initial data
+        const {rawMessages, translations, language} = await getInitialData();
+
+        setTranslations(prepareTranslations(translations));
+        setMessages(prepareMessages(rawMessages));
+
+        // load secondary data
         const GALLERY_SOURCE_LANGUAGE = codeLocaleToEnglish.uk;
-        const language = getMessagesLanguage(
-          maybeLanguageCode?.length === 2 ? maybeLanguageCode : undefined
-        );
+
         const messagesRequest = getMessages(language);
 
-
-        let [rawMessages, translations, gallery] = await Promise.all([
+        let [fullRawMessages, gallery] = await Promise.all([
           messagesRequest,
-          getContent(),
           GALLERY_SOURCE_LANGUAGE === language ? messagesRequest : getMessages(GALLERY_SOURCE_LANGUAGE),
         ]);
 
-        setTranslations(prepareTranslations(translations));
         setGallery(prepareGallery(gallery));
-        setMessages(prepareMessages(rawMessages));
+        setMessages(prepareMessages(fullRawMessages));
       }
 
       initApp().catch(logError);
@@ -71,7 +71,7 @@ const App = () => {
   }
 
   const renderMessages = () => {
-    return <Messages messages={messages} onLanguageChanged={onLanguageChanged}/>;
+    return <Messages messages={messages} onLanguageChanged={onLanguageChanged} />;
   }
 
   return messages ? (
