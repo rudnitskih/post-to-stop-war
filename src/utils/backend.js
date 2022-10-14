@@ -2,18 +2,10 @@ import {getQueryParam} from "./urlUtils";
 import {codeLocaleToEnglish, ukrainianToCodeLocale} from "./localeUtils";
 
 const encodeGetParams = p =>
-  Object.entries(p).map(kv => kv.map((part) => isNewDB() ? part : encodeURIComponent(part)).join("=")).join("&");
+  Object.entries(p).map(kv => kv.join("=")).join("&");
 
 const isForceMode = () => {
   return getQueryParam('force') === 'true';
-};
-
-export const isNewDB = () => {
-  return getQueryParam('newBase') !== 'false';
-};
-
-const isLoadAll = () => {
-  return getQueryParam('loadAll') === 'true';
 };
 
 const TableFields = {
@@ -38,9 +30,7 @@ const getAirtableData = async (tableId, {filterByFormula, cacheTime, fields} = {
   }
 
   const response = await fetch(
-    `https://v1.nocodeapi.com/rudnitskih/airtable/${
-      isNewDB() ? 'buxqXKgFqYnljHiR' : 'IqXAPQmtDjOXxDtO'
-    }?${encodeGetParams(params)}`
+    `https://v1.nocodeapi.com/rudnitskih/airtable/buxqXKgFqYnljHiR?${encodeGetParams(params)}`
   );
 
   const {records} = await response.json();
@@ -51,7 +41,7 @@ const getAirtableData = async (tableId, {filterByFormula, cacheTime, fields} = {
 export const getMessages = async (Language) => {
   const englishLanguage = codeLocaleToEnglish[ukrainianToCodeLocale[Language]]
 
-  return isNewDB() ? (await getAirtableData('tbl9ilTjFUtO5Tsnm', {
+  return (await getAirtableData('tbl9ilTjFUtO5Tsnm', {
       cacheTime: 300,
       fields: [TableFields.Date, TableFields.Tags, TableFields.Poster, englishLanguage],
       filterByFormula: `NOT({${englishLanguage}} = '')`
@@ -64,15 +54,11 @@ export const getMessages = async (Language) => {
         Attachment: Poster,
         Message: data[englishLanguage],
       };
-    }) :
-    getAirtableData('tblHGaLwTLMlN7eNL', {
-      cacheTime: 300,
-      filterByFormula: isLoadAll() ? undefined : `({Language} = "${Language}")`
     });
 };
 
 export const getContent = async () => {
-  return (await getAirtableData(isNewDB() ? 'tblDKCe0jqCTAfGpH' : 'tblU1cR6MIJoY14zJ', {cacheTime: 600})).reduce((acc, row) => {
+  return (await getAirtableData('tblDKCe0jqCTAfGpH', {cacheTime: 600})).reduce((acc, row) => {
     acc[row.key] = {
       ua: row['Ukrainian']?.trim(),
       en: row['English']?.trim(),
