@@ -1,6 +1,6 @@
 const axios = require('axios');
 const converter = require('./converter2to3');
-const initialData = require('./10_10_2022.json');
+const initialData = require('./14_10_2022.json');
 
 const result = Object.entries(converter(initialData)).map(([date, info]) => {
   return {
