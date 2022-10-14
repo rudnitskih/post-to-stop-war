@@ -1,7 +1,6 @@
-import {englishToCodeLocale, ukrainianToCodeLocale} from './localeUtils';
+import {englishToCodeLocale} from './localeUtils';
 import {getQueryParam} from "./urlUtils";
 import {getTranslations} from "./translate";
-import {isNewDB} from "./backend";
 
 export const getPosterUrl = (poster) => {
   return poster?.thumbnails?.large?.url;
@@ -21,7 +20,7 @@ export const prepareMessages = (messages) => {
       const {Language, Attachment, Message, Tags} = rawMessage;
       return {
         date: new Date(rawMessage.Date),
-        locale: isNewDB() ? englishToCodeLocale[Language] : ukrainianToCodeLocale[Language],
+        locale: englishToCodeLocale[Language],
         poster: Attachment[0],
         content: Message,
         tags: normalizeTags(Tags),
