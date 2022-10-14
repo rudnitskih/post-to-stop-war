@@ -1,5 +1,4 @@
 import {getQueryParam} from "./urlUtils";
-import {codeLocaleToEnglish, ukrainianToCodeLocale} from "./localeUtils";
 
 const encodeGetParams = p =>
   Object.entries(p).map(kv => kv.join("=")).join("&");
@@ -39,20 +38,18 @@ const getAirtableData = async (tableId, {filterByFormula, cacheTime, fields} = {
 };
 
 export const getMessages = async (Language) => {
-  const englishLanguage = codeLocaleToEnglish[ukrainianToCodeLocale[Language]]
-
   return (await getAirtableData('tbl9ilTjFUtO5Tsnm', {
       cacheTime: 300,
-      fields: [TableFields.Date, TableFields.Tags, TableFields.Poster, englishLanguage],
-      filterByFormula: `NOT({${englishLanguage}} = '')`
+      fields: [TableFields.Date, TableFields.Tags, TableFields.Poster, Language],
+      filterByFormula: `NOT({${Language}} = '')`
     })).map((data) => {
       const {Date, Tags, Poster} = data;
       return {
-        Language: englishLanguage,
+        Language: Language,
         Date,
         Tags,
         Attachment: Poster,
-        Message: data[englishLanguage],
+        Message: data[Language],
       };
     });
 };

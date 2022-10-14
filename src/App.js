@@ -11,8 +11,7 @@ import {AppRoutes} from "./utils/navigationUtils";
 import {ProjectPage} from "./ProjectPage";
 import {JoinPage} from "./JoinPage";
 import {useLocation} from "react-router";
-import {codeLocaleToUkrainian, getMessagesLanguage} from "./utils/localeUtils";
-
+import {codeLocaleToEnglish, getMessagesLanguage} from "./utils/localeUtils";
 
 const App = () => {
   const [gallery, setGallery] = useState(null);
@@ -21,7 +20,7 @@ const App = () => {
 
   useEffect(() => {
       const initApp = async function() {
-        const GALLERY_SOURCE_LANGUAGE = codeLocaleToUkrainian.uk;
+        const GALLERY_SOURCE_LANGUAGE = codeLocaleToEnglish.uk;
         const language = getMessagesLanguage(
           maybeLanguageCode?.length === 2 ? maybeLanguageCode : undefined
         );

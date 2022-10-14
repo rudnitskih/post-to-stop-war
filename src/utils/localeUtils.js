@@ -12,7 +12,7 @@ export const getLocaleDirection = (locale) => {
 };
 
 export const getMessagesLanguage = (desiredLanguageCode) => {
-  return codeLocaleToUkrainian[desiredLanguageCode] || codeLocaleToUkrainian[getLocale()];
+  return codeLocaleToEnglish[desiredLanguageCode] || codeLocaleToEnglish[getLocale()];
 }
 
 export const availableLanguages = [
@@ -47,43 +47,6 @@ export const availableLanguages = [
   'sk',
   'no',
 ]
-
-export const codeLocaleToUkrainian = {
-  ar: 'Арабська',
-  be: 'Білоруська',
-  bs: 'Боснійська',
-  cs: 'Чеська',
-  da: 'Данська',
-  de: 'Німецька',
-  en: 'Англійська',
-  es: 'Іспанська',
-  fa: 'Перська',
-  fi: 'Фінська',
-  fr: 'Французька',
-  he: 'Іврит',
-  hi: 'Гінді',
-  hr: 'Хорватська',
-  hu: 'Угорська',
-  hy: 'Вірменська',
-  it: 'Італійська',
-  ja: 'Японська',
-  ka: 'Грузинська',
-  lt: 'Литовська',
-  lv: 'Латиська',
-  no: 'Норвезька',
-  pl: 'Польська',
-  pt: 'Португальська',
-  ro: 'Румунська',
-  ru: 'Російська',
-  sk: 'Словацька',
-  sq: 'Албанська',
-  srp: 'Сербська',
-  sv: 'Шведська',
-  tl: 'Філіппінська',
-  tr: 'Турецька',
-  uk: 'Українська',
-  zh: 'Китайська'
-};
 
 export const codeLocaleToEnglish = {
   ar: 'Arabic',
@@ -122,7 +85,6 @@ export const codeLocaleToEnglish = {
   zh: 'Chinese'
 }
 
-export const ukrainianToCodeLocale = swapKeysAndValues(codeLocaleToUkrainian);
 export const englishToCodeLocale = swapKeysAndValues(codeLocaleToEnglish);
 
 function capitalizeFirstLetter(string) {
