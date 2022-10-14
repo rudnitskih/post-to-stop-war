@@ -45,10 +45,10 @@ export const getMessages = async (Language) => {
     })).map((data) => {
       const {Date, Tags, Poster} = data;
       return {
-        Language: Language,
+        Language,
         Date,
         Tags,
-        Attachment: Poster,
+        Poster,
         Message: data[Language],
       };
     });

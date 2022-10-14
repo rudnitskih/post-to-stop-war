@@ -17,11 +17,11 @@ export const normalizeTags = (Tags) => {
 export const prepareMessages = (messages) => {
   return groupBy(
     filterWrongMessages(messages).map((rawMessage) => {
-      const {Language, Attachment, Message, Tags} = rawMessage;
+      const {Language, Poster, Message, Tags} = rawMessage;
       return {
         date: new Date(rawMessage.Date),
         locale: englishToCodeLocale[Language],
-        poster: Attachment[0],
+        poster: Poster[0],
         content: Message,
         tags: normalizeTags(Tags),
       };
@@ -32,15 +32,15 @@ export const prepareMessages = (messages) => {
 
 export const prepareGallery = (messages) => {
   return messages
-      .filter(({Attachment}) => Attachment?.[0]?.thumbnails?.large?.url)
-      .map(({Attachment, Tags}) => ({...Attachment[0], tags: normalizeTags(Tags)}));
+      .filter(({Poster}) => Poster?.[0]?.thumbnails?.large?.url)
+      .map(({Poster, Tags}) => ({...Poster[0], tags: normalizeTags(Tags)}));
 }
 
 const filterWrongMessages = (data) => {
   return data.filter((row, i) => {
 
     try {
-      const {Language, Date, Attachment, Message} = row;
+      const {Language, Date, Poster, Message} = row;
       let error = null;
 
       if (!Language) {
@@ -49,7 +49,7 @@ const filterWrongMessages = (data) => {
         error = 'MISSING_MESSAGE';
       } else if (!Date) {
         error = 'MISSING_DATE';
-      } else if (!Attachment?.[0]?.thumbnails?.large?.url) {
+      } else if (!Poster?.[0]?.thumbnails?.large?.url) {
         error = 'MISSING_POSTER';
       }
 
