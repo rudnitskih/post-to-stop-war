@@ -9,7 +9,7 @@ const isForceMode = () => {
 };
 
 export const isNewDB = () => {
-  return getQueryParam('newBase') === 'true';
+  return getQueryParam('newBase') !== 'false';
 };
 
 const isLoadAll = () => {
@@ -26,12 +26,11 @@ const getAirtableData = async (tableId, {filterByFormula, cacheTime, fields} = {
   let params = {
     tableName: tableId,
     cacheTime: isForceMode() ? 0 : cacheTime,
+    perPage: 'all',
   };
 
   if (filterByFormula) {
     params.filterByFormula = filterByFormula;
-  } else {
-    params.perPage = 'all';
   }
 
   if (fields) {
