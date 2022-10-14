@@ -1,16 +1,12 @@
-import {getQueryParam} from "./urlUtils";
+const getQueryParam = (param) => {
+  return (new URLSearchParams(window.location.search)).get(param);
+}
 
 const encodeGetParams = p =>
   Object.entries(p).map(kv => kv.join("=")).join("&");
 
 const isForceMode = () => {
-  return getQueryParam('force') === 'true';
-};
-
-const TableFields = {
-  Date: 'Date',
-  Poster: 'Poster',
-  Tags: 'Tags',
+  return getQueryParam('force') === 'true' || window.location.hostname === 'localhost';
 };
 
 const getAirtableData = async (tableId, {filterByFormula, cacheTime, fields} = {}) => {
@@ -38,29 +34,13 @@ const getAirtableData = async (tableId, {filterByFormula, cacheTime, fields} = {
 };
 
 export const getMessages = async (Language) => {
-  return (await getAirtableData('tbl9ilTjFUtO5Tsnm', {
+  return getAirtableData('tbl9ilTjFUtO5Tsnm', {
       cacheTime: 300,
-      fields: [TableFields.Date, TableFields.Tags, TableFields.Poster, Language],
+      fields: ['Date', 'Tags', 'Poster', Language],
       filterByFormula: `NOT({${Language}} = '')`
-    })).map((data) => {
-      const {Date, Tags, Poster} = data;
-      return {
-        Language,
-        Date,
-        Tags,
-        Poster,
-        Message: data[Language],
-      };
     });
 };
 
 export const getContent = async () => {
-  return (await getAirtableData('tblDKCe0jqCTAfGpH', {cacheTime: 600})).reduce((acc, row) => {
-    acc[row.key] = {
-      ua: row['Ukrainian']?.trim(),
-      en: row['English']?.trim(),
-    };
-
-    return acc;
-  }, {});
+  return (await getAirtableData('tblDKCe0jqCTAfGpH', {cacheTime: 600}));
 };

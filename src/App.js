@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Route, Routes} from "react-router-dom";
 import './global.scss';
 import {Messages} from "./Messages";
-import {prepareGallery, prepareMessages} from "./utils/dataUtils";
+import {prepareGallery, prepareMessages, prepareTranslations} from "./utils/dataUtils";
 import {Gallery} from "./Gallery";
 import {logError} from "./utils/errorHandlingUtils";
 import {getContent, getMessages} from "./utils/backend";
@@ -33,7 +33,7 @@ const App = () => {
           GALLERY_SOURCE_LANGUAGE === language ? messagesRequest : getMessages(GALLERY_SOURCE_LANGUAGE),
         ]);
 
-        setTranslations(translations);
+        setTranslations(prepareTranslations(translations));
         setGallery(prepareGallery(gallery));
         setMessages(prepareMessages(rawMessages));
       }
