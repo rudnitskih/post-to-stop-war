@@ -10,6 +10,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://v1.nocodeapi.com" />
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
@@ -50,6 +51,30 @@
 
     <script
         src="https://polyfill.io/v3/polyfill.min.js?features=String.prototype.replaceAll,Intl,Intl.DisplayNames,Intl.DisplayNames.~locale.en,,Intl.DisplayNames.~locale.uk"></script>
+    <!-- Configure Sentry -->
+    <script
+        src="https://browser.sentry-cdn.com/7.15.0/bundle.tracing.min.js"
+        integrity="sha384-skDdPkdiECE8otf9rbWXqVqnroCJqPpFKjcjwdnnHD03cyVgxJxW9nJKq7uFEpld"
+        crossorigin="anonymous">
+    </script>
+    <script>
+      try {
+        if ('%NODE_ENV%' === 'production') {
+          window.Sentry.init({
+            dsn: "https://c3f52d7fcaaf44a1bb02480fcbec1d12@o1164917.ingest.sentry.io/6254316",
+            integrations: [new Sentry.BrowserTracing()],
+
+            // Set tracesSampleRate to 1.0 to capture 100%
+            // of transactions for performance monitoring.
+            // We recommend adjusting this value in production
+            tracesSampleRate: 1,
+          });
+        }
+      } catch (e) {
+        console.log("Couldn't init Sentry 💔");
+        console.log(e);
+      }
+    </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-T5XJPG5B1Z"></script>
     <script>
@@ -58,6 +83,146 @@
       gtag('js', new Date());
 
       gtag('config', 'G-T5XJPG5B1Z');
+    </script>
+    <!--  Initial App code  -->
+    <script>
+      window.app = {};
+
+      window.app.logError = (error) => {
+        console.error(error);
+        window.Sentry.captureException(error);
+      }
+    </script>
+    <!--  Backend Code  -->
+    <script>
+      {
+        const getQueryParam = (param) => {
+          return (new URLSearchParams(window.location.search)).get(param);
+        }
+
+        const encodeGetParams = p =>
+          Object.entries(p)
+            .filter(([,value]) => value !== undefined)
+            .map(kv => kv.join("=")).join("&");
+
+        const isForceMode = () => {
+          return getQueryParam('force') === 'true';
+        };
+
+        const getAirtableData = async (tableId, {filterByFormula, cacheTime, fields, perPage, sortBy, sortDirection} = {}) => {
+          let params = {
+            tableName: tableId,
+            cacheTime: isForceMode() ? 0 : cacheTime,
+            perPage: perPage ?? 'all',
+            filterByFormula,
+            fields: fields?.join(','),
+            sortBy,
+            sortDirection,
+          };
+
+          const response = await fetch(
+            `https://v1.nocodeapi.com/rudnitskih/airtable/buxqXKgFqYnljHiR?${encodeGetParams(params)}`
+          );
+
+          const {records} = await response.json();
+
+          return records.map(({fields}) => fields);
+        };
+
+        window.app.getMessages = async (Language, amount) => {
+          return getAirtableData('tbl9ilTjFUtO5Tsnm', {
+            cacheTime: 300,
+            fields: ['Date', 'Tags', 'Poster', Language],
+            filterByFormula: `NOT({${Language}} = '')`,
+            sortBy: 'Date',
+            sortDirection: 'desc',
+            perPage: amount
+          });
+        };
+
+        window.app.getContent = async () => {
+          return (await getAirtableData('tblDKCe0jqCTAfGpH', {cacheTime: 600}));
+        };
+      }
+    </script>
+    <!--  Locale helpers  -->
+    <script>
+      {
+        const codeLocaleToEnglish = {
+          ar: 'Arabic',
+          be: 'Belarusian',
+          bs: 'Bosnian',
+          cs: 'Czech',
+          da: 'Danish',
+          de: 'German',
+          en: 'English',
+          es: 'Spanish',
+          fa: 'Persian',
+          fi: 'Finnish',
+          fr: 'French',
+          he: 'Hebrew',
+          hi: 'Hindi',
+          hr: 'Croatian',
+          hu: 'Hungarian',
+          hy: 'Armenian',
+          it: 'Italian',
+          ja: 'Japanese',
+          ka: 'Georgian',
+          lt: 'Lithuanian',
+          lv: 'Latvian',
+          no: 'Norwegian',
+          pl: 'Polish',
+          pt: 'Portuguese',
+          ro: 'Romanian',
+          ru: 'Russian',
+          sk: 'Slovak',
+          sq: 'Albanian',
+          srp: 'Serbian',
+          sv: 'Swedish',
+          tl: 'Filipino',
+          tr: 'Turkish',
+          uk: 'Ukrainian',
+          zh: 'Chinese'
+        }
+
+        const getLocale = () => window.location.pathname.split('/')?.[1]?.toLowerCase() === 'ua' ? 'uk' : 'en';
+
+        const getMessagesLanguage = (desiredLanguageCode) => {
+          return codeLocaleToEnglish[desiredLanguageCode] || codeLocaleToEnglish[getLocale()];
+        }
+
+        window.app.codeLocaleToEnglish = codeLocaleToEnglish;
+        window.app.getLocale = getLocale;
+        window.app.getMessagesLanguage = getMessagesLanguage;
+      }
+    </script>
+    <!--  Loading initial data  -->
+    <script>
+      {
+        window.app.initialData = 'loading';
+
+        const { getMessagesLanguage, getMessages, getContent, logError} = window.app;
+
+        const loadInitialData = async function () {
+          const maybeLanguageCode = window.location.pathname.split('/')[2];
+          const language = getMessagesLanguage(
+            maybeLanguageCode?.length === 2 ? maybeLanguageCode : undefined
+          );
+
+          const [rawMessages, translations] = await Promise.all([
+            getMessages(language, 6),
+            getContent(),
+          ]);
+
+          window.app.initialData = {
+            rawMessages,
+            translations,
+            language,
+          };
+        }
+
+        loadInitialData().catch(logError);
+      }
     </script>
   </head>
   <body>

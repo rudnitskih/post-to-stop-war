@@ -1,19 +1,14 @@
-const rtlLocales = ['ar', 'he', 'fa'];
-
-
-export const getLocale = () => window.location.pathname.split('/')?.[1]?.toLowerCase() === 'ua' ? 'uk' : 'en';
+export const getLocale = window.app.getLocale;
 
 export const getLocaleDisplayName = (code) => capitalizeFirstLetter(
   (new Intl.DisplayNames([getLocale()], {type: 'language'})).of(code)
 );
 
 export const getLocaleDirection = (locale) => {
-  return rtlLocales.includes(locale) ? 'rtl' : 'ltr';
+  return ['ar', 'he', 'fa'].includes(locale) ? 'rtl' : 'ltr';
 };
 
-export const getMessagesLanguage = (desiredLanguageCode) => {
-  return codeLocaleToEnglish[desiredLanguageCode] || codeLocaleToEnglish[getLocale()];
-}
+export const getMessagesLanguage = window.app.getMessagesLanguage;
 
 export const availableLanguages = [
   'be',
@@ -48,42 +43,7 @@ export const availableLanguages = [
   'no',
 ]
 
-export const codeLocaleToEnglish = {
-  ar: 'Arabic',
-  be: 'Belarusian',
-  bs: 'Bosnian',
-  cs: 'Czech',
-  da: 'Danish',
-  de: 'German',
-  en: 'English',
-  es: 'Spanish',
-  fa: 'Persian',
-  fi: 'Finnish',
-  fr: 'French',
-  he: 'Hebrew',
-  hi: 'Hindi',
-  hr: 'Croatian',
-  hu: 'Hungarian',
-  hy: 'Armenian',
-  it: 'Italian',
-  ja: 'Japanese',
-  ka: 'Georgian',
-  lt: 'Lithuanian',
-  lv: 'Latvian',
-  no: 'Norwegian',
-  pl: 'Polish',
-  pt: 'Portuguese',
-  ro: 'Romanian',
-  ru: 'Russian',
-  sk: 'Slovak',
-  sq: 'Albanian',
-  srp: 'Serbian',
-  sv: 'Swedish',
-  tl: 'Filipino',
-  tr: 'Turkish',
-  uk: 'Ukrainian',
-  zh: 'Chinese'
-}
+export const codeLocaleToEnglish = window.app.codeLocaleToEnglish;
 
 export const englishToCodeLocale = swapKeysAndValues(codeLocaleToEnglish);
 

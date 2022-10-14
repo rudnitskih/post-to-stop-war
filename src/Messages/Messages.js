@@ -7,7 +7,7 @@ import * as Sentry from "@sentry/react";
 import {logEvent} from "../utils/anayliticsUtils";
 import {ShareMenu} from "../ShareMenu";
 import {Heading} from "../Heading/Heading";
-import {t} from "../utils/translate";
+import {getTranslations, t} from "../utils/translate";
 import {LanguageSelector} from "../LanguageSelector";
 import {useParams} from "react-router";
 import {getPosterUrl} from "../utils/dataUtils";
@@ -37,7 +37,7 @@ function MessagesPure({messages, onLanguageChanged}) {
     });
   }
 
-  const tags = Array.from(new Set(languageMessages.flatMap(({tags}) => tags)));
+  const tags = Object.keys(getTranslations()).filter((key) => key.startsWith('main.tags'));
 
   const filteredMessages = languageMessages
     .filter(({tags}) => !selectedTag || tags.includes(selectedTag));
