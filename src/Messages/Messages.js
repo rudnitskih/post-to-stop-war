@@ -14,6 +14,7 @@ import {getPosterUrl} from "../utils/dataUtils";
 import {Tags} from "../Tags";
 import {Page} from "../Page";
 import {Pagination} from "../Pagination";
+import {Loader} from "../Loader";
 
 const markdownConverter = new showdown.Converter();
 
@@ -28,6 +29,7 @@ function MessagesPure({messages, onLanguageChanged}) {
   const [languageMessages, setLanguageMessages] = useState(messages[language] || []);
   const [selectedTag, setSelectedTag] = useState(null);
   const [activeRange, setActiveRange] = useState(initialRange);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onPaginationClick = (newRange) => {
     setActiveRange(newRange);
@@ -43,6 +45,9 @@ function MessagesPure({messages, onLanguageChanged}) {
   useEffect(() => {
     if (messages[language]) {
       setLanguageMessages(messages[language]);
+      setIsLoading(false);
+    } else {
+      setIsLoading(true);
     }
   }, [language, messages]);
 
@@ -90,6 +95,14 @@ function MessagesPure({messages, onLanguageChanged}) {
                     </div>
                   );
                 })
+            }
+
+            {
+              isLoading && (
+                <div className={s.loader}>
+                  <Loader />
+                </div>
+              )
             }
           </div>
 

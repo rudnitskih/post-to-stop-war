@@ -16,6 +16,7 @@
 }
 
 .cards {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   margin: 10px -16px 0;
@@ -28,6 +29,22 @@
     max-width: (352px + 32px) * 2;
     margin-left: auto;
     margin-right: auto;
+  }
+}
+
+.loader {
+  position: absolute;
+  background-color: #F4F4F470;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  padding-top: 140px;
+
+  > * {
+    zoom: 1.4;
   }
 }
 
