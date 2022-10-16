@@ -13,6 +13,14 @@
   margin: 0 auto;
 }
 
+.loader {
+  display: flex;
+  justify-content: center;
+  height: 855px;
+  box-sizing: border-box;
+  padding-top: 60px;
+}
+
 .masonryGrid {
   display: flex;
   margin-left: -20px; /* gutter size offset */

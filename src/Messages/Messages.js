@@ -37,8 +37,6 @@ function MessagesPure({messages, onLanguageChanged}) {
     });
   }
 
-  const tags = Object.keys(getTranslations()).filter((key) => key.startsWith('main.tags'));
-
   const filteredMessages = languageMessages
     .filter(({tags}) => !selectedTag || tags.includes(selectedTag));
 
@@ -70,9 +68,10 @@ function MessagesPure({messages, onLanguageChanged}) {
             locales={Object.keys(messages)}
           />
 
-          <Tags tags={tags}
-                selectedTag={selectedTag}
-                onChange={setSelectedTag}/>
+          <Tags
+            selectedTag={selectedTag}
+            onChange={setSelectedTag}
+          />
 
           <div className={s.cards}>
             {

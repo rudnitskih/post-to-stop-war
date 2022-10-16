@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import s from './Tags.module.scss';
 import classNames from "classnames";
-import {t} from "../utils/translate";
+import {getTranslations, t} from "../utils/translate";
 import {logEvent} from "../utils/anayliticsUtils";
 
 export class Tags extends Component {
   render() {
-    const {onChange, tags, selectedTag} = this.props;
+    const {onChange, selectedTag} = this.props;
+    const tags = Object.keys(getTranslations()).filter((key) => key.startsWith('main.tags'));
 
     const onClick = (tag) => {
       const newTag = selectedTag === tag ? null : tag;
