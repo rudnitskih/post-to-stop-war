@@ -51,7 +51,7 @@ function MessagesPure({messages, onLanguageChanged}) {
   useEffect(() => {
     setSelectedTag(null);
     onLanguageChanged(language);
-  }, [language]);
+  }, [language, onLanguageChanged]);
 
   useEffect(() => {
     setActiveRange(initialRange);
