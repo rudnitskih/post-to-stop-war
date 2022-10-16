@@ -7,6 +7,7 @@ import {ShareMenu} from "../ShareMenu";
 import {Tags} from "../Tags";
 import {Page} from "../Page";
 import {Pagination} from "../Pagination";
+import {Loader} from "../Loader";
 
 const ITEMS_PER_PAGE = 12;
 const initialRange = [0, ITEMS_PER_PAGE];
@@ -44,7 +45,6 @@ export class Gallery extends Component {
 
   render() {
     const {activeRange} = this.state;
-    const tags = Array.from(new Set(this.props.items.flatMap(({tags}) => tags)));
 
     return (
       <Page>
@@ -54,35 +54,39 @@ export class Gallery extends Component {
 
         <div className={s.root}>
           <div className={s.content}>
-            <Tags tags={tags}
-                  selectedTag={this.state.selectedTag}
-                  onChange={this.onTagChanged}/>
+            <Tags
+              selectedTag={this.state.selectedTag}
+              onChange={this.onTagChanged}
+            />
 
-            <Masonry
-              breakpointCols={this.masonryCols}
-              className={s.masonryGrid}
-              columnClassName={s.masonryGridColumn}>
-              {this.filteredItems
-                .slice(activeRange[0], activeRange[1])
-                .map((item) => {
-                  const {id, thumbnails, filename} = item;
-                  const poster = thumbnails?.large?.url;
+            {this.filteredItems.length
+              ? <Masonry
+                breakpointCols={this.masonryCols}
+                className={s.masonryGrid}
+                columnClassName={s.masonryGridColumn}>
+                {this.filteredItems
+                  .slice(activeRange[0], activeRange[1])
+                  .map((item) => {
+                    const {id, thumbnails, filename} = item;
+                    const poster = thumbnails?.large?.url;
 
-                  return (
-                    <div className={s.item}
-                         key={id}>
-                      <img src={poster}
-                           alt={filename}
-                           className={s.itemImg}/>
+                    return (
+                      <div className={s.item}
+                           key={id}>
+                        <img src={poster}
+                             alt={filename}
+                             className={s.itemImg}/>
 
-                      <div className={s.shareMenu}>
-                        <ShareMenu poster={item}
-                                   posterName={filename}/>
+                        <div className={s.shareMenu}>
+                          <ShareMenu poster={item}
+                                     posterName={filename}/>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
-            </Masonry>
+                    );
+                  })}
+              </Masonry>
+              : <div className={s.loader}><Loader/></div>
+            }
 
             <Pagination
               itemsCount={this.filteredItems.length}
