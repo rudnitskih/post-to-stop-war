@@ -113,9 +113,9 @@
           let params = {
             tableName: tableId,
             cacheTime: isForceMode() ? 0 : cacheTime,
-            perPage: perPage ?? 'all',
+            perPage: perPage || 'all',
             filterByFormula,
-            fields: fields?.join(','),
+            fields: fields && fields.join(','),
             sortBy,
             sortDirection,
           };
@@ -185,7 +185,12 @@
           zh: 'Chinese'
         }
 
-        const getLocale = () => window.location.pathname.split('/')?.[1]?.toLowerCase() === 'ua' ? 'uk' : 'en';
+        const getLocale = () => {
+          const pathNameParts = window.location.pathname.split('/');
+          const possibleLocale = pathNameParts && pathNameParts[1];
+
+          return possibleLocale && possibleLocale.toLowerCase() === 'ua' ? 'uk' : 'en';
+        };
 
         const getMessagesLanguage = (desiredLanguageCode) => {
           return codeLocaleToEnglish[desiredLanguageCode] || codeLocaleToEnglish[getLocale()];
@@ -206,7 +211,7 @@
         const loadInitialData = async function () {
           const maybeLanguageCode = window.location.pathname.split('/')[2];
           const language = getMessagesLanguage(
-            maybeLanguageCode?.length === 2 ? maybeLanguageCode : undefined
+            maybeLanguageCode && maybeLanguageCode.length === 2 ? maybeLanguageCode : undefined
           );
 
           const [rawMessages, translations] = await Promise.all([
