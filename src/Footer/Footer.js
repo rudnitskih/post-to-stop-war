@@ -16,7 +16,7 @@ export class Footer extends Component {
             <Socials />
           </div>
           <span className={s.copyright}>
-            © post-to-stop-war.in.ua. 2022 All Rights Reserved.
+            © post-to-stop-war.in.ua. 2023 All Rights Reserved.
           </span>
         </div>
       </div>
