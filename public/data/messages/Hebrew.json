@@ -1,0 +1,99 @@
+[
+  {
+    "Date": "2022-04-04",
+    "Poster": [
+      {
+        "id": "attSR5LUZXmadv3Y2",
+        "width": 1600,
+        "height": 840,
+        "url": "https://v5.airtableusercontent.com/v1/15/15/1678809600000/7BctNePNf9G618BRx6F2hA/xIS4TklpwRW-MUVrr_93phscnPeiOPkyywOnv3uH8-hk9QSkbELiqfnZXQZ1VPm_y5i5ucOLyuTNpQ2jGTQVuBwaLpIlC7Qxp-RRv0zuiIA/Vf3gtQw2ku8I8ouB0ZkmDnProiktm2_KU42rfskTOFY",
+        "filename": "Bucha-01-min.png",
+        "size": 23792,
+        "type": "image/png",
+        "thumbnails": {
+          "small": {
+            "url": "https://v5.airtableusercontent.com/v1/15/15/1678809600000/7vTJiUjkOp_SY-CXHxhzOg/5e5hgsA8lxci26xyugjr9sskgE_GPpSVxvs0MnMRgZ2Axaeu_NcDz6b2AFsQwH5HxahCcxL3WWbJLuqx4XXu3g/4jevhPCdX8gWS0L5X3br6UlAEduhxO_n8g7OuPqHpzM",
+            "width": 69,
+            "height": 36
+          },
+          "large": {
+            "url": "https://v5.airtableusercontent.com/v1/15/15/1678809600000/0Quc5rK2POImQma2eWbL2A/fCnho9WTuEHR-FXSygGJ41Myq_154gOU3Bj8aLtEF2W3f_afg8keihrpv8G84_elP24uTKXV1kAaphs4VkO74g/xrPRc-Jj4kcDJxDGjggygK6lSiV_8DiA9njCes7AcNs",
+            "width": 975,
+            "height": 512
+          },
+          "full": {
+            "url": "https://v5.airtableusercontent.com/v1/15/15/1678809600000/NDWNLO4QAzCtS3ycft_Ccg/0yNtri0DZLtxAyKvAEz9szriUrQVrlOiZSAEWEeYhiojVjhi4DP9XfmlR9YE-rwbvUmkYT9AWMfg9-iVjx96aA/8BRoew-jGFd5V0pwlEqPjWL1TDdNAUf1O3QmdzGOgUM",
+            "width": 3000,
+            "height": 3000
+          }
+        }
+      },
+      {
+        "id": "att4vDzce1fZprGN2",
+        "width": 1080,
+        "height": 994,
+        "url": "https://v5.airtableusercontent.com/v1/15/15/1678809600000/FmIsdA4HlpdMMQ5Nc8pSZg/pS7oUWgcGQa2HUkPSLS2x1UpSjyQnlckRZ-xybi84pTJ7jsd8coq5M8KEfHHoMiqA_bhLfRDv9k-A7fCfgh8UAXTBfx2ua5vPXtWD6Dq7VTSLIlpFeYw4fU6ZUWovgLQ/Q7uGRQp2452pL-oIdGOtG2Ed2yEQKRNXG185GJWnRKE",
+        "filename": "IMAGE2022-03-0117_15_10-2.jpg",
+        "size": 87537,
+        "type": "image/jpeg",
+        "thumbnails": {
+          "small": {
+            "url": "https://v5.airtableusercontent.com/v1/15/15/1678809600000/kdSnhd4uCEXsUuZIMlihQg/FeMTVOHFL0oMxozEOs3zKbEmXcccBtIc8uUu6d6qIhCEJxnKKs4f8DjSEZLZZd4ipeBNYTfzwmmReiSxZiOZZQ/SxN3tVcbWWBhg8azz8hfTmi2SvVLojOzn1mm2sndrPQ",
+            "width": 39,
+            "height": 36
+          },
+          "large": {
+            "url": "https://v5.airtableusercontent.com/v1/15/15/1678809600000/eX11je6aGvEx7KNTbggA9A/DUIKhqgbp9xxFR60KXpwXpcmDeIS6xfHafGJrd4Sin4PdnCoppL6w-tnUIvWxGx2pfTFi8awc4wG5wUJZhhAKw/mXPqrUlNy_88hml3Sh5X8BmMyVKj7Er3rgQjyaCjci4",
+            "width": 556,
+            "height": 512
+          },
+          "full": {
+            "url": "https://v5.airtableusercontent.com/v1/15/15/1678809600000/9TghlCzrnsDcTPeo2Variw/FR-yTkXBl_6GsV8wlheUgOeb2dHCzTYpywra6uo-J5Nk158wtC4x0kCjvkHEiTqIvFfrO6-AxlLR3eVMOc-t8g/bFUYOK8zw6UJdTY8kb9dohhu7hoxv9-kM-GoLSOpukQ",
+            "width": 3000,
+            "height": 3000
+          }
+        }
+      }
+    ],
+    "Tags": [
+      "Воєнні дії",
+      "Люди"
+    ],
+    "Hebrew": "בתחילת אפריל שחררו כוחות אוקראינים את השטחים באזור קייב מידי הכובשים הרוסים, ובינהם הערים: בוצ'ה, אירפין וגוסטומל. בשנים האחרונות, משפחות צעירות רבות עברו לערי הלוויין הללו שנהיו פופולריות במיוחד בקרב נציגי תעשיית ההיי-טק, כי שם אפשר היה לקנות דיור זול יחסית בבניינים חדשים דקה הליכה מטבע יפהפה, יערות ואזורי בילוי. מאז שחרור הערים הללו, שוחררו לאוויר העולם צילומים מחרידים של טבח אזרחים על ידי חיילים רוסים ובמיוחד בעיירה בוצ'ה, 30 קילומטרים מקייב, שם נמצא קבר אחים שבו נמצאו קבורים כמעט 300 איש. עשרות גופות של ילדים, נשים, גברים וקשישים שכבו ברחובות העיר. חלקם בידיים כבולות, גופות של נערות צעירות נמצאו עירומות ומרוטשות. העקבות על הגופות של הנשים האוקראיניות מראים שהן מתו מוות נורא; אזרחים רבים עונו, עברו התעללות, הורעבו ואז נורו חלקם בעורף, חלקם בפנים. לא ניתן היה לקבוע מיד את המספר המדויק של אזרחים שעונו על ידי רוסים בפרברי קייב, שכן הרחובות והחצרות של הדירות נחרבו. זהו רצח עם מודע של העם האוקראיני! תראו תמונות וסרטונים מקייב, זו עדות לפשעי מלחמה רוסים שחובה להשיב עליהם. לפשעים כאלה אין תקופת התיישנות!\n"
+  },
+  {
+    "Date": "2022-03-21",
+    "Poster": [
+      {
+        "id": "attTtWYDeLJu6h7uI",
+        "width": 1600,
+        "height": 1600,
+        "url": "https://v5.airtableusercontent.com/v1/15/15/1678809600000/yL2Y0ZeXco38BEqg5iiCFA/h5qJmGUMsiUTiN2VbBqYmS94pUrpJmv11FxS3Hr9bZItKvvrCB-fCrQxs9-mf0rR0l2Lumpk9DuPgjAWrPQUSlbg73p4SorUzrtRHa9Esr8/AYkh2sCfF11QmneAHSrrKvVCA4sBpZ4-lpp9wHdFTug",
+        "filename": "civilianbuildings.jpg",
+        "size": 178962,
+        "type": "image/jpeg",
+        "thumbnails": {
+          "small": {
+            "url": "https://v5.airtableusercontent.com/v1/15/15/1678809600000/7SKxfp42qpAIFpyM3aLEIg/svUVyzIEl2OGtTrPfa9_7N3bV7DlZ1EtDKvqm9B_D1w1xdkXbHMb-WmZBuGt__m_hF6TyDmjilcb4mbqwLw8Qg/hRoj76Afky24B6Fy5354kMEunAMsce7TZE34jKwfTOo",
+            "width": 36,
+            "height": 36
+          },
+          "large": {
+            "url": "https://v5.airtableusercontent.com/v1/15/15/1678809600000/0ejBiixvZOsCL13m3Jjf8w/wZ-R3Yc35v6nBQ7dv68TgliXa4WetkMQ1xGwxOdqosAm94b-QN5-VSdgmbcQnJATmq99LR3NWRgXSRKnK_LB_A/PRVqC4OpgSKHETAM5Tem03ErFg8dPTOV9mo9q7QD-kw",
+            "width": 512,
+            "height": 512
+          },
+          "full": {
+            "url": "https://v5.airtableusercontent.com/v1/15/15/1678809600000/zX-5PYZkYMcs9qWTuBmTYA/G5ZhRBilNdOXLBkhzdISR7x5pF4uOHJ9LHcf5WMWptYWhPNFGuiCvrf-I27oaO5odxPBQ8nFMoH0odH48QlDrQ/FjOYsn3ooCKCdUFVB5CGy5hQKucVtGchYq4RTYGQyL8",
+            "width": 3000,
+            "height": 3000
+          }
+        }
+      }
+    ],
+    "Tags": [
+      "Воєнні дії"
+    ],
+    "Hebrew": "הצילו את מריופול! מדי יום חיילים רוסים מפילים 50 עד 100 פצצות על מריופול. מעל 80% מהעיר נהרסו לחלוטין. הכובשים גירשו במרמה כמה אלפי אנשים לתוך רוסיה בעוד מרבים נמנעת גישה למידע והם לא מבינים מה קורה מסביב. ישנים עשרות אלפיי אנשים שעדיין נמצאים מתחת להריסות מריופול ההרוסה, זו טרגדיה עולמית. אף אחד לא יודע בוודאות כמה מהם נפצעו או נהרגו כי אין אפשרות להוציא אותם משם אחרי ששירותי ההצלה הקהילתיים והממלכתיים, שאמורים לחלץ אנשים מההריסות, נהרסו בעצמם על ידי הפגזות הכובשים במהלך ימי הלחימה. חובשים רבים נהרגו ולכן המשמעות היא שכל ניצולי ההפצצה ימותו מתחת להריסות הבניינים, אם כבר לא מתו. מריופול צריך להיות בעמודים הראשיים של כל דפי העיתונים בעולם, צריך לדבר על מריופול בכל פלטפורמות התקשורת העולמיות, כל פעילי זכויות האדם! היום מריופול הוא חדר עינויים שבו הרוסים הורגים נשים וילדים בדרכים האכזריות ביותר!\n"
+  }
+]

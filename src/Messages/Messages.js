@@ -7,7 +7,7 @@ import * as Sentry from "@sentry/react";
 import {logEvent} from "../utils/anayliticsUtils";
 import {ShareMenu} from "../ShareMenu";
 import {Heading} from "../Heading/Heading";
-import {getTranslations, t} from "../utils/translate";
+import {t} from "../utils/translate";
 import {LanguageSelector} from "../LanguageSelector";
 import {useParams} from "react-router";
 import {getPosterUrl} from "../utils/dataUtils";

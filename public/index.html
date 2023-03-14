@@ -109,6 +109,8 @@
           return getQueryParam('force') === 'true';
         };
 
+        const isStaticData = getQueryParam('static') === 'true';
+
         const getAirtableData = async (tableId, {filterByFormula, cacheTime, fields, perPage, sortBy, sortDirection} = {}) => {
           let params = {
             tableName: tableId,
@@ -129,8 +131,20 @@
           return records.map(({fields}) => fields);
         };
 
+        const getStaticDataMessages = async (Language) => {
+          const response = await fetch(`/data/messages/${Language}.json`);
+
+          return response.json();
+        };
+
+        const getStaticDataContent = async () => {
+          const response = await fetch(`/data/content.json`);
+
+          return response.json();
+        };
+
         window.app.getMessages = async (Language, amount) => {
-          return getAirtableData('tbl9ilTjFUtO5Tsnm', {
+          return isStaticData ? getStaticDataMessages(Language) : getAirtableData('tbl9ilTjFUtO5Tsnm', {
             cacheTime: 300,
             fields: ['Date', 'Tags', 'Poster', Language],
             filterByFormula: `NOT({${Language}} = '')`,
@@ -141,7 +155,7 @@
         };
 
         window.app.getContent = async () => {
-          return (await getAirtableData('tblDKCe0jqCTAfGpH', {cacheTime: 600}));
+          return isStaticData ? getStaticDataContent() : getAirtableData('tblDKCe0jqCTAfGpH', {cacheTime: 600});
         };
       }
     </script>

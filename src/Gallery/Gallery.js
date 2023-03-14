@@ -8,6 +8,7 @@ import {Tags} from "../Tags";
 import {Page} from "../Page";
 import {Pagination} from "../Pagination";
 import {Loader} from "../Loader";
+import {logError} from "../utils/errorHandlingUtils";
 
 const ITEMS_PER_PAGE = 12;
 const initialRange = [0, ITEMS_PER_PAGE];
@@ -73,9 +74,12 @@ export class Gallery extends Component {
                     return (
                       <div className={s.item}
                            key={id}>
-                        <img src={poster}
-                             alt={filename}
-                             className={s.itemImg}/>
+                        <img
+                          src={poster}
+                          alt={filename}
+                          className={s.itemImg}
+                          onError={logError(new Error(`Couldn't load image`))}
+                        />
 
                         <div className={s.shareMenu}>
                           <ShareMenu poster={item}
