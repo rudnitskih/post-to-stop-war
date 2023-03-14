@@ -9,6 +9,7 @@ import {Page} from "../Page";
 import {Pagination} from "../Pagination";
 import {Loader} from "../Loader";
 import {logError} from "../utils/errorHandlingUtils";
+import {getPosterUrl} from "../utils/dataUtils";
 
 const ITEMS_PER_PAGE = 12;
 const initialRange = [0, ITEMS_PER_PAGE];
@@ -68,14 +69,12 @@ export class Gallery extends Component {
                 {this.filteredItems
                   .slice(activeRange[0], activeRange[1])
                   .map((item) => {
-                    const {id, thumbnails, filename} = item;
-                    const poster = thumbnails?.large?.url;
+                    const {id, filename} = item;
 
                     return (
-                      <div className={s.item}
-                           key={id}>
+                      <div className={s.item} key={id}>
                         <img
-                          src={poster}
+                          src={getPosterUrl(item)}
                           alt={filename}
                           className={s.itemImg}
                           onError={logError(new Error(`Couldn't load image`))}

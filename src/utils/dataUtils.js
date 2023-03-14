@@ -8,7 +8,9 @@ const MessagesFields = {
 };
 
 export const getPosterUrl = (poster) => {
-  return poster?.thumbnails?.large?.url;
+  return window.app.isStaticData
+    ? `/data/posters/${poster.date}.${poster.type === 'image/jpeg' ? 'jpeg' : 'png'}`
+    : poster?.thumbnails?.large?.url;
 };
 
 export const normalizeTags = (Tags) => {
@@ -29,7 +31,10 @@ export const prepareMessages = (messages) => {
       return {
         date: new Date(rawMessage[MessagesFields.Date]),
         locale: englishToCodeLocale[Language],
-        poster: rawMessage[MessagesFields.Poster][0],
+        poster: {
+          ...rawMessage[MessagesFields.Poster][0],
+          date: rawMessage[MessagesFields.Date],
+        },
         content: Message,
         tags: normalizeTags(rawMessage[MessagesFields.Tags]),
       };
@@ -41,7 +46,13 @@ export const prepareMessages = (messages) => {
 export const prepareGallery = (messages) => {
   return messages
     .filter(({Poster}) => Poster?.[0]?.thumbnails?.large?.url)
-    .map(({Poster, Tags}) => ({...Poster[0], tags: normalizeTags(Tags)}));
+    .map((message) => {
+      return {
+        ...message.Poster[0],
+        tags: normalizeTags(message.Tags),
+        date: message.Date,
+      };
+    })
 };
 
 export const prepareTranslations = (siteContent) => {
