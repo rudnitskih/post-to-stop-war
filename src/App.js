@@ -27,7 +27,9 @@ const App = () => {
         // load secondary data
         const GALLERY_SOURCE_LANGUAGE = codeLocaleToEnglish.uk;
 
-        const messagesRequest = getMessages(language);
+        const messagesRequest = window.app.isStaticData
+          ? Promise.resolve(rawMessages)
+          : getMessages(language);
 
         let [fullRawMessages, gallery] = await Promise.all([
           messagesRequest,
