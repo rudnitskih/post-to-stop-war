@@ -109,7 +109,7 @@
           return getQueryParam('force') === 'true';
         };
 
-        const isStaticData = getQueryParam('static') === 'true' || Math.random() >= 0;
+        const isStaticData = getQueryParam('static') === 'true' || Math.random() >= 1;
 
         const getAirtableData = async (tableId, {filterByFormula, cacheTime, fields, perPage, sortBy, sortDirection} = {}) => {
           let params = {
