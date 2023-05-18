@@ -103,18 +103,14 @@ const getMessages = async (Language) => {
 
 async function run() {
   for (const code of availableLanguages) {
-    try {
-      const Language = codeLocaleToEnglish[code];
+    const Language = codeLocaleToEnglish[code];
 
-      const data = await getMessages(Language);
-      console.log('Code=', code);
-      console.log('Data=', data);
+    const data = await getMessages(Language);
+    console.log('Code=', code);
+    console.log('Data=', data);
 
-      fs.writeFileSync(`${__dirname}/byLocale/${Language}.json`, JSON.stringify(data, null, 2));
-      // await delay(1000);
-    } catch (e) {
-      console.log(e);
-    }
+    fs.writeFileSync(`${__dirname}/byLocale/${Language}.json`, JSON.stringify(data, null, 2));
+    // await delay(1000);
   }
 }
 
