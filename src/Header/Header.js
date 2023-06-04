@@ -9,7 +9,9 @@ import classNames from "classnames";
 import {Socials} from "../Socials/Socials";
 
 const Donate = ({className}) => {
-  return (
+  const isProjectFinished = true;
+
+  return isProjectFinished ? null : (
     <a
       className={classNames(s.donate, className)}
       href={t('header.donate_url')}
